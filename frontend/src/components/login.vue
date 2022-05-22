@@ -5,12 +5,12 @@
 
   <form>
     <div>
-      <label for="email">Email :</label>
+      <label for="email">Email : </label>
       <input type="email" name="email" id="email" required />
     </div>
 
     <div>
-      <label for="password">Mot de passe :</label>
+      <label for="password">Mot de passe : </label>
       <input type="password" name="password" id="password" required />
     </div>
 
@@ -36,7 +36,8 @@ export default {
 <style scoped lang="scss">
 h1 {
   text-align: center;
-  font-weight: 400;
+  font-weight: 600;
+  color: #4b4bba;
 }
 
 #email {
@@ -51,5 +52,11 @@ h1 {
   cursor: pointer;
   margin-top: 30px;
   margin-bottom: 30px;
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-weight: 300;
+  }
 }
 </style>

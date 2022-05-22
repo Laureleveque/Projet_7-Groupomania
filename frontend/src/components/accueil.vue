@@ -11,8 +11,8 @@
   </div>
 
   <nav>
-    <a href="">S'inscrire</a>
-    <a href="">Se connecter</a>
+    <a href="#">S'inscrire</a>
+    <a href="#">Se connecter</a>
   </nav>
 </template>
 
@@ -25,12 +25,13 @@ export default {
 <style scoped lang="scss">
 h1 {
   text-align: center;
-  font-weight: 400;
+  font-weight: 600;
+  color: #4b4bba;
 }
 
 img {
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   margin: 10px auto;
 }
 
@@ -40,19 +41,26 @@ nav {
   justify-content: space-around;
   align-items: center;
   margin: 30px;
+  transform: scale(1);
+  list-style-type: none;
 }
 
 nav a {
   padding: 30px auto;
   font-size: 18px;
+  color: #4b4bba;
+  transform: scale(1.15);
 }
 
 /*   barre de navigation en responsive  */
 
 @media screen and (max-width: 768px) {
+  h1 {
+    font-weight: 300;
+  }
   nav {
     width: 100%;
-    justify-content: center;
+    justify-content: space-around;
   }
 
   nav a {
