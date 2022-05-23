@@ -1,28 +1,22 @@
 <!-- component post -->
 
-<template> 
-  
-</template>
-
+<template></template>
 
 <script>
-
-import Logo from '../components/logo.vue'
-import Logo from '../components/navigation.vue'
+import Logo from "../components/navigation.vue";
 
 export default {
-    name: "Post",
-    components: {
-		    Logo,
-        Navigation
+  name: "Post",
+  components: {
+    Navigation,
   },
 
-    data() {
-      return {    
-        commentaire: '',          
-  }
+  data() {
+    return {
+      commentaire: "",
+    };
   },
-/*
+  /*
     methods: {
         
   getOnePost() // récupérer un post
@@ -32,10 +26,7 @@ export default {
   deletePost() // supprimer un post (uniquement le créateur ou le modérateur)
 }
 */
-}
-
+};
 </script>
 
-<style>
-  
-</style>
+<style></style>

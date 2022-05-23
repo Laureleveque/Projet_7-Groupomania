@@ -12,11 +12,12 @@
   <LogoutPage />
   <hr />
   <NavigationPage />
+  <hr />
 </template>
 
 <script>
-import AccueilPage from "./components/accueil.vue";
 import LogoHeader from "./components/logo.vue";
+import AccueilPage from "./components/accueil.vue";
 import LoginPage from "./components/login.vue";
 import SignupPage from "./components/signup.vue";
 import LogoutPage from "./components/logout.vue";

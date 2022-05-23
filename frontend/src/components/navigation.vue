@@ -26,12 +26,30 @@ export default {
 </script>
 
 <style scoped lang="scss">
-nav {
+ul {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  list-style-type: none;
+}
+
+nav {
+  list-style-type: none;
+  font-weight: bold;
+  transform: scale(1);
+}
+
+a {
+  color: #4b4bba;
+  font-size: 20px;
   text-decoration: none;
+}
+
+a:hover {
+  padding: 60px auto;
+  text-decoration: underline;
+  transform: scale(1.15);
 }
 
 /*   barre de navigation en responsive  */

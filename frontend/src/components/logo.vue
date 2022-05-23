@@ -16,6 +16,11 @@ export default {
 </script>
 
 <style>
+img {
+  margin-bottom: 30px;
+  width: 400px;
+}
+
 @media screen and (max-width: 768px) {
   img {
     width: 50%;

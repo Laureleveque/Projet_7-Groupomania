@@ -5,21 +5,21 @@
 
   <form>
     <div>
-      <label for="username">nom d'utilisateur : </label>
-      <input type="text" name="username" id="username" required />
+      <label for="username">Nom d'utilisateur : </label>
+      <input type="text" v-model="username" id="username" required />
     </div>
     <div>
       <label for="email">Email : </label>
-      <input type="email" name="email" id="email" required />
+      <input type="email" v-model="email" id="email" required />
     </div>
 
     <div>
       <label for="password">Mot de passe : </label>
-      <input type="password" name="password" id="password" required />
+      <input type="password" v-model="password" id="password" required />
     </div>
 
     <div class="button">
-      <input type="submit" value="Se connecter" />
+      <input type="submit" value="S'inscrire" />
     </div>
   </form>
 </template>
@@ -40,21 +40,25 @@ export default {
 
 <style scoped lang="scss">
 h1 {
-  text-align: center;
   font-weight: 600;
   color: #4b4bba;
 }
 
 #username {
+  width: 200px;
   margin-bottom: 20px;
 }
 
 #email {
+  width: 200px;
   margin-bottom: 20px;
+  padding-left: 80px;
 }
 
 #password {
+  width: 200px;
   margin-bottom: 20px;
+  padding-left: 30px;
 }
 
 .button {

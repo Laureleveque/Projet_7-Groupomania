@@ -6,12 +6,12 @@
   <form>
     <div>
       <label for="email">Email : </label>
-      <input type="email" name="email" id="email" required />
+      <input type="email" v-model="email" id="email" required />
     </div>
 
     <div>
-      <label for="password">Mot de passe : </label>
-      <input type="password" name="password" id="password" required />
+      <label for="password"> Mot de passe : </label>
+      <input type="password" v-model="password" id="password" required />
     </div>
 
     <div class="button">
@@ -35,16 +35,18 @@ export default {
 
 <style scoped lang="scss">
 h1 {
-  text-align: center;
   font-weight: 600;
   color: #4b4bba;
 }
 
 #email {
-  margin: 20px auto;
+  width: 200px;
+  margin-bottom: 20px;
+  padding-left: 60px;
 }
 
 #password {
+  width: 200px;
   margin-bottom: 20px;
 }
 
@@ -52,6 +54,9 @@ h1 {
   cursor: pointer;
   margin-top: 30px;
   margin-bottom: 30px;
+}
+a :hover {
+  background-color: #4b4bba;
 }
 
 @media screen and (max-width: 768px) {

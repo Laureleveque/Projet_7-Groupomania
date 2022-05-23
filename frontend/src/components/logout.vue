@@ -12,9 +12,10 @@ export default {
 
 <style>
 h1 {
-  text-align: center;
   font-weight: 600;
   color: #4b4bba;
+  margin-top: 60px;
+  margin-bottom: 60px;
 }
 
 @media screen and (max-width: 768px) {
