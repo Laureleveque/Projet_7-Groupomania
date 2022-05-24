@@ -1,10 +1,30 @@
-<!-- component profil -->
+<!-- composant Profil -->
 
 <template>
-  <div id="creation_profil">
-    <div id="photo">
-      <img src="" />
-    </div>
+  <div id="profil">
+    <h1>Mon profil</h1>
+
+    <nav>
+      <ul>
+        <li>
+          <a href="">Créer mon profil</a>
+        </li>
+        <li>
+          <a href="">Modifier mon profil</a>
+        </li>
+        <li>
+          <a href="">Supprimer mon profil</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!--
+  <div id="photo">
+    <img src="" />
+  </div>
+-->
+  <!--
     <p class="username">{{}}</p>
     <p class="nom">{{}}</p>
     <p class="prénom">{{}}</p>
@@ -24,6 +44,7 @@
       <input type="submit" value="Supprimer le profil" />
     </div>
   </div>
+  -->
 </template>
 
 <script>
@@ -58,4 +79,44 @@ methods: {
 */
 </script>
 
-<style></style>
+<style>
+h1 {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+#profil {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#photo {
+  width: 150px;
+  height: 150px;
+  border: 2px solid black;
+  margin-left: 60px;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  margin-left: 300px;
+}
+
+nav {
+  font-weight: bold;
+}
+
+a {
+  color: #4b4bba;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+a:hover {
+  padding: 60px auto;
+  text-decoration: underline;
+}
+</style>

@@ -1,4 +1,4 @@
-<!-- Component signup -->
+<!-- composant Signup -->
 
 <template>
   <h1>Inscription au réseau social de Groupomania</h1>
@@ -18,7 +18,7 @@
       <input type="password" v-model="password" id="password" required />
     </div>
 
-    <div class="button">
+    <div class="button" @click="signup">
       <input type="submit" value="S'inscrire" />
     </div>
   </form>

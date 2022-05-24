@@ -1,26 +1,25 @@
-<!-- component media -->
+<!-- composant Media -->
 
 <template>
-    <div id="media"> 
-    
-    </div> 
+  <div>
+    <h1>Medias</h1>
+  </div>
 </template>
 
-
 <script>
-
-import Logo from '../components/logo.vue'
-import Logo from '../components/navigation.vue'
-
 export default {
-    name: 'Media',
-    components: {
-	    Logo,  
-	    Navigation
-}
-}
+  name: "MediaPage",
+};
 
+/* methods
+getOnePhoto
+getAllPhotos
+deletePhoto
+*/
 </script>
 
-
-<style></style>
+<style>
+h1 {
+  font-weight: 600;
+}
+</style>

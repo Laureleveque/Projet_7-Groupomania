@@ -1,25 +1,34 @@
-<!-- component forum ( tous les posts ) -->
+<!-- composant Forum  -->
 
 <template>
-  
-  
+  <div>
+    <h1>Forum</h1>
+    <div id="post"></div>
+    <button>Envoyer</button>
+  </div>
 </template>
 
 <script>
-
-import Logo from '../components/logo.vue'
-import Logo from '../components/navigation.vue'
-
 export default {
-    name: "Forum",
-    components: {
-		    Logo,
-        Navigation
-  }
-  }
+  name: "ForumPage",
+};
+
+/* methods
+
+getAllPosts
+
+*/
 </script>
 
 <style>
-  
-</style>
+h1 {
+  font-weight: 600;
+}
 
+#post {
+  border: 2px solid black;
+  width: 600px;
+  height: 200px;
+  margin: 30px auto;
+}
+</style>

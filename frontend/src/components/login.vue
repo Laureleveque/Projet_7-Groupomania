@@ -1,4 +1,4 @@
-<!-- Component login -->
+<!-- composant Login -->
 
 <template>
   <h1>Connexion au réseau social de Groupomania</h1>
@@ -14,7 +14,7 @@
       <input type="password" v-model="password" id="password" required />
     </div>
 
-    <div class="button">
+    <div class="button" @click="login">
       <input type="submit" value="Se connecter" />
     </div>
   </form>

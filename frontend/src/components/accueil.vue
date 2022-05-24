@@ -1,4 +1,4 @@
-<!-- component accueil -->
+<!-- composant Accueil -->
 
 <template>
   <h1>Bienvenue sur le réseau social de Groupomania</h1>

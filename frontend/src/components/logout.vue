@@ -1,4 +1,4 @@
-<!-- Component logout -->
+<!-- Composant Logout -->
 
 <template>
   <h1>Vous êtes bien déconnectés !</h1>

@@ -1,14 +1,16 @@
-<!-- component post -->
+<!-- composant Post -->
 
-<template></template>
+<template>
+  <div class="post">
+    <h1>{{ msg }}</h1>
+  </div>
+</template>
 
 <script>
-import Logo from "../components/navigation.vue";
-
 export default {
-  name: "Post",
-  components: {
-    Navigation,
+  name: "PostPage",
+  props: {
+    msg: String,
   },
 
   data() {

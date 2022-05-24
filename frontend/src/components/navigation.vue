@@ -1,4 +1,4 @@
-<!-- component navigation -->
+<!-- composant Navigation -->
 
 <template>
   <nav id="navigation">

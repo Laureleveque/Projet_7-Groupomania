@@ -1,4 +1,4 @@
-<!-- component logo -->
+<!-- composant Logo -->
 
 <template>
   <div id="logo">
