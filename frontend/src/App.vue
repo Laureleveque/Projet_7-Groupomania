@@ -23,5 +23,11 @@
 }
 h1 {
   text-align: center;
+  font-weight: 600;
+  color: #4b4bba;
+}
+
+h2 {
+  font-size: 25px;
 }
 </style>

@@ -36,15 +36,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-h1 {
-  font-weight: 600;
-  color: #4b4bba;
-  text-align: center;
-}
-
-h2 {
-  font-size: 25px;
-}
 img {
   width: 300px;
   height: 300px;

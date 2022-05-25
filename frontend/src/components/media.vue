@@ -27,8 +27,4 @@ deletePhoto
 */
 </script>
 
-<style>
-h1 {
-  font-weight: 600;
-}
-</style>
+<style></style>

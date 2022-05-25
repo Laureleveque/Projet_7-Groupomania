@@ -27,15 +27,4 @@ getAllPosts
 */
 </script>
 
-<style>
-h1 {
-  font-weight: 600;
-}
-
-#post {
-  border: 2px solid black;
-  width: 600px;
-  height: 200px;
-  margin: 30px auto;
-}
-</style>
+<style></style>

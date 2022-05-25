@@ -94,36 +94,12 @@ img {
   width: 40%;
   margin: 40px;
   padding: 15px;
-  -webkit-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
-  -moz-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
-  box-shadow: 2px 15px -12px rgba(0, 0, 0, 0.57);
-}
-
-input {
-  width: 100%;
-  height: 40px;
-  margin-bottom: 20px;
-}
-
-.nav-bar {
-  text-align: left;
-  margin-left: 60px;
-  margin-bottom: 40px;
-}
-
-label {
-  font-size: 20px;
-  margin-bottom: 5px;
 }
 
 ul {
   display: flex;
   flex-direction: column;
   list-style-type: none;
-}
-
-nav {
-  font-weight: bold;
 }
 
 a {
@@ -135,49 +111,5 @@ a {
 a:hover {
   padding: 60px auto;
   text-decoration: underline;
-}
-
-.button {
-  margin: 30px;
-  border-radius: 5px;
-  font-size: 18px;
-  width: 160px;
-  height: 60px;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-}
-
-.product-display {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-}
-
-.product-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.product-image,
-.product-info {
-  width: 50%;
-}
-
-@media only screen and (max-width: 600px) {
-  .container {
-    flex-direction: column;
-  }
-
-  .product-image,
-  .product-info {
-    margin-left: 10px;
-    width: 100%;
-  }
-
-  .review-form {
-    width: 90%;
-  }
 }
 </style>

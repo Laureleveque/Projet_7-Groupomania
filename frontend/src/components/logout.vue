@@ -21,11 +21,6 @@ export default {
 </script>
 
 <style>
-h1 {
-  text-align: center;
-  color: #4b4bba;
-}
-
 @media screen and (max-width: 768px) {
   h1 {
     font-weight: 300;

@@ -44,12 +44,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-h1 {
-  font-weight: 600;
-  color: #4b4bba;
-  text-align: center;
-}
-
 #email {
   width: 400px;
   margin-bottom: 20px;
