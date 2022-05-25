@@ -1,6 +1,10 @@
 <!-- composant Accueil -->
 
 <template>
+  <header>
+    <LogoHeader />
+  </header>
+
   <h1>Bienvenue sur le réseau social de Groupomania</h1>
 
   <div>
@@ -11,14 +15,23 @@
   </div>
 
   <nav>
-    <a href="#">S'inscrire</a>
-    <a href="#">Se connecter</a>
+    <router-link to="/signup">
+      <h2>S'inscrire</h2>
+    </router-link>
+    <router-link to="/login">
+      <h2>Se connecter</h2>
+    </router-link>
   </nav>
 </template>
 
 <script>
+import LogoHeader from "../components/logo.vue";
+
 export default {
   name: "AccueilPage",
+  components: {
+    LogoHeader,
+  },
 };
 </script>
 
@@ -26,11 +39,15 @@ export default {
 h1 {
   font-weight: 600;
   color: #4b4bba;
+  text-align: center;
 }
 
+h2 {
+  font-size: 25px;
+}
 img {
   width: 300px;
-  height: 250px;
+  height: 300px;
   margin: 10px auto;
 }
 
@@ -41,17 +58,15 @@ nav {
   align-items: center;
   margin: 30px;
   transform: scale(1);
-  list-style-type: none;
+  text-decoration: underline;
   font-weight: bold;
   a {
     color: #4b4bba;
     font-size: 20px;
-    text-decoration: none;
   }
   a:hover {
     padding: 30px auto;
     color: #4b4bba;
-    text-decoration: underline;
     transform: scale(1.15);
   }
 }
@@ -60,11 +75,24 @@ nav {
 
 @media screen and (max-width: 768px) {
   h1 {
-    font-weight: 300;
+    font-weight: 600;
+    font-size: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
   }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  img {
+    width: 200px;
+    height: 200px;
+  }
+
   nav {
-    width: 100%;
-    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
   }
 
   nav a {

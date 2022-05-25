@@ -1,21 +1,29 @@
 <!-- Composant Logout -->
 
 <template>
-  <h1>Vous êtes bien déconnectés !</h1>
+  <header>
+    <LogoHeader />
+  </header>
+  <div id="deconnection">
+    <h1>Vous êtes bien déconnectés !</h1>
+  </div>
 </template>
 
 <script>
+import LogoHeader from "../components/logo.vue";
+
 export default {
   name: "LogoutPage",
+  components: {
+    LogoHeader,
+  },
 };
 </script>
 
 <style>
 h1 {
-  font-weight: 600;
+  text-align: center;
   color: #4b4bba;
-  margin-top: 60px;
-  margin-bottom: 60px;
 }
 
 @media screen and (max-width: 768px) {

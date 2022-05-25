@@ -4,16 +4,24 @@
   <nav id="navigation">
     <ul>
       <li>
-        <a href="">Mon profil</a>
+        <router-link to="/profil">
+          <a href="">Mon profil</a>
+        </router-link>
       </li>
       <li>
-        <a href="">Forum</a>
+        <router-link to="/forum">
+          <a href="">Forum</a>
+        </router-link>
       </li>
       <li>
-        <a href="">Medias</a>
+        <router-link to="/media">
+          <a href="">Medias</a>
+        </router-link>
       </li>
       <li>
-        <a href="">Déconnexion</a>
+        <router-link to="/logout">
+          <a href="">Déconnexion</a>
+        </router-link>
       </li>
     </ul>
   </nav>

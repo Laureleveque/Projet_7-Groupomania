@@ -1,16 +1,23 @@
 <!-- composant Forum  -->
 
 <template>
-  <div>
-    <h1>Forum</h1>
-    <div id="post"></div>
-    <button>Envoyer</button>
-  </div>
+  <header>
+    <LogoHeader />
+    <NavigationPage />
+  </header>
 </template>
 
 <script>
+import LogoHeader from "../components/logo.vue";
+import NavigationPage from "../components/navigation.vue";
+
 export default {
   name: "ForumPage",
+
+  components: {
+    LogoHeader,
+    NavigationPage,
+  },
 };
 
 /* methods

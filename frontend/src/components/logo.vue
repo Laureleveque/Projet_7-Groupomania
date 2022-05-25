@@ -17,13 +17,11 @@ export default {
 
 <style>
 img {
-  margin-bottom: 30px;
-  width: 400px;
+  margin-top: 10px;
 }
-
 @media screen and (max-width: 768px) {
   img {
-    width: 50%;
+    width: 70%;
   }
 }
 </style>

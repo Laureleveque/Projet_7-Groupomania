@@ -1,60 +1,70 @@
 <!-- composant Profil -->
 
 <template>
-  <div id="profil">
-    <h1>Mon profil</h1>
+  <header>
+    <LogoHeader />
+    <NavigationPage />
+  </header>
 
-    <nav>
+  <div id="profil">
+    <div class="nav-bar">
       <ul>
         <li>
-          <a href="">Créer mon profil</a>
+          <router-link to="/">
+            <a href="">Créer mon profil</a>
+          </router-link>
         </li>
         <li>
-          <a href="">Modifier mon profil</a>
+          <router-link to="/">
+            <a href="">Modifier mon profil</a>
+          </router-link>
         </li>
         <li>
-          <a href="">Supprimer mon profil</a>
+          <router-link to="/">
+            <a href="">Supprimer mon profil</a>
+          </router-link>
         </li>
       </ul>
-    </nav>
-  </div>
-
-  <!--
-  <div id="photo">
-    <img src="" />
-  </div>
--->
-  <!--
-    <p class="username">{{}}</p>
-    <p class="nom">{{}}</p>
-    <p class="prénom">{{}}</p>
-    <p class="ville">{{}}</p>
-    <p class="secteur">{{}}</p>
-  </div>
-  <div class="btn_creation">
-    <input type="submit" value="Créer le profil" />
-  </div>
-
-  <div id="modif_profil">
-    <input type="submit" value="Modifier le profil" />
-  </div>
-
-  <div id="suppression_profil">
-    <div class="btn_suppression">
-      <input type="submit" value="Supprimer le profil" />
     </div>
+
+    <div class="product-display">
+      <div class="product-container">
+        <div class="product-image">
+          <img v-bind:src="image" alt="" />
+        </div>
+        <div class="product-info">
+          <p class="username">{{}}</p>
+          <p class="nom">{{}}</p>
+          <p class="prénom">{{}}</p>
+          <p class="ville">{{}}</p>
+          <p class="secteur">{{}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--
+  <div class="button">
+    <input type="submit" value="profil" />
   </div>
   -->
 </template>
 
 <script>
+import LogoHeader from "../components/logo.vue";
+import NavigationPage from "../components/navigation.vue";
+
 export default {
   name: "ProfilPage",
 
-  components: {},
+  components: {
+    LogoHeader,
+    NavigationPage,
+  },
 
   data() {
     return {
+      id: "",
+      image: "./assets/image/photo_profil",
       username: "",
       nom: "",
       prenom: "",
@@ -80,29 +90,36 @@ methods: {
 </script>
 
 <style>
-h1 {
-  font-weight: 600;
-  margin-top: 10px;
+img {
+  width: 40%;
+  margin: 40px;
+  padding: 15px;
+  -webkit-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
+  -moz-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
+  box-shadow: 2px 15px -12px rgba(0, 0, 0, 0.57);
 }
 
-#profil {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+input {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 20px;
 }
 
-#photo {
-  width: 150px;
-  height: 150px;
-  border: 2px solid black;
+.nav-bar {
+  text-align: left;
   margin-left: 60px;
+  margin-bottom: 40px;
+}
+
+label {
+  font-size: 20px;
+  margin-bottom: 5px;
 }
 
 ul {
   display: flex;
   flex-direction: column;
   list-style-type: none;
-  margin-left: 300px;
 }
 
 nav {
@@ -118,5 +135,49 @@ a {
 a:hover {
   padding: 60px auto;
   text-decoration: underline;
+}
+
+.button {
+  margin: 30px;
+  border-radius: 5px;
+  font-size: 18px;
+  width: 160px;
+  height: 60px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.product-display {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.product-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.product-image,
+.product-info {
+  width: 50%;
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .product-image,
+  .product-info {
+    margin-left: 10px;
+    width: 100%;
+  }
+
+  .review-form {
+    width: 90%;
+  }
 }
 </style>
