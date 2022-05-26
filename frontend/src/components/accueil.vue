@@ -73,6 +73,7 @@ a {
     font-size: 20px;
     margin-right: 10px;
     margin-left: 10px;
+    text-align: center;
   }
 
   h2 {
@@ -88,6 +89,10 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  a:hover {
+    text-decoration: none;
   }
 
   nav a {

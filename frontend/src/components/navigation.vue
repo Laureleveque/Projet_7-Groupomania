@@ -65,6 +65,11 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding-left: 10px;
+  }
+
+  a {
+    font-size: 15px;
   }
 }
 </style>

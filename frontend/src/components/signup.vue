@@ -87,7 +87,11 @@ body {
 
 @media screen and (max-width: 768px) {
   h1 {
-    font-weight: 300;
+    font-weight: 600;
+    font-size: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+    text-align: center;
   }
 }
 </style>
