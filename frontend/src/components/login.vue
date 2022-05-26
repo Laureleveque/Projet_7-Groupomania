@@ -10,12 +10,12 @@
 
     <form>
       <div>
-        <label for="email">Email</label><br />
+        <label for="email">Email : </label><br />
         <input type="email" v-model="email" id="email" required />
       </div>
 
       <div>
-        <label for="password"> Mot de passe</label><br />
+        <label for="password"> Mot de passe : </label><br />
         <input type="password" v-model="password" id="password" required />
       </div>
 
@@ -59,11 +59,14 @@ body {
 #password {
   width: 400px;
   height: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .button {
   cursor: pointer;
+  :hover {
+    color: rgba(255, 110, 110, 1);
+  }
 }
 
 @media screen and (max-width: 768px) {

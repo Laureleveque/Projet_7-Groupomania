@@ -5,7 +5,7 @@
     <ul>
       <li>
         <router-link to="/profil">
-          <a href="">Mon profil</a>
+          <a href="">Votre profil</a>
         </router-link>
       </li>
       <li>
@@ -61,15 +61,10 @@ a:hover {
 /*   barre de navigation en responsive  */
 
 @media screen and (max-width: 768px) {
-  nav {
+  ul {
     display: flex;
     flex-direction: column;
-  }
-
-  nav a {
-    width: 50%;
-    padding: 30px auto;
-    text-align: center;
+    align-items: flex-start;
   }
 }
 </style>

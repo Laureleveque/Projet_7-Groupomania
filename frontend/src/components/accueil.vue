@@ -41,8 +41,6 @@ export default {
 body {
   background-color: rgb(29, 29, 58);
   margin: 0px;
-  //margin-left: 380px;
-  //margin-right: 380px;
 }
 
 img {
@@ -62,10 +60,9 @@ a {
   color: white;
   font-size: 20px;
   text-decoration: none;
-}
-
-a:hover {
-  border-bottom: 3px solid rgba(255, 110, 110, 1);
+  :hover {
+    border-bottom: 3px solid rgba(255, 110, 110, 1);
+  }
 }
 
 /*   barre de navigation en responsive  */

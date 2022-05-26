@@ -10,16 +10,16 @@
 
     <form>
       <div>
-        <label for="username">Nom d'utilisateur</label><br />
+        <label for="username">Nom d'utilisateur :</label><br />
         <input type="text" v-model="username" id="username" required />
       </div>
       <div>
-        <label for="email">Email</label><br />
+        <label for="email">Email :</label><br />
         <input type="email" v-model="email" id="email" required />
       </div>
 
       <div>
-        <label for="password">Mot de passe</label><br />
+        <label for="password">Mot de passe :</label><br />
         <input type="password" v-model="password" id="password" required />
       </div>
 
@@ -43,6 +43,7 @@ export default {
 
   data() {
     return {
+      id: "",
       username: "",
       email: "",
       password: "",
@@ -78,6 +79,10 @@ body {
 .button {
   cursor: pointer;
   margin: 40px auto;
+
+  :hover {
+    color: rgba(255, 110, 110, 1);
+  }
 }
 
 @media screen and (max-width: 768px) {

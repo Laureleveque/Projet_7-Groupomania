@@ -8,47 +8,72 @@
     </header>
 
     <div id="profil">
-      <div class="nav-bar">
-        <ul>
-          <li>
-            <router-link to="/">
-              <a href="">Créer mon profil</a>
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/">
-              <a href="">Modifier mon profil</a>
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/">
-              <a href="">Supprimer mon profil</a>
-            </router-link>
-          </li>
-        </ul>
+      <div id="photo">
+        <img v-bind:src="images" alt="" />
       </div>
 
-      <div class="product-display">
-        <div class="product-container">
-          <div class="product-image">
-            <img v-bind:src="image" alt="" />
-          </div>
-          <div class="product-info">
-            <p class="username">{{}}</p>
-            <p class="nom">{{}}</p>
-            <p class="prénom">{{}}</p>
-            <p class="ville">{{}}</p>
-            <p class="secteur">{{}}</p>
-          </div>
-        </div>
+      <div id="nom">Laurence Leveque</div>
+
+      <div>
+        <label for="pseudo"> Mon pseudo : </label><br />
+        <input type="pseudo" v-model="pseudo" id="pseudo" required />
+      </div>
+      <br />
+      <div>
+        <label for="secteur"> Secteur : </label><br />
+        <input type="secteur" v-model="secteur" id="secteur" />
+      </div>
+      <div>
+        <label for="ville"> Ville : </label><br />
+        <input type="ville" v-model="ville" id="ville" />
+      </div>
+      <br />
+      <div>
+        <label for="interets"> Intérêts : </label><br />
+        <input type="interets" v-model="interets" id="interets" />
+      </div>
+
+      <div>
+        <label for="sports"> Sports : </label><br />
+        <input type="sports" v-model="sports" id="sports" />
+      </div>
+
+      <!--  création du profil si inscription -->
+      <div class="button">
+        <router-link to="/profil">
+          <input type="submit" value="Créer mon profil" />
+        </router-link>
       </div>
     </div>
+
+    <div id="infos">
+      <div class="product-info">
+        <p class="username">{{}}</p>
+        <p class="nom">{{}}</p>
+        <p class="prénom">{{}}</p>
+        <p class="ville">{{}}</p>
+        <p class="secteur">{{}}</p>
+      </div>
+    </div>
+
+    <!--    bouton modification du profil si connecté  -->
+    <!--  modification du profil si connection  
+      <div class="button2">
+        <router-link to="/profil">
+          <input type="submit" value="Modifier mon profil" />
+        </router-link>
+      </div>
+      -->
+
+    <!--     suppression du profil ( du compte)   -->
+    <!--  modification du profil si connection  
+      <div class="button3">
+        <router-link to="/profil">
+          <input type="submit" value="Supprimer mon compte" />
+        </router-link>
+      </div>
+      -->
   </body>
-  <!--
-  <div class="button">
-    <input type="submit" value="profil" />
-  </div>
-  -->
 </template>
 
 <script>
@@ -72,7 +97,7 @@ export default {
       prenom: "",
       ville: "",
       info: [],
-      secteur: "",
+      departement: "",
     };
   },
 };
@@ -93,7 +118,41 @@ methods: {
 
 <style>
 body {
-  background-color: rgb(37, 37, 76);
+  background-color: rgb(29, 29, 58);
+}
+
+#profil {
+  border: 2px solid transparent;
+  width: 900px;
+  height: 900px;
+  background-color: white;
+  margin: 40px auto;
+  color: rgb(29, 29, 58);
+}
+
+#photo {
+  border: 2px solid rgb(29, 29, 58);
+  border-radius: 50%;
+
+  padding: 30px 30px;
+  width: 50px;
+  height: 50px;
+  margin: 30px auto;
+}
+
+#nom {
+  font-size: 25px;
+  font-weight: 600;
+  color: rgb(29, 29, 58);
+  text-align: left;
+  margin: 50px 40px 50px 40px;
+  border-bottom: 3px solid rgba(255, 110, 110, 1);
+  padding-bottom: 5px;
+}
+
+button {
+  cursor: pointer;
+  margin: 40px auto;
 }
 
 img {
@@ -102,20 +161,52 @@ img {
   padding: 15px;
 }
 
-ul {
-  display: flex;
-  flex-direction: column;
-  list-style-type: none;
+#pseudo {
+  width: 500px;
+  height: 30px;
+  margin-bottom: 20px;
 }
 
-a {
-  color: #4b4bba;
-  font-size: 15px;
-  text-decoration: none;
+#secteur {
+  width: 500px;
+  height: 30px;
+  margin-bottom: 20px;
 }
 
-a:hover {
-  padding: 60px auto;
-  text-decoration: underline;
+#ville {
+  width: 500px;
+  height: 30px;
+  margin-bottom: 20px;
+}
+
+#interets {
+  width: 500px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+#sports {
+  width: 500px;
+  height: 100px;
+  margin-bottom: 40px;
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-weight: 300;
+  }
+
+  #profil {
+    width: 90%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  #pseudo,
+  #secteur,
+  #ville,
+  #interets,
+  #sports {
+    width: 90%;
+  }
 }
 </style>
