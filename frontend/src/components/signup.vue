@@ -78,15 +78,16 @@ button {
   background: white;
   color: rgb(29, 29, 58);
   font-size: 1em;
+  transform: scale(1);
   font-weight: bold;
-  width: 120px;
-  height: 50px;
+  width: 110px;
+  height: 40px;
   border-radius: 20px;
   border: 2px solid rgb(29, 29, 58);
-
-  cursor: pointer;
 }
-:hover {
+button:hover {
+  transform: scale(1.15);
+  color: rgba(255, 110, 110, 1);
 }
 
 @media screen and (max-width: 768px) {

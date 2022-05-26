@@ -55,7 +55,7 @@ a {
 
 a:hover {
   text-decoration: none;
-  border-bottom: 4px solid rgba(255, 110, 110, 1);
+  border-bottom: 3px solid rgba(255, 110, 110, 1);
   padding: 60px auto;
 }
 

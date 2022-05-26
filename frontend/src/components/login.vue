@@ -66,13 +66,14 @@ button {
   font-size: 1em;
   font-weight: bold;
   width: 130px;
-  height: 50px;
+  height: 40px;
+  transform: scale(1);
   border-radius: 20px;
   border: 2px solid rgb(29, 29, 58);
-
-  cursor: pointer;
 }
-:hover {
+button:hover {
+  transform: scale(1.15);
+  color: rgba(255, 110, 110, 1);
 }
 
 @media screen and (max-width: 768px) {

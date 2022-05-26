@@ -7,20 +7,18 @@
       <NavigationPage />
     </header>
 
+    <!--   inscription: création du profil  -->
+
     <div id="profil">
       <div id="photo">
         <img v-bind:src="images" alt="" />
       </div>
-
-      <div id="nom">Laurence Leveque</div>
-
-      <div>
-        <label for="pseudo"> Mon pseudo : </label><br />
-        <input type="pseudo" v-model="pseudo" id="pseudo" required />
-      </div>
+      <br />
+      <h1 class="pseudo">{{ username }}</h1>
       <br />
       <div>
-        <label for="secteur"> Secteur : </label><br />
+        <label for="secteur"> Secteur ( RH, Gestion, Informatique,...) : </label
+        ><br />
         <input type="secteur" v-model="secteur" id="secteur" />
       </div>
       <div>
@@ -41,44 +39,24 @@
       <!--  création du profil si inscription -->
       <div class="button">
         <router-link to="/profil">
+          <!-- msg : votre profil est créé -->
           <input type="submit" value="Créer mon profil" />
         </router-link>
-        <!-- votre profil est créé -->
       </div>
     </div>
 
-    <div class="button">
-      <router-link to="/profil">
-        <input type="submit" value="Supprimer mon profil" />
-      </router-link>
-    </div>
+    <!--   suppression du compte  -->
 
-    <div id="infos">
-      <div class="product-info">
-        <p class="username">{{}}</p>
-        <p class="nom">{{}}</p>
-        <p class="prénom">{{}}</p>
-        <p class="ville">{{}}</p>
-        <p class="secteur">{{}}</p>
-      </div>
-    </div>
+    <router-link to="/profil">
+      <!-- msg : votre compte est supprimé -->
+      <input type="submit" value="Supprimer mon profil" />
+    </router-link>
 
-    <!--    bouton modification du profil si connecté  -->
-    <!--  modification du profil si connection  
+    <!--  connection : modification du profil  
+
       <div class="button2">
-        <router-link to="/profil">
+        <router-link to="/profil"> msg : votre profil est modifié 
           <input type="submit" value="Modifier mon profil" />
-        </router-link>
-          votre profil est modifié 
-      </div>
-      -->
-
-    <!--     suppression du profil ( du compte)   -->
-    <!--  modification du profil si connection  
-      <div class="button3">
-        <router-link to="/profil">
-          <input type="submit" value="Supprimer mon compte" />
-           votre compte est supprimé 
         </router-link>
       </div>
       -->
@@ -99,14 +77,12 @@ export default {
 
   data() {
     return {
-      id: "",
-      image: "./assets/image/photo_profil",
+      image: "./assets/images/",
       username: "",
       nom: "",
       prenom: "",
       ville: "",
       info: [],
-      departement: "",
     };
   },
 };
@@ -136,6 +112,7 @@ body {
   height: 900px;
   background-color: white;
   margin: 40px auto;
+  color: rgb(29, 29, 58);
 }
 
 #photo {
@@ -164,7 +141,7 @@ button {
 }
 
 img {
-  width: 40%;
+  width: 30%;
   margin: 40px;
   padding: 15px;
 }
