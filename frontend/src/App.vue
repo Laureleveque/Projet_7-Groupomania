@@ -14,20 +14,35 @@
 </script>
 
 <style lang="scss">
+#body {
+  background-color: rgb(29, 29, 58);
+}
+
 #app {
-  font-family: Arial, Avenir, Helvetica, sans-serif;
+  font-family: sans-serif, Raleway, Arial, Avenir, Helvetica;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: white;
 }
 h1 {
-  text-align: center;
-  font-weight: 600;
-  color: #4b4bba;
+  text-align: left;
+  font-weight: 400;
+  color: white;
+  margin-bottom: 70px;
+  margin-top: 40px;
+  margin-left: 40px;
+  margin-right: 40px;
+  border-bottom: 4px solid rgba(255, 110, 110, 1);
+  padding-bottom: 20px;
 }
 
 h2 {
-  font-size: 25px;
+  font-size: 20px;
+  color: white;
+}
+
+p {
+  color: white;
 }
 </style>

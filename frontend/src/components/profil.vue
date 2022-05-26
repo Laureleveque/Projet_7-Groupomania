@@ -1,47 +1,49 @@
 <!-- composant Profil -->
 
 <template>
-  <header>
-    <LogoHeader />
-    <NavigationPage />
-  </header>
+  <body>
+    <header>
+      <LogoHeader />
+      <NavigationPage />
+    </header>
 
-  <div id="profil">
-    <div class="nav-bar">
-      <ul>
-        <li>
-          <router-link to="/">
-            <a href="">Créer mon profil</a>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/">
-            <a href="">Modifier mon profil</a>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/">
-            <a href="">Supprimer mon profil</a>
-          </router-link>
-        </li>
-      </ul>
-    </div>
+    <div id="profil">
+      <div class="nav-bar">
+        <ul>
+          <li>
+            <router-link to="/">
+              <a href="">Créer mon profil</a>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/">
+              <a href="">Modifier mon profil</a>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/">
+              <a href="">Supprimer mon profil</a>
+            </router-link>
+          </li>
+        </ul>
+      </div>
 
-    <div class="product-display">
-      <div class="product-container">
-        <div class="product-image">
-          <img v-bind:src="image" alt="" />
-        </div>
-        <div class="product-info">
-          <p class="username">{{}}</p>
-          <p class="nom">{{}}</p>
-          <p class="prénom">{{}}</p>
-          <p class="ville">{{}}</p>
-          <p class="secteur">{{}}</p>
+      <div class="product-display">
+        <div class="product-container">
+          <div class="product-image">
+            <img v-bind:src="image" alt="" />
+          </div>
+          <div class="product-info">
+            <p class="username">{{}}</p>
+            <p class="nom">{{}}</p>
+            <p class="prénom">{{}}</p>
+            <p class="ville">{{}}</p>
+            <p class="secteur">{{}}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </body>
   <!--
   <div class="button">
     <input type="submit" value="profil" />
@@ -90,6 +92,10 @@ methods: {
 </script>
 
 <style>
+body {
+  background-color: rgb(37, 37, 76);
+}
+
 img {
   width: 40%;
   margin: 40px;

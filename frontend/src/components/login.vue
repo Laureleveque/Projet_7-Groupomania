@@ -1,29 +1,31 @@
 <!-- composant Login -->
 
 <template>
-  <header>
-    <LogoHeader />
-  </header>
+  <body>
+    <header>
+      <LogoHeader />
+    </header>
 
-  <h1>Connexion au réseau social de Groupomania</h1>
+    <h1>Connexion au réseau social de Groupomania</h1>
 
-  <form>
-    <div>
-      <label for="email">Email</label><br />
-      <input type="email" v-model="email" id="email" required />
-    </div>
+    <form>
+      <div>
+        <label for="email">Email</label><br />
+        <input type="email" v-model="email" id="email" required />
+      </div>
 
-    <div>
-      <label for="password"> Mot de passe</label><br />
-      <input type="password" v-model="password" id="password" required />
-    </div>
+      <div>
+        <label for="password"> Mot de passe</label><br />
+        <input type="password" v-model="password" id="password" required />
+      </div>
 
-    <div class="button" @click="login">
-      <router-link to="/profil">
-        <input type="submit" value="Se connecter" />
-      </router-link>
-    </div>
-  </form>
+      <div class="button" @click="login">
+        <router-link to="/profil">
+          <input type="submit" value="Se connecter" />
+        </router-link>
+      </div>
+    </form>
+  </body>
 </template>
 
 <script>
@@ -44,21 +46,24 @@ export default {
 </script>
 
 <style scoped lang="scss">
+body {
+  background-color: rgb(29, 29, 58);
+}
+
 #email {
   width: 400px;
+  height: 30px;
   margin-bottom: 20px;
 }
 
 #password {
   width: 400px;
+  height: 30px;
   margin-bottom: 20px;
 }
 
 .button {
   cursor: pointer;
-  padding: 0px;
-  margin: 20px auto;
-  background-color: transparent;
 }
 
 @media screen and (max-width: 768px) {

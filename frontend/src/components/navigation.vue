@@ -43,30 +43,33 @@ ul {
 }
 
 nav {
-  list-style-type: none;
-  font-weight: bold;
-  transform: scale(1);
+  font-weight: 400;
 }
 
 a {
-  color: #4b4bba;
+  color: white;
   font-size: 20px;
   text-decoration: none;
 }
 
 a:hover {
+  text-decoration: none;
+  border-bottom: 3px solid rgba(255, 110, 110, 1);
   padding: 60px auto;
-  text-decoration: underline;
-  transform: scale(1.15);
 }
 
 /*   barre de navigation en responsive  */
 
 @media screen and (max-width: 768px) {
   nav {
-    width: 100%;
-    padding-left: 0px;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav a {
+    width: 50%;
+    padding: 30px auto;
+    text-align: center;
   }
 }
 </style>

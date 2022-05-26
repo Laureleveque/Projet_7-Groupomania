@@ -3,7 +3,7 @@
 <template>
   <div id="logo">
     <img
-      src="../assets/images/icon-left-font-monochrome-black.svg"
+      src="../assets/images/icon-left-font-monochrome-white.svg"
       alt="Logo de Groupomania"
     />
   </div>
@@ -16,12 +16,19 @@ export default {
 </script>
 
 <style>
-img {
-  margin-top: 10px;
+#logo {
+  width: 90%;
+  text-align: center;
 }
+
+img {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
 @media screen and (max-width: 768px) {
   img {
-    width: 70%;
+    width: 100%;
   }
 }
 </style>

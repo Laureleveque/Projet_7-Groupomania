@@ -1,27 +1,29 @@
 <!-- composant Accueil -->
 
 <template>
-  <header>
-    <LogoHeader />
-  </header>
+  <body>
+    <header>
+      <LogoHeader />
+    </header>
 
-  <h1>Bienvenue sur le réseau social de Groupomania</h1>
+    <h1>Bienvenue sur le réseau social de Groupomania</h1>
 
-  <div>
-    <img
-      src="../assets/images/mobile-phone-g2c3fa4a3d_640.jpg"
-      alt="photo reseau social"
-    />
-  </div>
+    <div>
+      <img
+        src="../assets/images/mobile-phone-g2c3fa4a3d_640.jpg"
+        alt="photo reseau social"
+      />
+    </div>
 
-  <nav>
-    <router-link to="/signup">
-      <h2>S'inscrire</h2>
-    </router-link>
-    <router-link to="/login">
-      <h2>Se connecter</h2>
-    </router-link>
-  </nav>
+    <nav>
+      <router-link to="/signup">
+        <h2>S'inscrire</h2>
+      </router-link>
+      <router-link to="/login">
+        <h2>Se connecter</h2>
+      </router-link>
+    </nav>
+  </body>
 </template>
 
 <script>
@@ -36,30 +38,34 @@ export default {
 </script>
 
 <style scoped lang="scss">
+body {
+  background-color: rgb(29, 29, 58);
+  margin: 0px;
+  //margin-left: 380px;
+  //margin-right: 380px;
+}
+
 img {
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   margin: 10px auto;
 }
 
 nav {
+  height: 150px;
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
-  align-items: center;
-  margin: 30px;
-  transform: scale(1);
-  text-decoration: underline;
   font-weight: bold;
-  a {
-    color: #4b4bba;
-    font-size: 20px;
-  }
-  a:hover {
-    padding: 30px auto;
-    color: #4b4bba;
-    transform: scale(1.15);
-  }
+}
+
+a {
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+a:hover {
+  border-bottom: 3px solid rgba(255, 110, 110, 1);
 }
 
 /*   barre de navigation en responsive  */
@@ -77,19 +83,18 @@ nav {
   }
 
   img {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
   }
 
   nav {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   nav a {
     width: 50%;
-    padding: 30px auto;
-    text-align: center;
   }
 }
 </style>
