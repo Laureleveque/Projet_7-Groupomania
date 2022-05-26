@@ -43,7 +43,14 @@
         <router-link to="/profil">
           <input type="submit" value="Créer mon profil" />
         </router-link>
+        <!-- votre profil est créé -->
       </div>
+    </div>
+
+    <div class="button">
+      <router-link to="/profil">
+        <input type="submit" value="Supprimer mon profil" />
+      </router-link>
     </div>
 
     <div id="infos">
@@ -62,6 +69,7 @@
         <router-link to="/profil">
           <input type="submit" value="Modifier mon profil" />
         </router-link>
+          votre profil est modifié 
       </div>
       -->
 
@@ -70,6 +78,7 @@
       <div class="button3">
         <router-link to="/profil">
           <input type="submit" value="Supprimer mon compte" />
+           votre compte est supprimé 
         </router-link>
       </div>
       -->
@@ -127,7 +136,6 @@ body {
   height: 900px;
   background-color: white;
   margin: 40px auto;
-  color: rgb(29, 29, 58);
 }
 
 #photo {
@@ -146,7 +154,7 @@ body {
   color: rgb(29, 29, 58);
   text-align: left;
   margin: 50px 40px 50px 40px;
-  border-bottom: 3px solid rgba(255, 110, 110, 1);
+  border-bottom: 4px solid rgba(255, 110, 110, 1);
   padding-bottom: 5px;
 }
 

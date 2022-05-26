@@ -30,7 +30,7 @@ h1 {
   font-weight: 400;
   color: white;
   margin-bottom: 70px;
-  margin-top: 40px;
+
   margin-left: 50px;
   margin-right: 50px;
   border-bottom: 4px solid rgba(255, 110, 110, 1);

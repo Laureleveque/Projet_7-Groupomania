@@ -40,6 +40,7 @@ ul {
   justify-content: space-around;
   align-items: center;
   list-style-type: none;
+  margin-top: 30px;
 }
 
 nav {
@@ -54,7 +55,7 @@ a {
 
 a:hover {
   text-decoration: none;
-  border-bottom: 3px solid rgba(255, 110, 110, 1);
+  border-bottom: 4px solid rgba(255, 110, 110, 1);
   padding: 60px auto;
 }
 
@@ -65,7 +66,8 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-left: 10px;
+    padding-left: 15px;
+    margin-top: 0px;
   }
 
   a {

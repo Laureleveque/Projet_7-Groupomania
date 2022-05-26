@@ -19,11 +19,9 @@
         <input type="password" v-model="password" id="password" required />
       </div>
 
-      <div class="button" @click="login">
-        <router-link to="/profil">
-          <input type="submit" value="Se connecter" />
-        </router-link>
-      </div>
+      <router-link to="/profil">
+        <button type="submit">Se connecter</button>
+      </router-link>
     </form>
   </body>
 </template>
@@ -62,11 +60,19 @@ body {
   margin-bottom: 40px;
 }
 
-.button {
+button {
+  background: white;
+  color: rgb(29, 29, 58);
+  font-size: 1em;
+  font-weight: bold;
+  width: 130px;
+  height: 50px;
+  border-radius: 20px;
+  border: 2px solid rgb(29, 29, 58);
+
   cursor: pointer;
-  :hover {
-    color: rgba(255, 110, 110, 1);
-  }
+}
+:hover {
 }
 
 @media screen and (max-width: 768px) {
@@ -76,6 +82,10 @@ body {
     margin-right: 10px;
     margin-left: 10px;
     text-align: center;
+  }
+  #email,
+  #password {
+    width: 90%;
   }
 }
 </style>

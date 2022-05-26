@@ -54,7 +54,7 @@ getAllPosts
   color: rgb(29, 29, 58);
   text-align: left;
   margin: 50px 40px 50px 40px;
-  border-bottom: 3px solid rgba(255, 110, 110, 1);
+  border-bottom: 4px solid rgba(255, 110, 110, 1);
   padding-bottom: 5px;
 }
 

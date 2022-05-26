@@ -61,7 +61,7 @@ a {
   font-size: 20px;
   text-decoration: none;
   :hover {
-    border-bottom: 3px solid rgba(255, 110, 110, 1);
+    border-bottom: 4px solid rgba(255, 110, 110, 1);
   }
 }
 
@@ -89,14 +89,6 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  a:hover {
-    text-decoration: none;
-  }
-
-  nav a {
-    width: 50%;
   }
 }
 </style>

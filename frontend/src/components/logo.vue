@@ -17,7 +17,6 @@ export default {
 
 <style>
 #logo {
-  width: 90%;
   text-align: center;
 }
 
@@ -28,7 +27,6 @@ img {
 
 @media screen and (max-width: 768px) {
   img {
-    width: 100%;
   }
 }
 </style>
