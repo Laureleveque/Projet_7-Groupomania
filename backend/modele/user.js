@@ -9,6 +9,12 @@ const uniqueValidator = require("mongoose-unique-validator");
 const userSchema = mongoose.Schema({
   email: { type: String, required: true, unique: true }, // 1 utilisateur = 1 email
   password: { type: String, required: true },
+  photo: {},
+  pseudo: { type: String },
+  secteur: { type: String },
+  ville: { type: String },
+  interets: { type: String },
+  sports: { type: String },
 });
 
 // améliore les messages d'erreur lors de l'enregistrement de données uniques

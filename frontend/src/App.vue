@@ -15,7 +15,7 @@
 
 <style lang="scss">
 #body {
-  background-color: rgb(29, 29, 58);
+  background-color: rgb(165, 165, 179);
 }
 
 #app {

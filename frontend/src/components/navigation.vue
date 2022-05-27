@@ -46,7 +46,7 @@ ul {
 }
 
 nav {
-  font-weight: 400;
+  font-weight: 600;
 }
 
 a {

@@ -50,7 +50,7 @@ export default {
 
 <style scoped lang="scss">
 body {
-  background-color: rgb(29, 29, 58);
+  background-color: rgb(165, 165, 179);
   margin: 0px;
 }
 
@@ -68,14 +68,14 @@ body {
 
 button {
   background: white;
-  color: rgb(29, 29, 58);
+  color: rgb(138, 138, 153);
   font-size: 1em;
   transform: scale(1);
   font-weight: bold;
   width: 110px;
   height: 40px;
   border-radius: 20px;
-  border: 2px solid rgb(29, 29, 58);
+  border: 2px solid rgb(165, 165, 179);
 }
 button:hover {
   transform: scale(1.15);

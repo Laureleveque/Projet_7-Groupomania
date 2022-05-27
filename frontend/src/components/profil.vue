@@ -17,7 +17,8 @@
       <div id="pseudo">Mon pseudo :</div>
       <br />
       <div>
-        <label for="secteur"> Secteur ( RH, Gestion, Informatique,...) : </label
+        <label for="secteur">
+          Secteur d'activité : ( RH, Gestion, Informatique,...) : </label
         ><br />
         <input type="secteur" v-model="secteur" id="secteur" />
       </div>
@@ -105,7 +106,7 @@ methods: {
 
 <style>
 body {
-  background-color: rgb(29, 29, 58);
+  background-color: rgb(165, 165, 179);
 }
 
 #profil {
@@ -135,11 +136,6 @@ body {
   margin: 20px 40px 80px 40px;
   border-bottom: 4px solid #fd2d01;
   padding-bottom: 20px;
-}
-
-button {
-  cursor: pointer;
-  margin: 40px auto;
 }
 
 img {
@@ -173,7 +169,7 @@ img {
 }
 
 button {
-  background: rgb(29, 29, 58);
+  background: rgb(165, 165, 179);
   color: white;
   font-size: 1em;
   font-weight: bold;
@@ -181,7 +177,8 @@ button {
   height: 40px;
   transform: scale(1);
   border-radius: 20px;
-  border: 2px solid rgb(29, 29, 58);
+  border: 2px solid rgb(165, 165, 179);
+  margin-top: 40px;
 }
 button:hover {
   transform: scale(1.15);
