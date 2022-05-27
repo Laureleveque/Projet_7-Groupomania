@@ -1,7 +1,7 @@
 <template>
   <nav>
     <!-- se charge de la navigation dans l'application -->
-    <router-link to="/accueil"></router-link>
+    <router-link to="/reseau"></router-link>
   </nav>
 
   <!-- où afficher le composant auquel est associé la route qd on visite une url -->
@@ -19,7 +19,7 @@
 }
 
 #app {
-  font-family: sans-serif, Raleway, Arial, Avenir, Helvetica;
+  font-family: Lato, sans-serif, Raleway, Arial, Avenir, Helvetica;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -33,7 +33,7 @@ h1 {
 
   margin-left: 50px;
   margin-right: 50px;
-  border-bottom: 4px solid rgba(255, 110, 110, 1);
+  border-bottom: 4px solid #fd2d01;
   padding-bottom: 20px;
 }
 

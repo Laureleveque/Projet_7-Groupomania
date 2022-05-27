@@ -1,94 +1,83 @@
-<!-- composant Accueil -->
+<!-- composant Forum  -->
 
 <template>
-  <body>
-    <header>
-      <LogoHeader />
-    </header>
+  <header>
+    <LogoHeader />
+    <NavigationPage />
+  </header>
 
-    <h1>Bienvenue sur le réseau social de Groupomania</h1>
+  <div id="forum">
+    <div id="messages">Messages</div>
 
-    <div>
-      <img
-        src="../assets/images/mobile-phone-g2c3fa4a3d_640.jpg"
-        alt="photo reseau social"
-      />
-    </div>
-
-    <nav>
-      <router-link to="/signup">
-        <h2>S'inscrire</h2>
-      </router-link>
-      <router-link to="/login">
-        <h2>Se connecter</h2>
-      </router-link>
-    </nav>
-  </body>
+    <form>
+      <div>
+        <label for="message"></label><br />
+        <input type="text" v-model="message" id="message" required />
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
 import LogoHeader from "../components/logo.vue";
+import NavigationPage from "../components/navigation.vue";
 
 export default {
-  name: "AccueilPage",
+  name: "ForumPage",
+
   components: {
     LogoHeader,
+    NavigationPage,
   },
 };
+
+/* methods
+
+getAllPosts
+
+*/
 </script>
 
-<style scoped lang="scss">
-body {
-  background-color: rgb(29, 29, 58);
-  margin: 0px;
+<style>
+#forum {
+  border: 2px solid transparent;
+  width: 900px;
+  height: 900px;
+  background-color: white;
+  margin: 40px auto;
+  color: rgb(29, 29, 58);
 }
 
-img {
-  width: 250px;
-  height: 250px;
-  margin: 10px auto;
+#messages {
+  font-size: 25px;
+  font-weight: 600;
+  color: rgb(29, 29, 58);
+  text-align: left;
+  margin: 50px 40px 50px 40px;
+  border-bottom: 4px solid rgba(255, 110, 110, 1);
+  padding-bottom: 5px;
 }
 
-nav {
-  height: 150px;
-  display: flex;
-  justify-content: space-around;
-  font-weight: bold;
+#message {
+  width: 500px;
+  height: 100px;
 }
-
-a {
-  color: white;
-  font-size: 20px;
-  text-decoration: none;
-  :hover {
-    border-bottom: 3px solid rgba(255, 110, 110, 1);
-  }
-}
-
-/*   barre de navigation en responsive  */
 
 @media screen and (max-width: 768px) {
   h1 {
-    font-weight: 600;
-    font-size: 20px;
-    margin-right: 10px;
-    margin-left: 10px;
-    text-align: center;
+    font-weight: 300;
   }
 
-  h2 {
-    font-size: 20px;
+  #forum {
+    width: 90%;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
-  img {
-    width: 150px;
-    height: 150px;
-  }
-
-  nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  #message {
+    width: 90%;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
 </style>

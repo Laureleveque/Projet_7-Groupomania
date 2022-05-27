@@ -3,15 +3,14 @@ import { createRouter, createWebHashHistory } from "vue-router";
 //import HomeView from "../views/HomeView.vue";
 
 import LogoHeader from "../components/logo.vue";
-import AccueilPage from "../components/accueil.vue";
+import ReseauPage from "../components/reseau.vue";
 import LoginPage from "../components/login.vue";
 import SignupPage from "../components/signup.vue";
 import LogoutPage from "../components/logout.vue";
 import NavigationPage from "../components/navigation.vue";
 import ProfilPage from "../components/profil.vue";
-import ForumPage from "../components/forum.vue";
+import AccueilPage from "../components/accueil.vue";
 import PostPage from "../components/post.vue";
-import MediaPage from "../components/media.vue";
 
 const routes = [
   // tableau contenant des objets qui définissent chaque route
@@ -22,9 +21,9 @@ const routes = [
   },
 
   {
-    path: "/accueil",
-    name: "Accueil",
-    component: AccueilPage,
+    path: "/reseau",
+    name: "Reseau",
+    component: ReseauPage,
   },
 
   {
@@ -58,21 +57,15 @@ const routes = [
   },
 
   {
-    path: "/forum",
-    name: "Forum",
-    component: ForumPage,
+    path: "/accueil",
+    name: "Accueil",
+    component: AccueilPage,
   },
 
   {
     path: "/post",
     name: "Post",
     component: PostPage,
-  },
-
-  {
-    path: "/media",
-    name: "Media",
-    component: MediaPage,
   },
 
   {

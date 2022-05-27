@@ -10,10 +10,6 @@
 
     <form>
       <div>
-        <label for="username">Nom d'utilisateur :</label><br />
-        <input type="text" v-model="username" id="username" required />
-      </div>
-      <div>
         <label for="email">Email :</label><br />
         <input type="email" v-model="email" id="email" required />
       </div>
@@ -23,7 +19,7 @@
         <input type="password" v-model="password" id="password" required />
       </div>
 
-      <router-link to="/profil">
+      <router-link to="/accueil">
         <button type="submit">S'inscrire</button>
       </router-link>
     </form>
@@ -32,6 +28,8 @@
 
 <script>
 import LogoHeader from "../components/logo.vue";
+
+//import router from '../router/index.js';
 
 export default {
   name: "SignupPage",
@@ -54,12 +52,6 @@ export default {
 body {
   background-color: rgb(29, 29, 58);
   margin: 0px;
-}
-
-#username {
-  width: 400px;
-  height: 30px;
-  margin-bottom: 20px;
 }
 
 #email {
@@ -87,7 +79,7 @@ button {
 }
 button:hover {
   transform: scale(1.15);
-  color: rgba(255, 110, 110, 1);
+  color: #fd2d01;
 }
 
 @media screen and (max-width: 768px) {
@@ -98,7 +90,7 @@ button:hover {
     margin-left: 10px;
     text-align: center;
   }
-  #username,
+
   #email,
   #password {
     width: 90%;

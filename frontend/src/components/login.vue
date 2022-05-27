@@ -29,6 +29,8 @@
 <script>
 import LogoHeader from "../components/logo.vue";
 
+//import router from '../router/index.js';
+
 export default {
   name: "LoginPage",
   components: {
@@ -73,7 +75,7 @@ button {
 }
 button:hover {
   transform: scale(1.15);
-  color: rgba(255, 110, 110, 1);
+  color: #fd2d01;
 }
 
 @media screen and (max-width: 768px) {

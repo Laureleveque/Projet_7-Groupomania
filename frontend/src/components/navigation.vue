@@ -4,20 +4,17 @@
   <nav id="navigation">
     <ul>
       <li>
+        <router-link to="/accueil">
+          <a href="">Accueil</a>
+        </router-link>
+      </li>
+
+      <li>
         <router-link to="/profil">
           <a href="">Votre profil</a>
         </router-link>
       </li>
-      <li>
-        <router-link to="/forum">
-          <a href="">Forum</a>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/media">
-          <a href="">Medias</a>
-        </router-link>
-      </li>
+
       <li>
         <router-link to="/logout">
           <a href="">Déconnexion</a>
@@ -28,6 +25,8 @@
 </template>
 
 <script>
+//import router from '../router/index.js';
+
 export default {
   name: "NavigationPage",
 };
@@ -37,6 +36,9 @@ export default {
 ul {
   display: flex;
   flex-direction: row;
+  width: 900px;
+  margin-left: auto;
+  margin-right: auto;
   justify-content: space-around;
   align-items: center;
   list-style-type: none;
@@ -55,7 +57,7 @@ a {
 
 a:hover {
   text-decoration: none;
-  border-bottom: 3px solid rgba(255, 110, 110, 1);
+  border-bottom: 3px solid #fd2d01;
   padding: 60px auto;
 }
 

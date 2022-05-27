@@ -67,6 +67,8 @@
 import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
 
+//import router from '../router/index.js';
+
 export default {
   name: "ProfilPage",
 
@@ -131,7 +133,7 @@ body {
   color: rgb(29, 29, 58);
   text-align: left;
   margin: 50px 40px 50px 40px;
-  border-bottom: 4px solid rgba(255, 110, 110, 1);
+  border-bottom: 4px solid #fd2d01;
   padding-bottom: 5px;
 }
 
@@ -151,7 +153,6 @@ img {
   height: 30px;
   margin-bottom: 20px;
 }
-
 #secteur {
   width: 500px;
   height: 30px;
@@ -186,6 +187,7 @@ img {
     padding-left: 10px;
     padding-right: 10px;
   }
+
   #pseudo,
   #secteur,
   #ville,
