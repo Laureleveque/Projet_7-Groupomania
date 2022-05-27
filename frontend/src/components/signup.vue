@@ -79,7 +79,6 @@ button {
 }
 button:hover {
   transform: scale(1.15);
-  color: #fd2d01;
 }
 
 @media screen and (max-width: 768px) {

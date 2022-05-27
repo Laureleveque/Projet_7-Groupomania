@@ -1,5 +1,3 @@
-// Logique métier : inscription et connexion
-
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../modele/user");

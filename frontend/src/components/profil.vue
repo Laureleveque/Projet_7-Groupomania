@@ -14,7 +14,7 @@
         <img v-bind:src="images" alt="" />
       </div>
       <br />
-      <h1 class="pseudo">{{ username }}</h1>
+      <div id="pseudo">Mon pseudo :</div>
       <br />
       <div>
         <label for="secteur"> Secteur ( RH, Gestion, Informatique,...) : </label
@@ -37,12 +37,12 @@
       </div>
 
       <!--  création du profil si inscription -->
-      <div class="button">
-        <router-link to="/profil">
-          <!-- msg : votre profil est créé -->
-          <input type="submit" value="Créer mon profil" />
-        </router-link>
-      </div>
+
+      <router-link to="/creation_profil">
+        <button type="submit">Créer mon profil</button>
+      </router-link>
+
+      <!-- msg : votre profil est créé -->
     </div>
 
     <!--   suppression du compte  -->
@@ -111,7 +111,7 @@ body {
 #profil {
   border: 2px solid transparent;
   width: 900px;
-  height: 900px;
+  height: 1000px;
   background-color: white;
   margin: 40px auto;
   color: rgb(29, 29, 58);
@@ -127,14 +127,14 @@ body {
   margin: 30px auto;
 }
 
-#nom {
+#pseudo {
   font-size: 25px;
   font-weight: 600;
   color: rgb(29, 29, 58);
   text-align: left;
-  margin: 50px 40px 50px 40px;
+  margin: 20px 40px 80px 40px;
   border-bottom: 4px solid #fd2d01;
-  padding-bottom: 5px;
+  padding-bottom: 20px;
 }
 
 button {
@@ -148,11 +148,6 @@ img {
   padding: 15px;
 }
 
-#pseudo {
-  width: 500px;
-  height: 30px;
-  margin-bottom: 20px;
-}
 #secteur {
   width: 500px;
   height: 30px;
@@ -174,7 +169,22 @@ img {
 #sports {
   width: 500px;
   height: 100px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+}
+
+button {
+  background: rgb(29, 29, 58);
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+  width: 200px;
+  height: 40px;
+  transform: scale(1);
+  border-radius: 20px;
+  border: 2px solid rgb(29, 29, 58);
+}
+button:hover {
+  transform: scale(1.15);
 }
 
 @media screen and (max-width: 768px) {

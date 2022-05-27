@@ -3,6 +3,8 @@
 const express = require("express");
 const app = express();
 
+const mongoose = require("mongoose");
+
 const bodyParser = require("body-parser");
 const path = require("path");
 
@@ -10,10 +12,17 @@ const path = require("path");
 app.use(express.json());
 
 const userRoute = require("./route/user"); // inscription et connexion
-const profilRoute = require("./route/profil"); // gestion du profil
+
 const postRoute = require("./route/post"); // gestion des posts
 
-// connection SQL
+// connection à MongoDB
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.DB_user}:${process.env.DB_password}@${process.env.DB_host}/${process.env.DB_name}?retryWrites=true&w=majority`,
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then(() => console.log("Connexion à MongoDB réussie !"))
+  .catch(() => console.log("Connexion à MongoDB échouée !"));
 
 // CORS : permet à toutes les demandes de toutes les origines d'accéder à l'API (requêtes cross-origin)
 app.use((req, res, next) => {
@@ -35,7 +44,6 @@ app.use(bodyParser.json());
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/api/user", userRoute);
 app.use("/api/post", postRoute);
-app.use("/api/profil", profilRoute);
 
 // exportation de l'application
 

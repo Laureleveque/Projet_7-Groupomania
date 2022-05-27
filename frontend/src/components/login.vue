@@ -19,7 +19,7 @@
         <input type="password" v-model="password" id="password" required />
       </div>
 
-      <router-link to="/profil">
+      <router-link to="/accueil">
         <button type="submit">Se connecter</button>
       </router-link>
     </form>
@@ -75,7 +75,6 @@ button {
 }
 button:hover {
   transform: scale(1.15);
-  color: #fd2d01;
 }
 
 @media screen and (max-width: 768px) {

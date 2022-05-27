@@ -1,5 +1,3 @@
-// Logique métier
-
 const Post = require("../modele/post");
 
 // route GET récupérer tous les posts
@@ -13,9 +11,8 @@ exports.getAllPosts = (req, res, next) => {
 // route GET récupérer un post
 
 exports.getOnePost = (req, res, next) => {
-  post
-    .findOne({ _id: req.params.id })
-    .then((profil) => res.status(200).json(post))
+  Post.findOne({ _id: req.params.id })
+    .then((post) => res.status(200).json(post))
     //ajouter la possibilité de répondre au post
 
     .catch((error) =>
@@ -58,7 +55,7 @@ exports.deletePost = (req, res, next) => {
   }).catch((error) => res.status(500).json({ error }));
 };
 
-// route PUT modification d'un post (uniquement par le créateur du post)
+// route PUT modification d'un post (uniquement par le créateur du post ou le moderateur)
 
 exports.modifyPost = (req, res, next) => {
   const postObject = req.file
@@ -70,10 +67,36 @@ exports.modifyPost = (req, res, next) => {
       }
     : { ...req.body };
 
-  post
-    .updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
+  Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
     .then(() => res.status(200).json({ message: "Commentaire modifié !" }))
     .catch((error) =>
       res.status(403).json({ message: "unauthorized request" })
     );
+};
+
+// route like spécifique à l'_id
+
+exports.likePost = (req, res, next) => {
+  // recherche du post
+  Post.findOne({ _id: req.params.id })
+
+    .then((post) => {
+      // si l'utilisateur like et si l'id n'est pas présent dans le tableau des likes
+      if (req.body.like == 1 && !post.usersLiked.includes(req.body.userId)) {
+        post.usersLiked.push(req.body.userId); // ajout Id de l'utilisateur au tableau des likes
+        Post.updateOne(
+          { _id: req.params.id },
+          {
+            // mise à jour du post
+            post,
+            usersLiked: post.usersLiked,
+            likes: post.usersLiked.length, // et mise à jour du nombre de likes dans le tableau
+          }
+        )
+          .then(() => res.status(200).json({ message: "Post likée !" }))
+          .catch((error) => res.status(400).json({ error }));
+      }
+    })
+
+    .catch((error) => res.status(500).json({ error }));
 };
