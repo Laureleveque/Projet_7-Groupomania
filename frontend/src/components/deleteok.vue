@@ -1,11 +1,11 @@
-<!-- Composant Logout -->
+<!-- Composant Deleteok -->
 
 <template>
   <header>
     <LogoHeader />
   </header>
-  <div id="deconnection">
-    <h1>Vous êtes bien déconnecté(e) !</h1>
+  <div id="delete">
+    <h1>Votre compte est supprimé !</h1>
   </div>
 </template>
 
@@ -13,7 +13,8 @@
 import LogoHeader from "../components/logo.vue";
 
 export default {
-  name: "LogoutPage",
+  name: "DeletePage",
+
   components: {
     LogoHeader,
   },
@@ -22,7 +23,7 @@ export default {
 
 <style>
 @media screen and (max-width: 768px) {
-  h1 {
+  p {
     font-weight: 600;
     font-size: 20px;
   }

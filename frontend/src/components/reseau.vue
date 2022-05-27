@@ -41,7 +41,7 @@ export default {
 
 <style scoped lang="scss">
 body {
-  background-color: rgb(165, 165, 179);
+  background-color: #4e5166;
   margin: 0px;
 }
 

@@ -12,6 +12,7 @@
       <div>
         <label for="email">Email : </label><br />
         <input type="email" v-model="email" id="email" required />
+        <p id="emailErrorMsg"></p>
       </div>
 
       <div>
@@ -47,7 +48,7 @@ export default {
 
 <style scoped lang="scss">
 body {
-  background-color: rgb(165, 165, 179);
+  background-color: #4e5166;
 }
 
 #email {
@@ -64,14 +65,14 @@ body {
 
 button {
   background: white;
-  color: rgb(138, 138, 153);
+  color: #4e5166;
   font-size: 1em;
   font-weight: bold;
   width: 130px;
   height: 40px;
   transform: scale(1);
   border-radius: 20px;
-  border: 2px solid rgb(165, 165, 179);
+  border: 2px solid #4e5166;
 }
 button:hover {
   transform: scale(1.15);

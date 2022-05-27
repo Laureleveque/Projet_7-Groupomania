@@ -7,13 +7,63 @@
   </header>
 
   <div id="forum">
-    <div id="messages">Bienvenue !</div>
-
-    <form>
-      <div>
-        <label for="message"></label><br />
-        <input type="text" v-model="message" id="message" required />
+    <div class="utilisateur">
+      <div id="photo">
+        <img v-bind:src="images" alt="" />
       </div>
+      <div class="nom">Laurence</div>
+      <div class="post">
+        <p>{{ msg }}</p>
+      </div>
+    </div>
+    <div class="utilisateur">
+      <div id="photo">
+        <img v-bind:src="images" alt="" />
+      </div>
+      <div class="nom">Thibault</div>
+      <div class="post">
+        <p>{{ msg }}</p>
+      </div>
+    </div>
+    <div class="utilisateur">
+      <div id="photo">
+        <img v-bind:src="images" alt="" />
+      </div>
+      <div class="nom">Mélanie</div>
+
+      <div class="post">
+        <p>{{ msg }}</p>
+      </div>
+    </div>
+    <div class="utilisateur">
+      <div id="photo">
+        <img v-bind:src="images" alt="" />
+      </div>
+      <div class="nom">Tiago</div>
+      <div class="post">
+        <p>{{ msg }}</p>
+      </div>
+    </div>
+    <div class="utilisateur">
+      <div id="photo">
+        <img v-bind:src="images" alt="" />
+      </div>
+      <div class="nom">Quentin</div>
+      <div class="post">
+        <p>{{ msg }}</p>
+      </div>
+    </div>
+    <div class="utilisateur">
+      <div id="photo">
+        <img v-bind:src="images" alt="" />
+      </div>
+      <div class="nom">Alice</div>
+      <div class="post">
+        <p>{{ msg }}</p>
+      </div>
+    </div>
+    <form>
+      <div></div>
     </form>
   </div>
 </template>
@@ -23,44 +73,58 @@ import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
 
 export default {
-  name: "ForumPage",
+  name: "AccueilPage",
 
   components: {
     LogoHeader,
     NavigationPage,
   },
+
+  data() {
+    return {
+      commentaire: "",
+    };
+  },
 };
 
-/* methods
-
-getAllPosts
-
+/*
+    methods: {
+        
+  getOnePost() // récupérer un post
+        
+  createPost()  // créer un post    
+        
+  deletePost() // supprimer un post (uniquement le créateur ou le modérateur)
+}
 */
 </script>
 
 <style>
 #forum {
   border: 2px solid transparent;
-  width: 900px;
-  height: 900px;
+  width: 95%;
   background-color: white;
-  margin: 40px auto;
+  margin: 20px auto;
   color: rgb(29, 29, 58);
 }
 
-#messages {
-  font-size: 25px;
-  font-weight: 600;
-  color: rgb(29, 29, 58);
+.nom {
   text-align: left;
-  margin: 50px 40px 50px 40px;
-  border-bottom: 4px solid #fd2d01;
-  padding-bottom: 5px;
+  font-size: 20px;
+  font-weight: 500;
+  padding-left: 30px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom: 3px solid #4e5166;
 }
 
-#message {
-  width: 500px;
-  height: 100px;
+#photo {
+  border-radius: 50%;
+  padding: 30px 30px;
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+  margin-bottom: 10px;
 }
 
 @media screen and (max-width: 768px) {
@@ -69,15 +133,12 @@ getAllPosts
   }
 
   #forum {
-    width: 90%;
-    padding-left: 10px;
-    padding-right: 10px;
+    width: 95%;
   }
-
   #message {
     width: 90%;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 }
 </style>

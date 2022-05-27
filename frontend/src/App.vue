@@ -1,7 +1,7 @@
 <template>
   <nav>
     <!-- se charge de la navigation dans l'application -->
-    <router-link to="/reseau"></router-link>
+    <router-link to="/"></router-link>
   </nav>
 
   <!-- où afficher le composant auquel est associé la route qd on visite une url -->

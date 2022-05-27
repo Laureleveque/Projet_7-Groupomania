@@ -19,7 +19,7 @@
         <input type="password" v-model="password" id="password" required />
       </div>
 
-      <router-link to="/accueil">
+      <router-link to="/signupok">
         <button type="submit">S'inscrire</button>
       </router-link>
     </form>
@@ -50,7 +50,7 @@ export default {
 
 <style scoped lang="scss">
 body {
-  background-color: rgb(165, 165, 179);
+  background-color: #4e5166;
   margin: 0px;
 }
 
@@ -68,14 +68,14 @@ body {
 
 button {
   background: white;
-  color: rgb(138, 138, 153);
+  color: #4e5166;
   font-size: 1em;
   transform: scale(1);
   font-weight: bold;
   width: 110px;
   height: 40px;
   border-radius: 20px;
-  border: 2px solid rgb(165, 165, 179);
+  border: 2px solid #4e5166;
 }
 button:hover {
   transform: scale(1.15);

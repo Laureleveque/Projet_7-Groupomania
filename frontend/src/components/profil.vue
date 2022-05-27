@@ -39,7 +39,7 @@
 
       <!--  création du profil si inscription -->
 
-      <router-link to="/creation_profil">
+      <router-link to="/">
         <button type="submit">Créer mon profil</button>
       </router-link>
 
@@ -48,15 +48,14 @@
 
     <!--   suppression du compte  -->
 
-    <router-link to="/profil">
-      <!-- msg : votre compte est supprimé -->
-      <input type="submit" value="Supprimer mon profil" />
+    <router-link to="/deleteok">
+      <p>Supprimer mon compte</p>
     </router-link>
 
     <!--  connection : modification du profil  
 
       <div class="button2">
-        <router-link to="/profil"> msg : votre profil est modifié 
+        <router-link to="/msg_modif"> msg : votre profil est modifié 
           <input type="submit" value="Modifier mon profil" />
         </router-link>
       </div>
@@ -80,12 +79,12 @@ export default {
 
   data() {
     return {
-      image: "./assets/images/",
+      image: "./assets/images/user_id",
       username: "",
-      nom: "",
-      prenom: "",
+      secteur: "",
       ville: "",
-      info: [],
+      interets: [],
+      sports: [],
     };
   },
 };
@@ -106,22 +105,21 @@ methods: {
 
 <style>
 body {
-  background-color: rgb(165, 165, 179);
+  background-color: #4e5166;
 }
 
 #profil {
   border: 2px solid transparent;
   width: 900px;
-  height: 1000px;
+  height: 900px;
   background-color: white;
   margin: 40px auto;
   color: rgb(29, 29, 58);
 }
 
 #photo {
-  border: 2px solid rgb(29, 29, 58);
+  border: 2px solid #4e5166;
   border-radius: 50%;
-
   padding: 30px 30px;
   width: 50px;
   height: 50px;
@@ -169,7 +167,7 @@ img {
 }
 
 button {
-  background: rgb(165, 165, 179);
+  background: #4e5166;
   color: white;
   font-size: 1em;
   font-weight: bold;
@@ -177,11 +175,15 @@ button {
   height: 40px;
   transform: scale(1);
   border-radius: 20px;
-  border: 2px solid rgb(165, 165, 179);
+  border: 2px solid #4e5166;
   margin-top: 40px;
 }
 button:hover {
   transform: scale(1.15);
+}
+
+p {
+  color: #fd2d01;
 }
 
 @media screen and (max-width: 768px) {

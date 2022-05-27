@@ -33,16 +33,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+#navigation {
+  margin-bottom: 50px;
+}
+
 ul {
   display: flex;
-  flex-direction: row;
-  width: 900px;
-  margin-left: auto;
-  margin-right: auto;
   justify-content: space-around;
   align-items: center;
   list-style-type: none;
-  margin-top: 30px;
 }
 
 nav {
@@ -68,8 +67,9 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-left: 15px;
+    margin-left: 0px;
     margin-top: 0px;
+    padding-left: 15px;
   }
 
   a {
