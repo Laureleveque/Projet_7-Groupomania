@@ -6,8 +6,7 @@ import LogoHeader from "../components/logo.vue";
 import ReseauPage from "../components/reseau.vue";
 import LoginPage from "../components/login.vue";
 import SignupPage from "../components/signup.vue";
-import SignupokPage from "../components/signupok.vue";
-import DeleteokPage from "../components/deleteok.vue";
+import DeletePage from "../components/delete.vue";
 import LogoutPage from "../components/logout.vue";
 import NavigationPage from "../components/navigation.vue";
 import ProfilPage from "../components/profil.vue";
@@ -34,15 +33,9 @@ const routes = [
   },
 
   {
-    path: "/signupok",
-    name: "Signupok",
-    component: SignupokPage,
-  },
-
-  {
-    path: "/deleteok",
-    name: "Deleteok",
-    component: DeleteokPage,
+    path: "/delete",
+    name: "Delete",
+    component: DeletePage,
   },
 
   {

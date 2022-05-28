@@ -19,7 +19,7 @@
         <input type="password" v-model="password" id="password" required />
       </div>
 
-      <router-link to="/signupok">
+      <router-link to="/profil">
         <button type="submit">S'inscrire</button>
       </router-link>
     </form>
@@ -39,16 +39,31 @@ export default {
 
   data() {
     return {
-      id: "",
-      username: "",
       email: "",
       password: "",
     };
   },
+  /*
+  methods {
+  Signup() {
+    axios.post(`/signup`, {
+      email: this.email,
+      password: this.password,
+    })
+      .then((res) => {
+        router.push(`/profil`);
+      })
+      .catch((error) => {
+        this.errorMessage = error;
+      });
+  },
+  */
 };
 </script>
 
 <style scoped lang="scss">
+//@import "./scss/variables.sass";
+
 body {
   background-color: #4e5166;
   margin: 0px;

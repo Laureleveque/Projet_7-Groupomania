@@ -48,3 +48,33 @@ exports.login = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ message: "erreur serveur" }));
 };
+
+/* récupération du profil de l'utilisateur pour modification
+
+exports.profil = (req, res, next) => {
+ Profil.findOne({ _id: req.params.id })
+ .then((user) => {
+      if (!user) {
+        return res.status(401).json({ message: "Utilisateur non trouvé !" });
+      }
+.then(() => res.status(200).json({ message: 'Profil  modifié' }))
+        .catch(error => res.status(400).json({ error }));
+    })
+    .catch(error => res.status(500).json({ error }))
+}
+
+// suppression du compte de l'utilisateur
+
+exports.delete = (req, res, next) => {
+  Profil.findOne({ _id: req.params.id })
+ .then((user) => {
+      if (!user) {
+        return res.status(401).json({ message: "Utilisateur non trouvé !" });
+      }
+.then(() => res.status(200).json({ message: 'Compte supprimé' }))
+        .catch(error => res.status(400).json({ error }));
+    })
+    .catch(error => res.status(500).json({ error }))
+}
+
+*/

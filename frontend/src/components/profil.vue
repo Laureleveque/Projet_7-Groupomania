@@ -14,52 +14,58 @@
         <img v-bind:src="images" alt="" />
       </div>
       <br />
-      <div id="pseudo">Mon pseudo :</div>
-      <br />
-      <div>
-        <label for="secteur">
-          Secteur d'activité : ( RH, Gestion, Informatique,...) : </label
-        ><br />
-        <input type="secteur" v-model="secteur" id="secteur" />
-      </div>
-      <div>
-        <label for="ville"> Ville : </label><br />
-        <input type="ville" v-model="ville" id="ville" />
-      </div>
-      <br />
-      <div>
-        <label for="interets"> Intérêts : </label><br />
-        <input type="interets" v-model="interets" id="interets" />
-      </div>
 
       <div>
-        <label for="sports"> Sports : </label><br />
-        <input type="sports" v-model="sports" id="sports" />
+        <h3>Nom d'utilisateur : {{}}</h3>
+        <input type="text" v-model="pseudo" class="cadre" required />
+      </div>
+
+      <br />
+      <div>
+        <h3>Secteur d'activité : ( RH, Gestion, Informatique,...) : {{}}</h3>
+        <input type="text" v-model="secteur" class="cadre" />
+      </div>
+
+      <br />
+      <div>
+        <h3>Ville : {{}}</h3>
+        <input type="text" v-model="ville" class="cadre" />
+      </div>
+
+      <br />
+      <div>
+        <h3>Intérêts : {{}}</h3>
+        <input type="text" v-model="interets" class="cadre" />
+      </div>
+
+      <br />
+      <div>
+        <h3>Sports : {{}}</h3>
+        <input type="text" v-model="sports" class="cadre" />
       </div>
 
       <!--  création du profil si inscription -->
 
-      <router-link to="/">
-        <button type="submit">Créer mon profil</button>
+      <router-link to="/accueil">
+        <button type="submit" @click.prevent="createProfil">
+          Créer mon profil
+        </button>
       </router-link>
 
-      <!-- msg : votre profil est créé -->
+      <!--  modification du profil si déja inscrit 
+      
+        <router-link to="/accueil">
+          <button type="submit" @click.prevent="updateProfil">
+            Modifier mon profil
+          </button>
+        </router-link>
+      -->
     </div>
-
     <!--   suppression du compte  -->
 
-    <router-link to="/deleteok">
+    <router-link to="/delete" @click.prevent="deleteProfil">
       <p>Supprimer mon compte</p>
     </router-link>
-
-    <!--  connection : modification du profil  
-
-      <div class="button2">
-        <router-link to="/msg_modif"> msg : votre profil est modifié 
-          <input type="submit" value="Modifier mon profil" />
-        </router-link>
-      </div>
-      -->
   </body>
 </template>
 
@@ -67,6 +73,7 @@
 import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
 
+//import { api } from '';
 //import router from '../router/index.js';
 
 export default {
@@ -79,8 +86,8 @@ export default {
 
   data() {
     return {
-      image: "./assets/images/user_id",
-      username: "",
+      pseudo: "",
+      image: "./assets/images/",
       secteur: "",
       ville: "",
       interets: [],
@@ -90,16 +97,64 @@ export default {
 };
 /*
 methods: {
-    
-  createProfil()  // créer un profil    
 
-  getOneProfil() // récupérer un profil
-                
-  updateProfil() // modifier un profil
-                
-	deleteprofil() // supprimer un profil soit le compte
+    // création du profil
 
- }
+  createProfil() {
+    if(this.file != '') {
+      formData.append("pseudo",this.file)
+      formData.append("image",this.file)
+      formData.append("secteur",this.file)
+      formData.append("ville",this.file)
+      formData.append("interets",this.file)
+      formData.append("sports",this.file)
+
+  axios.post
+  //then
+
+  .catch(error => console.log(error));
+
+  }};
+/*
+
+  // modifier le profil
+  
+  if(this.file != '') 
+  {axios.update (`/update`, {
+      formData.append("pseudo",this.file)
+      formData.append("image",this.file)
+      formData.append("secteur",this.file)
+      formData.append("ville",this.file)
+      formData.append("interets",this.file)
+      formData.append("sports",this.file)
+}
+  .then((res) => {
+        router.push(`/profil`);
+      })
+  .catch((error) => {
+        this.errorMessage = error;
+      }); 
+  },
+
+    // suppression du compte
+
+    deleteProfil() {
+    axios.delete(`/delete`, {
+      formData.append("pseudo",this.file)
+      formData.append("image",this.file)
+      formData.append("secteur",this.file)
+      formData.append("ville",this.file)
+      formData.append("interets",this.file)
+      formData.append("sports",this.file)
+    })
+      .then((res) => {
+        router.push(`/`);
+      })
+      .catch((error) => {
+        this.errorMessage = error;
+      });
+  },
+	
 */
 </script>
 
@@ -111,29 +166,17 @@ body {
 #profil {
   border: 2px solid transparent;
   width: 900px;
-  height: 900px;
+  height: 1000px;
   background-color: white;
   margin: 40px auto;
   color: rgb(29, 29, 58);
 }
 
-#photo {
-  border: 2px solid #4e5166;
-  border-radius: 50%;
-  padding: 30px 30px;
-  width: 50px;
-  height: 50px;
-  margin: 30px auto;
-}
-
-#pseudo {
-  font-size: 25px;
-  font-weight: 600;
-  color: rgb(29, 29, 58);
-  text-align: left;
-  margin: 20px 40px 80px 40px;
-  border-bottom: 4px solid #fd2d01;
-  padding-bottom: 20px;
+.cadre {
+  width: 600px;
+  height: 30px;
+  margin-bottom: 20px;
+  border: 2px solid #737fe0;
 }
 
 img {
@@ -142,28 +185,13 @@ img {
   padding: 15px;
 }
 
-#secteur {
-  width: 500px;
-  height: 30px;
-  margin-bottom: 20px;
-}
-
-#ville {
-  width: 500px;
-  height: 30px;
-  margin-bottom: 20px;
-}
-
-#interets {
-  width: 500px;
-  height: 100px;
-  margin-bottom: 20px;
-}
-
-#sports {
-  width: 500px;
-  height: 100px;
-  margin-bottom: 20px;
+#photo {
+  border: 2px solid #737fe0;
+  border-radius: 50%;
+  padding: 30px 30px;
+  width: 50px;
+  height: 50px;
+  margin: 30px auto;
 }
 
 button {
@@ -178,12 +206,13 @@ button {
   border: 2px solid #4e5166;
   margin-top: 40px;
 }
+
 button:hover {
   transform: scale(1.15);
 }
 
 p {
-  color: #fd2d01;
+  color: #ffd7d7;
 }
 
 @media screen and (max-width: 768px) {
@@ -197,11 +226,10 @@ p {
     padding-right: 10px;
   }
 
-  #pseudo,
-  #secteur,
-  #ville,
-  #interets,
-  #sports {
+  img {
+    width: 60%;
+  }
+  .cadre {
     width: 90%;
   }
 }

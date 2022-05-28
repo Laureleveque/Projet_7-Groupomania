@@ -8,11 +8,15 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
 
+// module pour accéder aux variables d'environnement
+
+const dotenv = require("dotenv");
+dotenv.config();
+
 // accès au corps json de la requête
 app.use(express.json());
 
 const userRoute = require("./route/user"); // inscription et connexion
-
 const postRoute = require("./route/post"); // gestion des posts
 
 // connection à MongoDB

@@ -37,12 +37,31 @@ export default {
   components: {
     LogoHeader,
   },
+
   data() {
     return {
       email: "",
       password: "",
     };
   },
+
+  /*
+
+  methods {
+  Login() {
+    axios.post(`/login`, {
+      email: this.email,
+      password: this.password,
+    })
+      .then((res) => {
+        
+      })
+      .catch((error) => {
+        this.errorMessage = error;
+      });
+  },
+  }
+  */
 };
 </script>
 

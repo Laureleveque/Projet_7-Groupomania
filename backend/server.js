@@ -1,7 +1,9 @@
+// Programme : attente et réponse des requêtes http
+
 // configuration du serveur
 
-const http = require("http");
-const app = require("./app");
+const http = require("http"); // importation du package http de Node
+const app = require("./app"); // // importation du fichier app.js (application Express)
 
 // fonction normalisation de port : renvoie un port valide
 
