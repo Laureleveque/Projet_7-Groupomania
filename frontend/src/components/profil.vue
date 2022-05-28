@@ -73,7 +73,6 @@
 import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
 
-//import { api } from '';
 //import router from '../router/index.js';
 
 export default {
@@ -101,32 +100,33 @@ methods: {
     // création du profil
 
   createProfil() {
-    if(this.file != '') {
-      formData.append("pseudo",this.file)
-      formData.append("image",this.file)
-      formData.append("secteur",this.file)
-      formData.append("ville",this.file)
-      formData.append("interets",this.file)
-      formData.append("sports",this.file)
-
-  axios.post
-  //then
-
-  .catch(error => console.log(error));
-
-  }};
+     axios.post (`/`, {
+      "pseudo":this.pseudo,
+      "image":this.image,
+      "secteur":this.secteur,
+      "ville":this.ville,
+      "interets":this.interets,
+      "sports":this.sports,
+      }
+.then((res) => {
+        router.push(`/profil`);
+      })
+  .catch((error) => {
+        this.errorMessage = error;
+      }); 
+  },
 /*
 
   // modifier le profil
   
-  if(this.file != '') 
-  {axios.update (`/update`, {
-      formData.append("pseudo",this.file)
-      formData.append("image",this.file)
-      formData.append("secteur",this.file)
-      formData.append("ville",this.file)
-      formData.append("interets",this.file)
-      formData.append("sports",this.file)
+  modifyProfil() {
+   axios.update (`/update`, {
+      "pseudo":this.pseudo,
+      "image":this.image,
+      "secteur":this.secteur,
+      "ville":this.ville,
+      "interets":this.interets,
+      "sports":this.sports,
 }
   .then((res) => {
         router.push(`/profil`);
@@ -140,12 +140,12 @@ methods: {
 
     deleteProfil() {
     axios.delete(`/delete`, {
-      formData.append("pseudo",this.file)
-      formData.append("image",this.file)
-      formData.append("secteur",this.file)
-      formData.append("ville",this.file)
-      formData.append("interets",this.file)
-      formData.append("sports",this.file)
+      "pseudo":this.pseudo,
+      "image":this.image,
+      "secteur":this.secteur,
+      "ville":this.ville,
+      "interets":this.interets,
+      "sports":this.sports,
     })
       .then((res) => {
         router.push(`/`);
