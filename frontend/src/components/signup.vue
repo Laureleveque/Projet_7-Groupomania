@@ -20,7 +20,7 @@
       </div>
 
       <router-link to="/profil">
-        <button type="submit">S'inscrire</button>
+        <button v-on:click="signup()" type="submit">S'inscrire</button>
       </router-link>
     </form>
   </body>
@@ -28,6 +28,7 @@
 
 <script>
 import LogoHeader from "../components/logo.vue";
+const axios = require("axios").default;
 
 //import router from '../router/index.js';
 
@@ -43,21 +44,22 @@ export default {
       password: "",
     };
   },
-  /*
-  methods {
-  Signup() {
-    axios.post(`/signup`, {
-      email: this.email,
-      password: this.password,
-    })
-      .then((res) => {
-        router.push(`/profil`);
-      })
-      .catch((error) => {
-        this.errorMessage = error;
-      });
+
+  methods: {
+    signup() {
+      axios
+        .post(`http://127.0.0.1:3000/api/user/signup`, {
+          email: this.email,
+          password: this.password,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          this.errorMessage = error;
+        });
+    },
   },
-  */
 };
 </script>
 

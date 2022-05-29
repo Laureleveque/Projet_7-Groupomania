@@ -21,7 +21,7 @@ const routes = [
   },
 
   {
-    path: "/reseau",
+    path: "/",
     name: "Reseau",
     component: ReseauPage,
   },

@@ -51,7 +51,7 @@ exports.login = (req, res, next) => {
 
 /* récupération du profil de l'utilisateur pour modification
 
-exports.profil = (req, res, next) => {
+exports.update = (req, res, next) => {
  Profil.findOne({ _id: req.params.id })
  .then((user) => {
       if (!user) {

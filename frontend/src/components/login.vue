@@ -21,7 +21,7 @@
       </div>
 
       <router-link to="/accueil">
-        <button type="submit">Se connecter</button>
+        <button v-on:click="login()" type="submit">Se connecter</button>
       </router-link>
     </form>
   </body>
@@ -29,6 +29,7 @@
 
 <script>
 import LogoHeader from "../components/logo.vue";
+const axios = require("axios").default;
 
 //import router from '../router/index.js';
 
@@ -45,23 +46,22 @@ export default {
     };
   },
 
-  /*
-
-  methods {
-  Login() {
-    axios.post(`/login`, {
-      email: this.email,
-      password: this.password,
-    })
-      .then((res) => {
-        
-      })
-      .catch((error) => {
-        this.errorMessage = error;
-      });
+  methods: {
+    login() {
+      // vérification des données
+      axios
+        .post(`http://127.0.0.1:3000/api/user/login`, {
+          email: this.email,
+          password: this.password,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          this.errorMessage = error;
+        });
+    },
   },
-  }
-  */
 };
 </script>
 

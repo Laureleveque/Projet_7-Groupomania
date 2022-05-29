@@ -47,15 +47,15 @@
       <!--  création du profil si inscription -->
 
       <router-link to="/accueil">
-        <button type="submit" @click.prevent="createProfil">
+        <button v-on:click="createProfil()" type="submit">
           Créer mon profil
         </button>
       </router-link>
 
-      <!--  modification du profil si déja inscrit 
+      <!--  bouton modification du profil si déja inscrit 
       
         <router-link to="/accueil">
-          <button type="submit" @click.prevent="updateProfil">
+          <button v-on:click="modifyProfil()" type="submit">
             Modifier mon profil
           </button>
         </router-link>
@@ -63,8 +63,8 @@
     </div>
     <!--   suppression du compte  -->
 
-    <router-link to="/delete" @click.prevent="deleteProfil">
-      <p>Supprimer mon compte</p>
+    <router-link to="/delete">
+      <p v-on:click="deleteProfil()">Supprimer mon compte</p>
     </router-link>
   </body>
 </template>
@@ -72,6 +72,7 @@
 <script>
 import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
+const axios = require("axios").default;
 
 //import router from '../router/index.js';
 
@@ -86,41 +87,60 @@ export default {
   data() {
     return {
       pseudo: "",
-      image: "./assets/images/",
+      //photo: "./assets/images/",
       secteur: "",
       ville: "",
-      interets: [],
-      sports: [],
+      interets: "",
+      sports: "",
     };
+  },
+  methods: {
+    // création du profil
+
+    createProfil() {
+      axios
+        .post(`http://127.0.0.1:3000/api/profil/`, {
+          pseudo: this.pseudo,
+          photo: this.photo,
+          secteur: this.secteur,
+          ville: this.ville,
+          interets: this.interets,
+          sports: this.sports,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          this.errorMessage = error;
+        });
+    },
+
+    // suppression du compte
+
+    deleteProfil() {
+      axios
+        .delete(`http://127.0.0.1:3000/api/user/delete`, {
+          pseudo: this.pseudo,
+          image: this.image,
+          secteur: this.secteur,
+          ville: this.ville,
+          interets: this.interets,
+          sports: this.sports,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          this.errorMessage = error;
+        });
+    },
   },
 };
 /*
-methods: {
-
-    // création du profil
-
-  createProfil() {
-     axios.post (`/`, {
-      "pseudo":this.pseudo,
-      "image":this.image,
-      "secteur":this.secteur,
-      "ville":this.ville,
-      "interets":this.interets,
-      "sports":this.sports,
-      }
-.then((res) => {
-        router.push(`/profil`);
-      })
-  .catch((error) => {
-        this.errorMessage = error;
-      }); 
-  },
-/*
-
   // modifier le profil
-  
+
   modifyProfil() {
-   axios.update (`/update`, {
+   axios.put (`/update`, {
       "pseudo":this.pseudo,
       "image":this.image,
       "secteur":this.secteur,
@@ -129,33 +149,14 @@ methods: {
       "sports":this.sports,
 }
   .then((res) => {
-        router.push(`/profil`);
+         console.log(res);
       })
   .catch((error) => {
         this.errorMessage = error;
-      }); 
-  },
-
-    // suppression du compte
-
-    deleteProfil() {
-    axios.delete(`/delete`, {
-      "pseudo":this.pseudo,
-      "image":this.image,
-      "secteur":this.secteur,
-      "ville":this.ville,
-      "interets":this.interets,
-      "sports":this.sports,
-    })
-      .then((res) => {
-        router.push(`/`);
       })
-      .catch((error) => {
-        this.errorMessage = error;
-      });
-  },
-	
-*/
+  )};
+
+  */
 </script>
 
 <style>

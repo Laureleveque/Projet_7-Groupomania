@@ -18,6 +18,7 @@ app.use(express.json());
 
 const userRoute = require("./route/user"); // inscription et connexion
 const postRoute = require("./route/post"); // gestion des posts
+const profilRoute = require("./route/profil");
 
 // connection à MongoDB
 mongoose
@@ -48,6 +49,7 @@ app.use(bodyParser.json());
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/api/user", userRoute);
 app.use("/api/post", postRoute);
+app.use("/api/profil", profilRoute);
 
 // exportation de l'application
 
