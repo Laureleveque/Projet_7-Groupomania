@@ -1,5 +1,3 @@
-<!-- composant Signup -->
-
 <template>
   <body>
     <header>
@@ -8,29 +6,40 @@
 
     <h1>Inscription au réseau social de Groupomania</h1>
 
-    <form>
-      <div>
-        <label for="email">Email :</label><br />
-        <input type="email" v-model="email" id="email" required />
-      </div>
+    <main>
+      <form @submit="checkForm" method="post">
+        <div>
+          <label for="email">Email :</label><br />
+          <input
+            type="email"
+            name="email"
+            v-model="email"
+            id="email"
+            required
+          />
+        </div>
 
-      <div>
-        <label for="password">Mot de passe :</label><br />
-        <input type="password" v-model="password" id="password" required />
-      </div>
+        <div>
+          <label for="password">Mot de passe :</label><br />
+          <input type="password" v-model="password" id="password" required />
+        </div>
 
-      <router-link to="/profil">
-        <button v-on:click="signup()" type="submit">S'inscrire</button>
-      </router-link>
-    </form>
+        <p v-if="errors.length">
+          <b>Merci de corriger les erreurs suivantes :</b>
+          <ul>
+            <li v-for="error in errors" :key="error">{{ error }}</li>
+          </ul>
+        </p>
+
+        <button type="submit">S'inscrire</button>
+      </form>
+    </main>
   </body>
 </template>
 
 <script>
 import LogoHeader from "../components/logo.vue";
 const axios = require("axios").default;
-
-//import router from '../router/index.js';
 
 export default {
   name: "SignupPage",
@@ -40,12 +49,39 @@ export default {
 
   data() {
     return {
+      errors: [],
       email: "",
       password: "",
     };
   },
 
   methods: {
+    checkForm(e) {
+      // gestion des erreurs
+      this.errors = [];
+
+      // vérification si email non vide et format requis
+      var re =
+        /(^$|^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)/;
+
+      if (!this.email || !re.test(this.email)) {
+        this.errors.push("Inscrire une adresse mail valide");
+      }
+
+      // vérification du mot de passe entre 3 et 10 cararctères
+      if (this.password.length < 3 || this.password.length > 10) {
+        this.errors.push(
+          "Mot de passe entre 3 et 10 caractères"
+        );
+      }
+
+      //si aucune erreur
+      if (!this.errors.length) {
+        this.signup(); // envoi des données
+      }
+      e.preventDefault();
+    },
+
     signup() {
       axios
         .post(`http://127.0.0.1:3000/api/user/signup`, {
@@ -54,6 +90,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
+          document.location = "/#/signupok"
         })
         .catch((error) => {
           this.errorMessage = error;
@@ -64,8 +101,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-//@import "./scss/variables.sass";
-
 body {
   background-color: #4e5166;
   margin: 0px;

@@ -11,6 +11,7 @@ import LogoutPage from "../components/logout.vue";
 import NavigationPage from "../components/navigation.vue";
 import ProfilPage from "../components/profil.vue";
 import AccueilPage from "../components/accueil.vue";
+import SignupokPage from "../components/signupok.vue";
 
 const routes = [
   // tableau contenant des objets qui définissent chaque route
@@ -30,6 +31,12 @@ const routes = [
     path: "/signup",
     name: "Signup",
     component: SignupPage,
+  },
+
+  {
+    path: "/signupok",
+    name: "Signupok",
+    component: SignupokPage,
   },
 
   {

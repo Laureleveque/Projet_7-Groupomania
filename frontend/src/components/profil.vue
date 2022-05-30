@@ -46,11 +46,7 @@
 
       <!--  création du profil si inscription -->
 
-      <router-link to="/accueil">
-        <button v-on:click="createProfil()" type="submit">
-          Créer mon profil
-        </button>
-      </router-link>
+      <button type="submit">Créer mon profil</button>
 
       <!--  bouton modification du profil si déja inscrit 
       
@@ -109,6 +105,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
+          document.location = "/#/accueil";
         })
         .catch((error) => {
           this.errorMessage = error;
@@ -119,7 +116,7 @@ export default {
 
     deleteProfil() {
       axios
-        .delete(`http://127.0.0.1:3000/api/user/delete`, {
+        .delete(`http://127.0.0.1:3000/api/profil/`, {
           pseudo: this.pseudo,
           image: this.image,
           secteur: this.secteur,

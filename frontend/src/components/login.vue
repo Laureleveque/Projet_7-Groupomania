@@ -12,7 +12,6 @@
       <div>
         <label for="email">Email : </label><br />
         <input type="email" v-model="email" id="email" required />
-        <p id="emailErrorMsg"></p>
       </div>
 
       <div>
@@ -20,9 +19,7 @@
         <input type="password" v-model="password" id="password" required />
       </div>
 
-      <router-link to="/accueil">
-        <button v-on:click="login()" type="submit">Se connecter</button>
-      </router-link>
+      <button type="submit">Se connecter</button>
     </form>
   </body>
 </template>
@@ -30,8 +27,6 @@
 <script>
 import LogoHeader from "../components/logo.vue";
 const axios = require("axios").default;
-
-//import router from '../router/index.js';
 
 export default {
   name: "LoginPage",
@@ -48,13 +43,13 @@ export default {
 
   methods: {
     login() {
-      // vérification des données
       axios
         .post(`http://127.0.0.1:3000/api/user/login`, {
           email: this.email,
           password: this.password,
         })
         .then((res) => {
+          document.location = "/#/accueil";
           console.log(res);
         })
         .catch((error) => {

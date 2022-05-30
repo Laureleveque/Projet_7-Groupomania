@@ -18,7 +18,7 @@ app.use(express.json());
 
 const userRoute = require("./route/user"); // inscription et connexion
 const postRoute = require("./route/post"); // gestion des posts
-const profilRoute = require("./route/profil");
+const profilRoute = require("./route/profil"); // gestion du profil
 
 // connection à MongoDB
 mongoose
