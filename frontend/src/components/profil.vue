@@ -17,36 +17,25 @@
 
       <div>
         <h3>Nom d'utilisateur : {{}}</h3>
-        <input type="text" v-model="pseudo" class="cadre" required />
+        <input type="text" v-model="pseudo" id="pseudo" required />
       </div>
 
       <br />
-      <div>
-        <h3>Secteur d'activité : ( RH, Gestion, Informatique,...) : {{}}</h3>
-        <input type="text" v-model="secteur" class="cadre" />
-      </div>
 
-      <br />
       <div>
-        <h3>Ville : {{}}</h3>
-        <input type="text" v-model="ville" class="cadre" />
+        <h3>Email : {{}}</h3>
+        <input type="email" v-model="Email" id="email" />
       </div>
 
       <br />
       <div>
         <h3>Intérêts : {{}}</h3>
-        <input type="text" v-model="interets" class="cadre" />
-      </div>
-
-      <br />
-      <div>
-        <h3>Sports : {{}}</h3>
-        <input type="text" v-model="sports" class="cadre" />
+        <input type="text" v-model="interets" id="interets" />
       </div>
 
       <!--  création du profil si inscription -->
 
-      <button type="submit">Créer mon profil</button>
+      <button v-on:click="createProfil" type="submit">Créer mon profil</button>
 
       <!--  bouton modification du profil si déja inscrit 
       
@@ -68,9 +57,8 @@
 <script>
 import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
-const axios = require("axios").default;
 
-//import router from '../router/index.js';
+const axios = require("axios").default;
 
 export default {
   name: "ProfilPage",
@@ -84,10 +72,8 @@ export default {
     return {
       pseudo: "",
       //photo: "./assets/images/",
-      secteur: "",
-      ville: "",
+      email: "",
       interets: "",
-      sports: "",
     };
   },
   methods: {
@@ -95,17 +81,15 @@ export default {
 
     createProfil() {
       axios
-        .post(`http://127.0.0.1:3000/api/profil/`, {
+        .post(`http://127.0.0.1:3000/api/profil/:id`, {
           pseudo: this.pseudo,
           photo: this.photo,
-          secteur: this.secteur,
-          ville: this.ville,
+          email: this.email,
           interets: this.interets,
-          sports: this.sports,
         })
         .then((res) => {
           console.log(res);
-          document.location = "/#/accueil";
+          document.location = "/#/profil";
         })
         .catch((error) => {
           this.errorMessage = error;
@@ -118,11 +102,9 @@ export default {
       axios
         .delete(`http://127.0.0.1:3000/api/profil/`, {
           pseudo: this.pseudo,
-          image: this.image,
-          secteur: this.secteur,
-          ville: this.ville,
+          photo: this.photo,
+          email: this.email,
           interets: this.interets,
-          sports: this.sports,
         })
         .then((res) => {
           console.log(res);
@@ -139,11 +121,9 @@ export default {
   modifyProfil() {
    axios.put (`/update`, {
       "pseudo":this.pseudo,
-      "image":this.image,
-      "secteur":this.secteur,
-      "ville":this.ville,
-      "interets":this.interets,
-      "sports":this.sports,
+      "photo":this.photo,
+      "email":this.email, 
+      "interets":this.interets,     
 }
   .then((res) => {
          console.log(res);
@@ -163,18 +143,15 @@ body {
 
 #profil {
   border: 2px solid transparent;
-  width: 900px;
-  height: 1000px;
-  background-color: white;
   margin: 40px auto;
-  color: rgb(29, 29, 58);
 }
 
-.cadre {
-  width: 600px;
+#pseudo,
+#email,
+#interets {
+  width: 400px;
   height: 30px;
   margin-bottom: 20px;
-  border: 2px solid #737fe0;
 }
 
 img {
@@ -193,15 +170,15 @@ img {
 }
 
 button {
-  background: #4e5166;
+  background: #737fe0;
   color: white;
   font-size: 1em;
   font-weight: bold;
   width: 200px;
-  height: 40px;
+  height: 50px;
   transform: scale(1);
   border-radius: 20px;
-  border: 2px solid #4e5166;
+  border: 2px solid #737fe0;
   margin-top: 40px;
 }
 
@@ -224,6 +201,11 @@ p {
     padding-right: 10px;
   }
 
+  #pseudo,
+  #email,
+  #interets {
+    width: 90%;
+  }
   img {
     width: 60%;
   }

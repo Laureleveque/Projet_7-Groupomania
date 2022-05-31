@@ -60,6 +60,7 @@ export default {
       // gestion des erreurs
       this.errors = [];
 
+
       // vérification si email non vide et format requis
       var re =
         /(^$|^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)/;
@@ -74,6 +75,7 @@ export default {
           "Mot de passe entre 3 et 10 caractères"
         );
       }
+
 
       //si aucune erreur
       if (!this.errors.length) {

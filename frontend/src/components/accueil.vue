@@ -11,15 +11,6 @@
       <div id="photo">
         <img v-bind:src="images" alt="" />
       </div>
-      <div class="nom">Laurence</div>
-      <div class="post">
-        <p>{{ msg }}</p>
-      </div>
-    </div>
-    <div class="utilisateur">
-      <div id="photo">
-        <img v-bind:src="images" alt="" />
-      </div>
       <div class="nom">Thibault</div>
       <div class="post">
         <p>{{ msg }}</p>
@@ -102,20 +93,18 @@ export default {
 <style>
 #forum {
   border: 2px solid transparent;
-  width: 95%;
-  background-color: white;
   margin: 20px auto;
   color: rgb(29, 29, 58);
 }
 
 .nom {
-  text-align: left;
+  text-align: center;
   font-size: 20px;
   font-weight: 500;
-  padding-left: 30px;
+
   padding-bottom: 10px;
   padding-top: 10px;
-  border-bottom: 3px solid #4e5166;
+  border-bottom: 3px solid black;
 }
 
 #photo {
@@ -123,7 +112,7 @@ export default {
   padding: 30px 30px;
   width: 40px;
   height: 40px;
-  margin-left: 20px;
+
   margin-bottom: 10px;
 }
 
