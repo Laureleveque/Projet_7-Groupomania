@@ -39,7 +39,6 @@
 
 <script>
 import LogoHeader from "../components/logo.vue";
-const axios = require("axios").default;
 
 export default {
   name: "SignupPage",
@@ -60,7 +59,6 @@ export default {
       // gestion des erreurs
       this.errors = [];
 
-
       // vérification si email non vide et format requis
       var re =
         /(^$|^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)/;
@@ -76,30 +74,52 @@ export default {
         );
       }
 
-
       //si aucune erreur
       if (!this.errors.length) {
-        this.signup(); // envoi des données
+        this.send(); // envoi des données
       }
       e.preventDefault();
     },
 
-    signup() {
-      axios
-        .post(`http://127.0.0.1:3000/api/user/signup`, {
-          email: this.email,
-          password: this.password,
-        })
-        .then((res) => {
-          console.log(res);
-          document.location = "/#/signupok"
-        })
-        .catch((error) => {
-          this.errorMessage = error;
-        });
-    },
-  },
-};
+// envoi requête post pour inscription
+
+
+    send() {
+      fetch("http://localhost:3000/api/user/signup", {
+
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify( // transformation en JSON
+          {
+            email: this.email,
+            password: this.password
+          }
+        ) 
+        
+      })
+
+      .then(function (res) { // réponse à la requête
+      
+        if (res.ok) { // vérification déroulement de la requête
+          return res.json(); // résultat de la requête au format json (promise)
+        }
+      })
+
+      .then(function () {   // récupération de l'identifiant du profil
+        document.location.href = "/#/signupOk"; // lien vers la page ok avec l'identifiant du profil
+      })
+
+      .catch(function (err) {
+        console.error(err);
+      })
+    }
+  }
+}
+
 </script>
 
 <style scoped lang="scss">

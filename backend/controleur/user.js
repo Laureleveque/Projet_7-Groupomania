@@ -31,6 +31,7 @@ exports.login = (req, res, next) => {
       }
       bcrypt
         .compare(req.body.password, user.password)
+
         .then((valid) => {
           if (!valid) {
             return res

@@ -16,20 +16,20 @@
       <br />
 
       <div>
-        <h3>Nom d'utilisateur : {{}}</h3>
+        <h3>Nom d'utilisateur :</h3>
         <input type="text" v-model="pseudo" id="pseudo" required />
       </div>
 
       <br />
 
       <div>
-        <h3>Email : {{}}</h3>
-        <input type="email" v-model="Email" id="email" />
+        <h3>Email :</h3>
+        <input type="email" v-model="email" id="email" />
       </div>
 
       <br />
       <div>
-        <h3>Intérêts : {{}}</h3>
+        <h3>Intérêts :</h3>
         <input type="text" v-model="interets" id="interets" />
       </div>
 
@@ -58,8 +58,6 @@
 import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
 
-const axios = require("axios").default;
-
 export default {
   name: "ProfilPage",
 
@@ -80,60 +78,121 @@ export default {
     // création du profil
 
     createProfil() {
-      axios
-        .post(`http://127.0.0.1:3000/api/profil/:id`, {
-          pseudo: this.pseudo,
-          photo: this.photo,
-          email: this.email,
-          interets: this.interets,
+      fetch("http://localhost:3000/api/profil/createProfil", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(
+          // transformation en JSON
+          {
+            pseudo: this.pseudo,
+            email: this.email,
+            interests: this.interests,
+          }
+        ),
+      })
+        .then(function (res) {
+          // réponse à la requête
+
+          if (res.ok) {
+            // vérification déroulement de la requête
+            return res.json(); // résultat de la requête au format json (promise)
+          }
         })
-        .then((res) => {
-          console.log(res);
-          document.location = "/#/profil";
+
+        .then(function () {
+          // récupération de l'identifiant du profil
+          document.location.href = "/#/accueil";
         })
-        .catch((error) => {
-          this.errorMessage = error;
+
+        .catch(function (err) {
+          console.error(err);
         });
     },
 
     // suppression du compte
 
     deleteProfil() {
-      axios
-        .delete(`http://127.0.0.1:3000/api/profil/`, {
-          pseudo: this.pseudo,
-          photo: this.photo,
-          email: this.email,
-          interets: this.interets,
+      fetch("http://localhost:3000/api/profil/deleteProfil", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(
+          // transformation en JSON
+          {
+            pseudo: this.pseudo,
+            email: this.email,
+            interest: this.interest,
+          }
+        ),
+      })
+        .then(function (res) {
+          // réponse à la requête
+
+          if (res.ok) {
+            // vérification déroulement de la requête
+            return res.json(); // résultat de la requête au format json (promise)
+          }
         })
-        .then((res) => {
-          console.log(res);
+
+        .then(function () {
+          // récupération de l'identifiant du profil
+          document.location.href = "/#/delete"; //
         })
-        .catch((error) => {
-          this.errorMessage = error;
+
+        .catch(function (err) {
+          console.error(err);
         });
     },
   },
 };
+
 /*
   // modifier le profil
 
-  modifyProfil() {
-   axios.put (`/update`, {
-      "pseudo":this.pseudo,
-      "photo":this.photo,
-      "email":this.email, 
-      "interets":this.interets,     
-}
-  .then((res) => {
-         console.log(res);
-      })
-  .catch((error) => {
-        this.errorMessage = error;
-      })
-  )};
+    modifyProfil() {
+      fetch("http://localhost:3000/api/user/login", {
 
-  */
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(
+          {
+            pseudo: this.pseudo,
+            email: this.email,
+            interest: this.interest
+          }
+        ) // transformation en JSON
+
+      })
+
+      .then(function (res) { // réponse à la requête
+
+        if (res.ok) { // vérification déroulement de la requête
+          return res.json(); // résultat de la requête au format json (promise)
+        }
+      })
+
+      .then(function () {    
+        document.location.href = "/#/profil";  
+      })
+
+      .catch(function (err) {
+        console.error(err);
+      })
+    }
+    }
+    };
+*/
 </script>
 
 <style>

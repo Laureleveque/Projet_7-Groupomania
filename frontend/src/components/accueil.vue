@@ -101,8 +101,7 @@ export default {
   text-align: center;
   font-size: 20px;
   font-weight: 500;
-
-  padding-bottom: 10px;
+  padding-bottom: 200px;
   padding-top: 10px;
   border-bottom: 3px solid black;
 }

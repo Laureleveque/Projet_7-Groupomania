@@ -36,7 +36,7 @@
 
 <script>
 import LogoHeader from "../components/logo.vue";
-const axios = require("axios").default;
+//const axios = require("axios").default;
 
 export default {
   name: "LoginPage",
@@ -76,29 +76,49 @@ export default {
 
       //si aucune erreur
       if (!this.errors.length) {
-        this.login(); 
+        this.send(); 
       }
       e.preventDefault();
     },
 
-    login() {
-      axios
-        .post(`http://127.0.0.1:3000/api/user/login`, {
-          // authentification des données entrantes
-          email: this.email,
-          password: this.password,
-        })
-        .then((res) => {
-          document.location = "/#/accueil";
-          console.log(res);
-        })
-        .catch((error) => {
-          this.errorMessage = error;
-          
-        });
-    },
-  },
-};
+    // envoi requête post pour connexion
+
+    send() {
+      fetch("http://localhost:3000/api/user/login", {
+
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(
+          {
+            email: this.email,
+            password: this.password
+          }
+        ) // transformation en JSON
+        
+      })
+
+      .then(function (res) { // réponse à la requête
+      
+        if (res.ok) { // vérification déroulement de la requête
+          return res.json(); // résultat de la requête au format json (promise)
+        }
+      })
+
+      .then(function () {   // récupération de l'identifiant du profil
+        document.location.href = "/#/accueil"; // lien vers la page accueil avec l'identifiant du profil
+      })
+
+      .catch(function (err) {
+        console.error(err);
+      })
+    }
+  }
+}
+
 </script>
 
 <style scoped lang="scss">
