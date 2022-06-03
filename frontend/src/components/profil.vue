@@ -29,7 +29,7 @@
 
           <!--  création du profil si inscription -->
 
-          <button type="submit" @click.prevent="send">Créer mon profil</button>
+          <button type="submit" v-on:click="send">Créer mon profil</button>
         </div>
       </form>
 
@@ -76,7 +76,7 @@ export default {
     // création du profil
 
     send() {
-      fetch("http://localhost:3000/api/profil/", {
+      fetch("http://localhost:3000/api/user/createUser", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -116,8 +116,8 @@ export default {
 
     /* récupérer un profil
 
-    getOneProfil() {
-      fetch("http://localhost:3000/api/profil/:id", {
+    getOneUser() {
+      fetch("http://localhost:3000/api/user/getOneUser:id", {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -152,8 +152,8 @@ export default {
 */
     // suppression du compte
 
-    deleteProfil() {
-      fetch("http://localhost:3000/api/profil/:id", {
+    deleteUser() {
+      fetch("http://localhost:3000/api/user/deleteUser/:id", {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -191,8 +191,8 @@ export default {
 
     // modifier le profil
 
-    modifyProfil() {
-      fetch("http://localhost:3000/api/profil/:id", {
+    modifyUser() {
+      fetch("http://localhost:3000/api/user/modifyUser/:id", {
         method: "PUT",
         headers: {
           Accept: "application/json",

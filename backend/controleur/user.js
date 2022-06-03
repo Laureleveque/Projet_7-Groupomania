@@ -1,50 +1,72 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+// Logique métier
+
 const User = require("../modele/user");
 
-// création d'un nouvel utilisateur
+/* route GET récupérer un profil
 
-exports.signup = (req, res) => {
-  bcrypt
-    .hash(req.body.password, 10)
-    .then((hash) => {
-      const user = new User({
-        email: req.body.email,
-        password: hash,
-      });
-      user
-        .save()
-        .then(() => res.status(201).json({ user: user._id }))
-        .catch((error) => res.status(400).json({ error }));
-    })
-    .catch((error) => res.status(500).json({ message: "erreur serveur" }));
+exports.getOneUser = (req, res, next) => {
+  User.findOne({ _id: req.params.id })
+    .then((user) => res.status(200).json(user))
+    .catch((error) =>
+      res.status(403).json({ message: "unauthorized request" })
+    );
+};
+*/
+
+// route POST création d'un profil utilisateur
+
+exports.createUser = (req, res, next) => {
+  const userObject = JSON.parse(req.body.user);
+  delete userObject_id; // suppression de l'identifiant généré automatiquement par MongoDB
+  const user = new User({
+    userId: this.userId,
+    pseudo: this.pseudo,
+    imageUrl: `${req.protocol}://${req.get("host")}/images/${
+      req.file.filename
+    }`,
+  });
+  user
+    .save()
+    .then(() => res.status(201).json({ message: "Profil créé !" }))
+    .catch((error) => res.status(400).json({ error }));
 };
 
-// connection de l'utilisateur
+// route DELETE supprimer un utilisateur
 
-exports.login = (req, res) => {
-  User.findOne({ email: req.body.email })
-    .then((user) => {
-      if (!user) {
-        return res.status(401).json({ message: "Utilisateur non trouvé !" });
+exports.deleteUser = (req, res, next) => {
+  User.findOne({ _id: req.params.id });
+
+  then((user) => {
+    const filename = user.imageUrl.split("/images/")[1];
+    fs.unlink(`images/${filename}`, () => {
+      // La fonction fs.unlink() permet de supprimer l'image du fichier
+      User.deleteOne({ _id: req.params.id })
+        .then(() => res.status(200).json({ message: "Utilisateur supprimé !" }))
+        .catch((error) =>
+          res.status(403).json({ message: "unauthorized request" })
+        );
+    });
+  }).catch((error) => res.status(500).json({ error }));
+};
+
+// route PUT modification/mise à jour d'un utilisateur
+
+exports.modifyUser = (req, res, next) => {
+  const userObject = req.file
+    ? {
+        ...JSON.parse(req.body.user),
+        imageUrl: `${req.protocol}://${req.get("host")}/images/${
+          req.file.filename
+        }`,
       }
-      bcrypt
-        .compare(req.body.password, user.password)
+    : { ...req.body };
 
-        .then((valid) => {
-          if (!valid) {
-            return res
-              .status(401)
-              .json({ message: "Mot de passe incorrect !" });
-          }
-          res.status(200).json({
-            userId: user._id,
-            token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
-              expiresIn: "24h",
-            }),
-          });
-        })
-        .catch((error) => res.status(500).json({ error }));
-    })
-    .catch((error) => res.status(500).json({ message: "erreur serveur" }));
+  User.updateOne(
+    { _id: req.params.id },
+    { ...profilObject, _id: req.params.id }
+  )
+    .then(() => res.status(200).json({ message: "Utilisateur modifié !" }))
+    .catch((error) =>
+      res.status(403).json({ message: "unauthorized request" })
+    );
 };

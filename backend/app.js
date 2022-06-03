@@ -6,19 +6,19 @@ const app = express();
 const mongoose = require("mongoose");
 
 const bodyParser = require("body-parser");
+
 const path = require("path");
 
 // module pour accéder aux variables d'environnement
-
 const dotenv = require("dotenv");
 dotenv.config();
 
 // accès au corps json de la requête
 app.use(express.json());
 
-const userRoute = require("./route/user"); // inscription et connexion
+const userRoute = require("./route/auth"); // inscription et connexion
 const postRoute = require("./route/post"); // gestion des posts
-const profilRoute = require("./route/profil"); // gestion du profil
+const profilRoute = require("./route/user"); // gestion des profils
 
 // connection à MongoDB
 mongoose
@@ -47,9 +47,9 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json()); // bon format
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/api/user", userRoute); // appel des routes de l'utilisateur
+app.use("/api/auth", authRoute); // appel des routes de l'utilisateur
 app.use("/api/post", postRoute);
-app.use("/api/profil", profilRoute);
+app.use("/api/user", userRoute);
 
 // exportation de l'application
 

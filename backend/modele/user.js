@@ -1,18 +1,39 @@
-// création d'un schéma de données pour l'utilisateur (signup et login)
+// création d'un schéma de données pour l'utilisateur'
+
 // utilisation de mongoose pour créer un schéma de données pour la base de données MongoDB
 const mongoose = require("mongoose");
 
-// assure le caractère unique de l'email
-const uniqueValidator = require("mongoose-unique-validator");
+const { timeStamp } = require("console");
+
+const { pathToFileURL } = require("url");
 
 // création d'un schéma de données
-const userSchema = mongoose.Schema({
-  email: { type: String, required: true, unique: true }, // 1 utilisateur = 1 email
-  password: { type: String, required: true },
-});
+const userSchema = mongoose.Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+    },
 
-// améliore les messages d'erreur lors de l'enregistrement de données uniques
-userSchema.plugin(uniqueValidator);
+    imageUrl: {
+      type: String,
+      default: "./profil/image.png",
+    },
+
+    pseudo: { type: String, required: true, unique: true, trimp: true },
+
+    interets: {
+      type: String,
+    },
+
+    likes: {
+      type: [String],
+    },
+  },
+  {
+    timeStamps: true,
+  }
+);
 
 // exportation de ce schéma en tant que modèle Mongoose
-module.exports = mongoose.model("Users", userSchema);
+module.exports = mongoose.model("User", userSchema);

@@ -1,8 +1,18 @@
+// Logique de route
+
 const express = require("express");
 const router = express.Router();
+
+const multer = require("../middleware/multerconfig");
+
 const userCtrl = require("../controleur/user");
 
-router.post("/signup", userCtrl.signup); //
-router.post("/login", userCtrl.login);
+const jwt = require("../middleware/jwt");
 
-module.exports = router;
+// CRUD avec middleware d'authentification auth
+router.post("/", jwt, multer, userCtrl.createUser);
+//router.get("/:id", jwt, userCtrl.getOneProfil);
+router.put("/:id", jwt, multer, userCtrl.modifyUser);
+router.delete("/:id", jwt, userCtrl.deleteUser);
+
+module.exports = router; // on exporte le routeur de ce fichier

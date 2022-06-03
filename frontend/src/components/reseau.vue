@@ -29,8 +29,6 @@
 <script>
 import LogoHeader from "../components/logo.vue";
 
-//import router from '../router/index.js';
-
 export default {
   name: "ReseauPage",
   components: {
