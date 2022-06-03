@@ -1,32 +1,12 @@
 const Post = require("../modele/post");
 
-// route GET récupérer tous les posts
-
-exports.getAllPosts = (req, res, next) => {
-  Post.find()
-    .then((post) => res.status(200).json(post))
-    .catch((error) => res.status(400).json({ error }));
-};
-
-// route GET récupérer un post
-
-exports.getOnePost = (req, res, next) => {
-  Post.findOne({ _id: req.params.id })
-    .then((post) => res.status(200).json(post))
-    //ajouter la possibilité de répondre au post
-
-    .catch((error) =>
-      res.status(403).json({ message: "unauthorized request" })
-    );
-};
-
 // route POST création d'un post
 
 exports.createPost = (req, res, next) => {
   const postObject = JSON.parse(req.body.profil);
   //delete profilObject_id; // suppression de l'identifiant généré automatiquement par MongoDB
   const post = new Post({
-    ...postObject,
+    post: this.post,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,
@@ -53,6 +33,26 @@ exports.deletePost = (req, res, next) => {
         );
     });
   }).catch((error) => res.status(500).json({ error }));
+};
+
+// route GET récupérer tous les posts
+
+exports.getAllPosts = (req, res, next) => {
+  Post.find()
+    .then((post) => res.status(200).json(post))
+    .catch((error) => res.status(400).json({ error }));
+};
+
+// route GET récupérer un post
+
+exports.getOnePost = (req, res, next) => {
+  Post.findOne({ _id: req.params.id })
+    .then((post) => res.status(200).json(post))
+    //ajouter la possibilité de répondre au post
+
+    .catch((error) =>
+      res.status(403).json({ message: "unauthorized request" })
+    );
 };
 
 // route PUT modification d'un post (uniquement par le créateur du post ou le moderateur)

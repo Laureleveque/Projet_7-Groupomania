@@ -1,13 +1,13 @@
-// création d'un schéma de données pour un profil
+// création d'un schéma de données pour le profil
 
 // utilisation de mongoose pour créer un schéma de données pour la base de données MongoDB
 const mongoose = require("mongoose");
 
 // création d'un schéma de données
 const profilSchema = mongoose.Schema({
-  //photo: { type: String },
-  pseudo: { type: String },
-  email: { type: String },
+  userId: { type: String, required: true },
+  imageUrl: { type: String, required: true },
+  pseudo: { type: String, required: true, unique: true, trimp: true },
   interets: { type: String },
 });
 

@@ -8,7 +8,7 @@ const profilCtrl = require("../controleur/profil");
 
 // CRUD avec middleware d'authentification auth
 router.post("/", auth, multer, profilCtrl.createProfil);
-router.get("/:id", auth, profilCtrl.getOneProfil);
+//router.get("/:id", auth, profilCtrl.getOneProfil);
 router.put("/:id", auth, multer, profilCtrl.modifyProfil);
 router.delete("/:id", auth, profilCtrl.deleteProfil);
 

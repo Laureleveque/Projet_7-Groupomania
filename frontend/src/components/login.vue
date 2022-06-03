@@ -36,7 +36,6 @@
 
 <script>
 import LogoHeader from "../components/logo.vue";
-//const axios = require("axios").default;
 
 export default {
   name: "LoginPage",

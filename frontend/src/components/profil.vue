@@ -9,33 +9,29 @@
 
     <!--   inscription: création du profil  -->
 
-    <div id="profil">
-      <div id="photo">
-        <img v-bind:src="images" alt="" />
-      </div>
-      <br />
+    <main>
+      <form method="post">
+        <div id="profil">
+          <div id="photo">
+            <img v-bind:src="images" alt="" />
+          </div>
+          <br />
+          <div>
+            <label for="pseudo"> Nom d'utilisateur : </label><br />
+            <input type="text" v-model="pseudo" id="pseudo" required />
+          </div>
+          <br />
 
-      <div>
-        <h3>Nom d'utilisateur :</h3>
-        <input type="text" v-model="pseudo" id="pseudo" required />
-      </div>
+          <div>
+            <label for="interets">Intérêts : </label><br />
+            <input type="text" v-model="interets" id="interets" />
+          </div>
 
-      <br />
+          <!--  création du profil si inscription -->
 
-      <div>
-        <h3>Email :</h3>
-        <input type="email" v-model="email" id="email" />
-      </div>
-
-      <br />
-      <div>
-        <h3>Intérêts :</h3>
-        <input type="text" v-model="interets" id="interets" />
-      </div>
-
-      <!--  création du profil si inscription -->
-
-      <button v-on:click="createProfil" type="submit">Créer mon profil</button>
+          <button type="submit" @click.prevent="send">Créer mon profil</button>
+        </div>
+      </form>
 
       <!--  bouton modification du profil si déja inscrit 
       
@@ -45,16 +41,18 @@
           </button>
         </router-link>
       -->
-    </div>
-    <!--   suppression du compte  -->
 
-    <router-link to="/delete">
-      <p v-on:click="deleteProfil()">Supprimer mon compte</p>
-    </router-link>
+      <!--   suppression du compte  -->
+
+      <router-link to="/delete">
+        <p v-on:click="deleteProfil()">Supprimer mon compte</p>
+      </router-link>
+    </main>
   </body>
 </template>
 
 <script>
+//import { getTransitionRawChildren } from "vue";
 import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
 
@@ -69,7 +67,7 @@ export default {
   data() {
     return {
       pseudo: "",
-      //photo: "./assets/images/",
+      photo: "./assets/images/",
       email: "",
       interets: "",
     };
@@ -77,8 +75,8 @@ export default {
   methods: {
     // création du profil
 
-    createProfil() {
-      fetch("http://localhost:3000/api/profil/createProfil", {
+    send() {
+      fetch("http://localhost:3000/api/profil/", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -88,9 +86,11 @@ export default {
         body: JSON.stringify(
           // transformation en JSON
           {
+            userId: this.userId,
+            photo: this.photo,
             pseudo: this.pseudo,
             email: this.email,
-            interests: this.interests,
+            interets: this.interets,
           }
         ),
       })
@@ -105,7 +105,8 @@ export default {
 
         .then(function () {
           // récupération de l'identifiant du profil
-          document.location.href = "/#/accueil";
+          //document.location.href = "/#/profil";
+          // "votre profil est créé"
         })
 
         .catch(function (err) {
@@ -113,11 +114,11 @@ export default {
         });
     },
 
-    // suppression du compte
+    /* récupérer un profil
 
-    deleteProfil() {
-      fetch("http://localhost:3000/api/profil/deleteProfil", {
-        method: "POST",
+    getOneProfil() {
+      fetch("http://localhost:3000/api/profil/:id", {
+        method: "GET",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -126,9 +127,47 @@ export default {
         body: JSON.stringify(
           // transformation en JSON
           {
+            photo: this.photo,
             pseudo: this.pseudo,
             email: this.email,
-            interest: this.interest,
+            interets: this.interets,
+          }
+        ),
+      })
+        .then(function (res) {
+          // réponse à la requête
+
+          if (res.ok) {
+            // vérification déroulement de la requête
+            return res.json(); // résultat de la requête au format json (promise)
+          }
+        })
+
+        .then(function () {})
+
+        .catch(function (err) {
+          console.error(err);
+        });
+    },
+*/
+    // suppression du compte
+
+    deleteProfil() {
+      fetch("http://localhost:3000/api/profil/:id", {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(
+          // transformation en JSON
+          {
+            userId: this.userId,
+            photo: this.photo,
+            pseudo: this.pseudo,
+            email: this.email,
+            interet: this.interet,
           }
         ),
       })
@@ -142,8 +181,44 @@ export default {
         })
 
         .then(function () {
-          // récupération de l'identifiant du profil
           document.location.href = "/#/delete"; //
+        })
+
+        .catch(function (err) {
+          console.error(err);
+        });
+    },
+
+    // modifier le profil
+
+    modifyProfil() {
+      fetch("http://localhost:3000/api/profil/:id", {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          userId: this.userId,
+          photo: this.photo,
+          pseudo: this.pseudo,
+          email: this.email,
+          interet: this.interet,
+        }), // transformation en JSON
+      })
+        .then(function (res) {
+          // réponse à la requête
+
+          if (res.ok) {
+            // vérification déroulement de la requête
+            return res.json(); // résultat de la requête au format json (promise)
+          }
+        })
+
+        .then(function () {
+          document.location.href = "/#/profil";
+          //msg : "votre profil est modifié"
         })
 
         .catch(function (err) {
@@ -152,47 +227,6 @@ export default {
     },
   },
 };
-
-/*
-  // modifier le profil
-
-    modifyProfil() {
-      fetch("http://localhost:3000/api/user/login", {
-
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify(
-          {
-            pseudo: this.pseudo,
-            email: this.email,
-            interest: this.interest
-          }
-        ) // transformation en JSON
-
-      })
-
-      .then(function (res) { // réponse à la requête
-
-        if (res.ok) { // vérification déroulement de la requête
-          return res.json(); // résultat de la requête au format json (promise)
-        }
-      })
-
-      .then(function () {    
-        document.location.href = "/#/profil";  
-      })
-
-      .catch(function (err) {
-        console.error(err);
-      })
-    }
-    }
-    };
-*/
 </script>
 
 <style>

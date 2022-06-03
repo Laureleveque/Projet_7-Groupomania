@@ -1,62 +1,25 @@
-<!-- composant Forum  -->
+<!-- composant Accueil  -->
 
 <template>
   <header>
     <LogoHeader />
     <NavigationPage />
   </header>
+  <main>
+    <div id="forum">
+      <div class="utilisateur">
+        <div id="photo">
+          <!-- <img v-bind:src="assets/images/" alt="" /> -->
+        </div>
 
-  <div id="forum">
-    <div class="utilisateur">
-      <div id="photo">
-        <img v-bind:src="images" alt="" />
+        <h2 class="pseudo">Thibault</h2>
       </div>
-      <div class="nom">Thibault</div>
-      <div class="post">
-        <p>{{ msg }}</p>
-      </div>
-    </div>
-    <div class="utilisateur">
-      <div id="photo">
-        <img v-bind:src="images" alt="" />
-      </div>
-      <div class="nom">Mélanie</div>
 
       <div class="post">
         <p>{{ msg }}</p>
       </div>
     </div>
-    <div class="utilisateur">
-      <div id="photo">
-        <img v-bind:src="images" alt="" />
-      </div>
-      <div class="nom">Tiago</div>
-      <div class="post">
-        <p>{{ msg }}</p>
-      </div>
-    </div>
-    <div class="utilisateur">
-      <div id="photo">
-        <img v-bind:src="images" alt="" />
-      </div>
-      <div class="nom">Quentin</div>
-      <div class="post">
-        <p>{{ msg }}</p>
-      </div>
-    </div>
-    <div class="utilisateur">
-      <div id="photo">
-        <img v-bind:src="images" alt="" />
-      </div>
-      <div class="nom">Alice</div>
-      <div class="post">
-        <p>{{ msg }}</p>
-      </div>
-    </div>
-    <form>
-      <div></div>
-    </form>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -73,21 +36,150 @@ export default {
 
   data() {
     return {
-      commentaire: "",
+      post: "",
     };
   },
-};
 
-/*
-    methods: {
-        
-  getOnePost() // récupérer un post
-        
-  createPost()  // créer un post    
-        
-  deletePost() // supprimer un post (uniquement le créateur ou le modérateur)
-}
-*/
+  methods: {
+    // création d'un post
+
+    createPost() {
+      fetch("http://localhost:3000/api/profil/createPost", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(
+          // transformation en JSON
+          {
+            post: this.post,
+          }
+        ),
+      })
+        .then(function (res) {
+          // réponse à la requête
+
+          if (res.ok) {
+            // vérification déroulement de la requête
+            return res.json(); // résultat de la requête au format json (promise)
+          }
+        })
+
+        .then(function () {
+          document.location.href = "/#/acccueil";
+        })
+
+        .catch(function (err) {
+          console.error(err);
+        });
+    },
+
+    // récupérer les posts
+
+    getAllPosts() {
+      fetch("http://localhost:3000/api/profil/getAllPosts", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(
+          // transformation en JSON
+          {
+            post: this.post,
+          }
+        ),
+      })
+        .then(function (res) {
+          // réponse à la requête
+
+          if (res.ok) {
+            // vérification déroulement de la requête
+            return res.json(); // résultat de la requête au format json (promise)
+          }
+        })
+
+        .then(function () {
+          // récupération de l'identifiant du profil
+          document.location.href = "/#/accueil";
+        })
+
+        .catch(function (err) {
+          console.error(err);
+        });
+    },
+
+    // suppression du post par l'id ou le modérateur
+
+    deletePost() {
+      fetch("http://localhost:3000/api/profil/deletePost", {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(
+          // transformation en JSON
+          {
+            post: this.post,
+          }
+        ),
+      })
+        .then(function (res) {
+          // réponse à la requête
+
+          if (res.ok) {
+            // vérification déroulement de la requête
+            return res.json(); // résultat de la requête au format json (promise)
+          }
+        })
+
+        .then(function () {
+          // récupération de l'identifiant du profil
+        })
+
+        .catch(function (err) {
+          console.error(err);
+        });
+    },
+
+    // modifier un post
+
+    modifyPost() {
+      fetch("http://localhost:3000/api/post/modify", {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          post: this.post,
+        }), // transformation en JSON
+      })
+        .then(function (res) {
+          // réponse à la requête
+
+          if (res.ok) {
+            // vérification déroulement de la requête
+            return res.json(); // résultat de la requête au format json (promise)
+          }
+        })
+
+        .then(function () {
+          document.location.href = "/#/accueil";
+        })
+
+        .catch(function (err) {
+          console.error(err);
+        });
+    },
+  },
+};
 </script>
 
 <style>
@@ -97,13 +189,7 @@ export default {
   color: rgb(29, 29, 58);
 }
 
-.nom {
-  text-align: center;
-  font-size: 20px;
-  font-weight: 500;
-  padding-bottom: 200px;
-  padding-top: 10px;
-  border-bottom: 3px solid black;
+.utilisateur {
 }
 
 #photo {
@@ -111,8 +197,15 @@ export default {
   padding: 30px 30px;
   width: 40px;
   height: 40px;
-
   margin-bottom: 10px;
+}
+
+.post {
+  border: 2px solid white;
+  background-color: white;
+  width: 80%;
+  height: 200px;
+  margin: 20px auto;
 }
 
 @media screen and (max-width: 768px) {

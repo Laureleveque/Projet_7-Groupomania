@@ -2,7 +2,7 @@
 
 const Profil = require("../modele/profil");
 
-// route GET récupérer un profil
+/* route GET récupérer un profil
 
 exports.getOneProfil = (req, res, next) => {
   Profil.findOne({ _id: req.params.id })
@@ -11,14 +11,15 @@ exports.getOneProfil = (req, res, next) => {
       res.status(403).json({ message: "unauthorized request" })
     );
 };
-
+*/
 // route POST création d'un profil
 
 exports.createProfil = (req, res, next) => {
   const profilObject = JSON.parse(req.body.profil);
   delete profilObject_id; // suppression de l'identifiant généré automatiquement par MongoDB
   const profil = new Profil({
-    ...profilObject,
+    userId: this.userId,
+    pseudo: this.pseudo,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,

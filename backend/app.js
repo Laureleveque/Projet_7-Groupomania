@@ -45,9 +45,9 @@ app.use((req, res, next) => {
 
 // méthode app.use
 
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // bon format
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/api/user", userRoute);
+app.use("/api/user", userRoute); // appel des routes de l'utilisateur
 app.use("/api/post", postRoute);
 app.use("/api/profil", profilRoute);
 

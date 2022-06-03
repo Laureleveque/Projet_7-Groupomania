@@ -4,18 +4,17 @@ const User = require("../modele/user");
 
 // création d'un nouvel utilisateur
 
-exports.signup = (req, res, next) => {
+exports.signup = (req, res) => {
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
       const user = new User({
-        pseudo: req.body.pseudo,
         email: req.body.email,
         password: hash,
       });
       user
         .save()
-        .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
+        .then(() => res.status(201).json({ user: user._id }))
         .catch((error) => res.status(400).json({ error }));
     })
     .catch((error) => res.status(500).json({ message: "erreur serveur" }));
@@ -23,7 +22,7 @@ exports.signup = (req, res, next) => {
 
 // connection de l'utilisateur
 
-exports.login = (req, res, next) => {
+exports.login = (req, res) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
