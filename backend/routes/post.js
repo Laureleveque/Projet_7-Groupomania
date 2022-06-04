@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/jwt");
 const multer = require("../middleware/multerconfig");
-const postCtrl = require("../controleur/post");
+const postCtrl = require("../controleurs/post");
 
 // CRUD
 

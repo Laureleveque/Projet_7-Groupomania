@@ -1,6 +1,6 @@
-const Post = require("../modele/post");
+const Post = require("../modeles/post");
 
-// route POST création d'un post
+/* route POST création d'un post
 
 exports.createPost = (req, res, next) => {
   const postObject = JSON.parse(req.body.profil);

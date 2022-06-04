@@ -47,6 +47,7 @@ const errorHandler = (error) => {
 // fonction exécutée à chaque appel effectué vers le serveur
 
 const server = http.createServer(app);
+
 server.on("error", errorHandler);
 server.on("listening", () => {
   const address = server.address();

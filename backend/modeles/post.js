@@ -12,4 +12,4 @@ const postSchema = mongoose.Schema({
 });
 
 // exportation de ce schéma avec la méthode Model (transforme ce modèle en un modèle utilisable)
-module.exports = mongoose.model("Post", postSchema);
+module.exports = mongoose.model("post", postSchema);
