@@ -9,58 +9,21 @@ const uniqueValidator = require("mongoose-unique-validator"); // ???
 // validation de l'email
 const { isEmail } = require("validator");
 
-// datation
-const { timeStamp } = require("console");
-
-const { pathToFileURL } = require("url");
-
 // création du schéma de données
-const userSchema = mongoose.Schema(
-  {
-    userId: {
-      type: String,
-      required: true,
-    },
-
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      validate: [isEmail],
-      trim: true,
-    },
-
-    password: {
-      type: String,
-      required: true,
-    },
-
-    imageUrl: {
-      type: String,
-      default: "./uploads/profil/user.png",
-    },
-
-    pseudo: {
-      type: String,
-      required: true,
-      unique: true,
-      minlength: 3,
-      maxlength: 10,
-      trim: true,
-    },
-
-    interets: {
-      type: String,
-    },
-
-    likes: {
-      type: [String],
-    },
+const userSchema = mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: [isEmail],
+    trim: true,
   },
-  {
-    timestamps: true,
-  }
-);
+
+  password: {
+    type: String,
+    required: true,
+  },
+});
 
 // améliore les messages d'erreur lors de l'enregistrement de données uniques
 userSchema.plugin(uniqueValidator);

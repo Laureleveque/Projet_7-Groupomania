@@ -16,7 +16,7 @@
       </div>
 
       <div class="post">
-        <p>{{ msg }}</p>
+        <p>{{}}</p>
       </div>
     </div>
   </main>

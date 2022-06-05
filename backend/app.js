@@ -17,7 +17,8 @@ dotenv.config();
 app.use(express.json());
 
 const postRoutes = require("./routes/post"); // gestion post
-const userRoutes = require("./routes/user"); // gestion utilisateur
+const userRoutes = require("./routes/user"); // gestion inscription/login
+const profilRoutes = require("./routes/profil"); // gestion profil
 
 // connection à MongoDB
 mongoose
@@ -49,6 +50,7 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use("/api/post", postRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/profil", profilRoutes);
 
 // exportation de l'application
 
