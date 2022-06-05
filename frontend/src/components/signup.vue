@@ -84,7 +84,7 @@ export default {
 // envoi requête post pour inscription
 
     send() {
-      fetch("http://localhost:3000/api/auth/signup", {
+      fetch("http://localhost:3000/api/user/signup", {
 
         method: "POST",
         headers: {

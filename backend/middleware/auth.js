@@ -1,6 +1,6 @@
 // middleware d'authentification des tokens
 
-const verif = require("jsonwebtoken");
+const auth = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
   try {

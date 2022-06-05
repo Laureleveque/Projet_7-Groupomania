@@ -39,7 +39,7 @@ export default {
       post: "",
     };
   },
-
+  /*
   methods: {
     // création d'un post
 
@@ -178,7 +178,7 @@ export default {
           console.error(err);
         });
     },
-  },
+  },*/
 };
 </script>
 

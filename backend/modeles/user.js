@@ -9,7 +9,7 @@ const uniqueValidator = require("mongoose-unique-validator"); // ???
 // validation de l'email
 const { isEmail } = require("validator");
 
-//
+// datation
 const { timeStamp } = require("console");
 
 const { pathToFileURL } = require("url");
@@ -35,7 +35,6 @@ const userSchema = mongoose.Schema(
       required: true,
       minLength: 3,
     },
-
     imageUrl: {
       type: String,
       default: "./uploads/profil/user.png",
