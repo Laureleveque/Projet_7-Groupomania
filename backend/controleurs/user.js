@@ -1,24 +1,46 @@
 // Logique métier
 
 const bcrypt = require("bcrypt");
+
 const auth = require("jsonwebtoken");
-const User = require("../modeles/user");
+const user = require("../modeles/user");
 
 // création d'un nouvel utilisateur
 
 exports.signup = (req, res, next) => {
-  bcrypt
-    .hash(req.body.password, 10)
-    .then((hash) => {
-      User.create({
-        // nouvel utilisateur créé
-        email: req.body.email,
-        password: hash,
-      })
-        .then((user) => res.status(201).json({ user: user._id }))
-        .catch((error) => res.status(400).json({ error }));
+  User.findOne(
+    {
+      email: req.body.email,
+    } // verification si email existant
+  )
+
+    .then((user) => {
+      if (user) {
+        // si existant déjà
+        return res.status(400).json({ error: "email déjà utilisé" });
+      } else {
+        // si non existant
+
+        bcrypt // appel de la fonction de cryptage
+
+          .hash(req.body.password, 10)
+
+          .then((hash) => {
+            User.create({
+              // nouvel utilisateur créé
+              email: req.body.email,
+              password: hash,
+            })
+
+              .then((user) => res.status(201).json({ user: user._id }))
+
+              .catch((error) => res.status(400).json({ error }));
+          })
+
+          .catch((error) => res.status(500).json({ error }));
+      }
     })
-    .catch((error) => res.status(500).json({ message: "erreur serveur" }));
+    .catch((error) => res.status(500).json({ error }));
 };
 
 // connection de l'utilisateur
@@ -65,27 +87,39 @@ exports.logout = (req, res, next) => {
     
 };*/
 
-// route POST récupérer tous les utilisateurs
-
-exports.getAllUsers = (req, res, next) => {
-  users
-    .find()
-    .then((users) => res.status(200).json(users))
-    .catch((error) => res.status(400).json({ error }));
-};
-
 // route GET récupérer un utilisateur
 
 exports.getOneUser = (req, res, next) => {
   console.log(req.params);
-  User.findOne({ _id: req.params.id }) // paramètres dans l'url
+  User.findOne({ _id: req.params.id })
     .then((user) => res.status(200).json(user))
     .catch((error) => res.status(400).json({ message: "Id inconnu" }));
 };
 
-// route PUT modification/mise à jour d'un utilisateur
+// route POST création du profil
 
-exports.modifyUser = (req, res, next) => {
+exports.createProfil = (req, res, next) => {
+  User.findOne({ _id: req.params.id }); // paramètres dans l'url
+  const userObject = req.file
+    ? {
+        ...JSON.parse(req.body.user),
+        imageUrl: `${req.protocol}://${req.get("host")}/images/${
+          req.file.filename
+        }`,
+      }
+    : { ...req.body };
+
+  User.createOne(
+    { _id: req.params.id },
+    { ...profilObject, _id: req.params.id }
+  )
+    .then((user) => res.status(200).json(user))
+    .catch((error) => res.status(400).json({ message: "Id inconnu" }));
+};
+
+// route PUT modification/mise à jour d'un profil utilisateur
+
+exports.modifyProfil = (req, res, next) => {
   const userObject = req.file
     ? {
         ...JSON.parse(req.body.user),

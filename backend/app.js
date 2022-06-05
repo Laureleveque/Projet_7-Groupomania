@@ -16,8 +16,8 @@ dotenv.config();
 // accès au corps json de la requête
 app.use(express.json());
 
-//const postRoutes = require("./routes/post"); // gestion des posts
-const userRoutes = require("./routes/user"); // gestion des utilisateurs
+const postRoutes = require("./routes/post"); // gestion post
+const userRoutes = require("./routes/user"); // gestion utilisateur
 
 // connection à MongoDB
 mongoose
@@ -47,7 +47,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json()); // bon format
 app.use("/images", express.static(path.join(__dirname, "images")));
 
-//app.use("/api/post", postRoutes);
+app.use("/api/post", postRoutes);
 app.use("/api/user", userRoutes);
 
 // exportation de l'application

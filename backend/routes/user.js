@@ -15,9 +15,9 @@ router.post("/signup", auth, userCtrl.signup);
 router.post("/login", auth, userCtrl.login);
 //router.get("/logout", auth, userCtrl.logout);
 
-router.get("/", auth, userCtrl.getAllUsers); // récupérer tous les utilisateurs
 router.get("/:id", auth, userCtrl.getOneUser); // récupérer un utilisateur
-router.put("/:id", auth, multer, userCtrl.modifyUser); // modification des données d'un utilisateur
+router.post("/:id", auth, userCtrl.createProfil); // création du profil
+router.put("/:id", auth, multer, userCtrl.modifyProfil); // modification des données d'un utilisateur
 router.delete("/:id", auth, userCtrl.deleteUser); // suppression d'un utilisateur
 
 // on exporte le routeur de ce fichier

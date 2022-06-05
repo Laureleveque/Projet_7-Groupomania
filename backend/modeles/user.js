@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema(
     email: {
       type: String,
       required: true,
-      unique: true, // ???
+      unique: true,
       validate: [isEmail],
       trim: true,
     },
@@ -33,8 +33,8 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: true,
-      minLength: 3,
     },
+
     imageUrl: {
       type: String,
       default: "./uploads/profil/user.png",
@@ -44,8 +44,8 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      minLength: 3,
-      maxLength: 10,
+      minlength: 3,
+      maxlength: 10,
       trim: true,
     },
 

@@ -76,7 +76,7 @@ export default {
     // création du profil
 
     send() {
-      fetch("http://localhost:3000/api/user/createUser", {
+      fetch("http://localhost:3000/api/user/createProfil", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -89,7 +89,6 @@ export default {
             userId: this.userId,
             photo: this.photo,
             pseudo: this.pseudo,
-            email: this.email,
             interets: this.interets,
           }
         ),
@@ -114,7 +113,7 @@ export default {
         });
     },
 
-    /* récupérer un profil
+    // récupérer un profil
 
     getOneUser() {
       fetch("http://localhost:3000/api/user/getOneUser:id", {
@@ -129,7 +128,6 @@ export default {
           {
             photo: this.photo,
             pseudo: this.pseudo,
-            email: this.email,
             interets: this.interets,
           }
         ),
@@ -149,7 +147,7 @@ export default {
           console.error(err);
         });
     },
-*/
+
     // suppression du compte
 
     deleteUser() {
@@ -191,8 +189,8 @@ export default {
 
     // modifier le profil
 
-    modifyUser() {
-      fetch("http://localhost:3000/api/user/modifyUser/:id", {
+    modifyProfil() {
+      fetch("http://localhost:3000/api/user/modifyProfil/:id", {
         method: "PUT",
         headers: {
           Accept: "application/json",
@@ -203,7 +201,6 @@ export default {
           userId: this.userId,
           photo: this.photo,
           pseudo: this.pseudo,
-          email: this.email,
           interet: this.interet,
         }), // transformation en JSON
       })

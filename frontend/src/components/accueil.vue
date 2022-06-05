@@ -39,12 +39,12 @@ export default {
       post: "",
     };
   },
-  /*
+
   methods: {
     // création d'un post
 
     createPost() {
-      fetch("http://localhost:3000/api/profil/createPost", {
+      fetch("http://localhost:3000/api/post/createPost", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -79,7 +79,7 @@ export default {
     // récupérer les posts
 
     getAllPosts() {
-      fetch("http://localhost:3000/api/profil/getAllPosts", {
+      fetch("http://localhost:3000/api/post/getAllPosts", {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -104,7 +104,6 @@ export default {
 
         .then(function () {
           // récupération de l'identifiant du profil
-          document.location.href = "/#/accueil";
         })
 
         .catch(function (err) {
@@ -115,7 +114,7 @@ export default {
     // suppression du post par l'id ou le modérateur
 
     deletePost() {
-      fetch("http://localhost:3000/api/profil/deletePost", {
+      fetch("http://localhost:3000/api/post/deletePost", {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -150,7 +149,7 @@ export default {
     // modifier un post
 
     modifyPost() {
-      fetch("http://localhost:3000/api/post/modify", {
+      fetch("http://localhost:3000/api/post/modifyPost", {
         method: "PUT",
         headers: {
           Accept: "application/json",
@@ -178,7 +177,7 @@ export default {
           console.error(err);
         });
     },
-  },*/
+  },
 };
 </script>
 
