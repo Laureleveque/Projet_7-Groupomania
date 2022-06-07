@@ -76,14 +76,14 @@ export default {
 
       //si aucune erreur
       if (!this.errors.length) {
-        this.send(); // envoi des données
+        this.signup(); // envoi des données
       }
       e.preventDefault();
     },
 
 // envoi requête post pour inscription
 
-    send() {
+    signup() {
       fetch("http://localhost:3000/api/user/signup", {
 
         method: "POST",
@@ -97,8 +97,7 @@ export default {
             email: this.email,
             password: this.password
           }
-        ) 
-        
+        )        
       })
 
       .then(function (res) { // réponse à la requête

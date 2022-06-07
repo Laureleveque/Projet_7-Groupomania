@@ -11,9 +11,9 @@
 
     <main>
       <form method="post">
-        <div id="profil">
-          <div id="photo">
-            <img v-bind:src="images" alt="" />
+        <div class="profil">
+          <div id="photo-profil">
+            <img :src="images" alt="" />
           </div>
           <br />
           <div>
@@ -22,31 +22,35 @@
           </div>
           <br />
 
-          <div>
+          <div class="profil">
             <label for="interets">Intérêts : </label><br />
-            <input type="text" v-model="interets" id="interets" />
+            <textarea
+              name="interets"
+              id="interets"
+              v-model="interets"
+            ></textarea>
           </div>
 
-          <!--  création du profil si inscription -->
-
-          <button type="submit" v-on:click="send">Créer mon profil</button>
+          <button type="submit" v-on:click="created()">
+            Enregistrer mon profil
+          </button>
         </div>
+        <br />
       </form>
 
       <!--  bouton modification du profil si déja inscrit 
-      
-        <router-link to="/accueil">
+          
           <button v-on:click="modifyProfil()" type="submit">
             Modifier mon profil
           </button>
-        </router-link>
+       
       -->
 
       <!--   suppression du compte  -->
 
-      <router-link to="/delete">
+      <div id="delete-compte">
         <p v-on:click="deleteProfil()">Supprimer mon compte</p>
-      </router-link>
+      </div>
     </main>
   </body>
 </template>
@@ -67,17 +71,25 @@ export default {
   data() {
     return {
       pseudo: "",
-      photo: "./assets/images/",
-
+      imageUrl: "./assets/images/",
       interets: "",
     };
   },
-  methods: {
-    // création du profil
 
-    send() {
-      fetch("http://localhost:3000/api/profil/createProfil", {
-        method: "POST",
+  created() {
+    this.profilUserId = localStorage.getItem("userId");
+
+    this.userId = this.$route.params.userId;
+
+    this.getUserProfil();
+  },
+
+  methods: {
+    // récupérer un profil
+
+    getUserProfil() {
+      fetch("http://localhost:3000/api/profil/getUserProfil:id", {
+        method: "GET",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -86,8 +98,7 @@ export default {
         body: JSON.stringify(
           // transformation en JSON
           {
-            userId: this.userId,
-            photo: this.photo,
+            imageUrl: this.imageUrl,
             pseudo: this.pseudo,
             interets: this.interets,
           }
@@ -103,45 +114,8 @@ export default {
         })
 
         .then(function () {
-          // récupération de l'identifiant du profil
-          //document.location.href = "/#/profil";
-          // "votre profil est créé"
+          document.location.href = "/#/profil";
         })
-
-        .catch(function (err) {
-          console.error(err);
-        });
-    },
-
-    // récupérer un profil
-
-    getOneUser() {
-      fetch("http://localhost:3000/api/profil/getOneProfil:id", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify(
-          // transformation en JSON
-          {
-            photo: this.photo,
-            pseudo: this.pseudo,
-            interets: this.interets,
-          }
-        ),
-      })
-        .then(function (res) {
-          // réponse à la requête
-
-          if (res.ok) {
-            // vérification déroulement de la requête
-            return res.json(); // résultat de la requête au format json (promise)
-          }
-        })
-
-        .then(function () {})
 
         .catch(function (err) {
           console.error(err);
@@ -150,7 +124,7 @@ export default {
 
     // suppression du compte
 
-    deleteUser() {
+    deleteProfil() {
       fetch("http://localhost:3000/api/profil/deleteProfil/:id", {
         method: "DELETE",
         headers: {
@@ -161,33 +135,35 @@ export default {
         body: JSON.stringify(
           // transformation en JSON
           {
-            userId: this.userId,
-            photo: this.photo,
+            imageUrl: this.imageUrl,
             pseudo: this.pseudo,
-            email: this.email,
-            interet: this.interet,
+            interets: this.interets,
           }
         ),
       })
         .then(function (res) {
-          // réponse à la requête
-
           if (res.ok) {
-            // vérification déroulement de la requête
             return res.json(); // résultat de la requête au format json (promise)
           }
         })
 
         .then(function () {
-          document.location.href = "/#/delete"; //
+          /*
+          console.log(res);
+          if (this.userId == this.profilUserId) {
+            localStorage.clear();
+            document.location.href = "/#/delete";
+          }*/
         })
 
         .catch(function (err) {
           console.error(err);
         });
     },
+  },
+};
 
-    // modifier le profil
+/* modifier le profil
 
     modifyProfil() {
       fetch("http://localhost:3000/api/profil/modifyProfil/:id", {
@@ -198,10 +174,9 @@ export default {
         },
 
         body: JSON.stringify({
-          userId: this.userId,
-          photo: this.photo,
+          imageUrl: this.imageUrl,
           pseudo: this.pseudo,
-          interet: this.interet,
+          interets: this.interets,
         }), // transformation en JSON
       })
         .then(function (res) {
@@ -215,15 +190,14 @@ export default {
 
         .then(function () {
           document.location.href = "/#/profil";
-          //msg : "votre profil est modifié"
+
         })
 
         .catch(function (err) {
           console.error(err);
-        });
-    },
-  },
-};
+         })
+
+    };*/
 </script>
 
 <style>
@@ -237,7 +211,6 @@ body {
 }
 
 #pseudo,
-#email,
 #interets {
   width: 400px;
   height: 30px;
@@ -250,7 +223,7 @@ img {
   padding: 15px;
 }
 
-#photo {
+#photo-profil {
   border: 2px solid #737fe0;
   border-radius: 50%;
   padding: 30px 30px;
@@ -263,7 +236,6 @@ button {
   background: #737fe0;
   color: white;
   font-size: 1em;
-  font-weight: bold;
   width: 200px;
   height: 50px;
   transform: scale(1);

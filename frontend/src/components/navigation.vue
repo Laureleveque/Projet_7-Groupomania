@@ -5,19 +5,19 @@
     <ul>
       <li>
         <router-link to="/accueil">
-          <a href="">Accueil</a>
+          <a>Accueil</a>
         </router-link>
       </li>
 
       <li>
         <router-link to="/profil">
-          <a href="">Votre profil</a>
+          <a>Votre profil</a>
         </router-link>
       </li>
 
       <li>
         <router-link to="/logout">
-          <a href="">Déconnexion</a>
+          <a v-on:click="send()">Déconnexion</a>
         </router-link>
       </li>
     </ul>
@@ -27,6 +27,29 @@
 <script>
 export default {
   name: "NavigationPage",
+
+  methods: {
+    send() {
+      fetch("http://localhost:3000/api/user/logout", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then(function (res) {
+          // réponse à la requête
+
+          if (res.ok) {
+            // vérification déroulement de la requête
+            return res.json(); // résultat de la requête au format json (promise)
+          }
+        })
+        .catch(function (err) {
+          console.error(err);
+        });
+    },
+  },
 };
 </script>
 

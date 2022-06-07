@@ -5,8 +5,7 @@ const bcrypt = require("bcrypt");
 const auth = require("jsonwebtoken");
 const User = require("../modeles/user");
 
-// création d'un nouvel utilisateur
-
+// inscription d'un nouvel utilisateur
 exports.signup = (req, res, next) => {
   User.findOne(
     {
@@ -32,12 +31,6 @@ exports.signup = (req, res, next) => {
               password: hash,
             });
 
-            /*User.create({
-              // nouvel utilisateur créé
-              email: req.body.email,
-              password: hash,
-            })*/
-
             newUser
               .save()
               .then(() => {
@@ -56,23 +49,32 @@ exports.signup = (req, res, next) => {
 // connection de l'utilisateur
 
 exports.login = (req, res, next) => {
-  User.findOne({ email: req.body.email })
+  User.findOne({ email: req.body.email }) // recherche de l'email unique
+
     .then((user) => {
       if (!user) {
+        // si mongoose ne le trouve pas
         return res.status(401).json({ message: "Utilisateur non trouvé !" });
       }
+
+      // si email trouvé : fonction compare avec le password enregistré
       bcrypt
         .compare(req.body.password, user.password)
 
         .then((valid) => {
           if (!valid) {
+            // si ne correspond pas
             return res
               .status(401)
               .json({ message: "Mot de passe incorrect !" });
           }
+
+          // si comparaison ok
           res.status(200).json({
+            // renvoi d'un fichier json avec l'identifiant de l'utilisateur dans la base et un token
             userId: user._id,
             token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
+              // le token contient l'id et une clé secrète
               expiresIn: "24h",
             }),
           });
@@ -83,16 +85,11 @@ exports.login = (req, res, next) => {
 };
 
 // fin de session de l'utilisateur
-/*
+
 exports.logout = (req, res, next) => {
-  
-    token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
-    expiresIn: "0,01",
-    )}
-    
-    .then(() => res.status(201).json({  }))
-    .catch((error) => res.status(400).json({ error }));
-    })
-    .catch((error) => res.status(500).json({ message: "erreur serveur" }));
-    
-};*/
+  res.status(200).json({
+    token: {
+      expiresIn: "0.01h",
+    },
+  });
+};

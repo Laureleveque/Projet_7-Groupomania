@@ -11,8 +11,7 @@ const auth = require("../middleware/auth");
 
 // CRUD avec middleware d'authentification auth
 
-router.get("/:id", auth, profilCtrl.getOneProfil); // récupérer un utilisateur
-router.post("/:id", auth, profilCtrl.createProfil); // création du profil
+router.get("/:id", auth, profilCtrl.getUserProfil); // récupérer un profil
 router.put("/:id", auth, multer, profilCtrl.modifyProfil); // modification des données d'un utilisateur
 router.delete("/:id", auth, profilCtrl.deleteProfil); // suppression d'un utilisateur
 

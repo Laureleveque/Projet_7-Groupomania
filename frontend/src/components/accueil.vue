@@ -5,6 +5,7 @@
     <LogoHeader />
     <NavigationPage />
   </header>
+
   <main>
     <div id="forum">
       <div class="utilisateur">
@@ -12,7 +13,7 @@
           <!-- <img v-bind:src="assets/images/" alt="" /> -->
         </div>
 
-        <h2 class="pseudo">Thibault</h2>
+        <h2 class="pseudo">{{ pseudo }}</h2>
       </div>
 
       <div class="post">
@@ -102,10 +103,6 @@ export default {
           }
         })
 
-        .then(function () {
-          // récupération de l'identifiant du profil
-        })
-
         .catch(function (err) {
           console.error(err);
         });
@@ -135,10 +132,6 @@ export default {
             // vérification déroulement de la requête
             return res.json(); // résultat de la requête au format json (promise)
           }
-        })
-
-        .then(function () {
-          // récupération de l'identifiant du profil
         })
 
         .catch(function (err) {
