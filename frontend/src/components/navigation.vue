@@ -4,7 +4,7 @@
   <nav id="navigation">
     <ul>
       <li>
-        <router-link to="/accueil">
+        <router-link to="/posts">
           <a>Accueil</a>
         </router-link>
       </li>
@@ -16,38 +16,32 @@
       </li>
 
       <li>
-        <router-link to="/logout">
-          <a v-on:click="send()">Déconnexion</a>
-        </router-link>
+        <!--<router-link to="/logout">-->
+        <a v-on:click="send()">Déconnexion</a>
+        <!--</router-link>-->
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   name: "NavigationPage",
 
   methods: {
     send() {
-      fetch("http://localhost:3000/api/user/logout", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-        .then(function (res) {
-          // réponse à la requête
-
-          if (res.ok) {
-            // vérification déroulement de la requête
-            return res.json(); // résultat de la requête au format json (promise)
-          }
-        })
-        .catch(function (err) {
-          console.error(err);
-        });
+      localStorage.removeItem("user-token");
+      router.push("/");
+      /*fetch("http://localhost:3000/api/user/logout", {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("user-token"),
+          },
+      })*/
     },
   },
 };

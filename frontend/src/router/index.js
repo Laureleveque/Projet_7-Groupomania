@@ -10,7 +10,7 @@ import DeletePage from "../components/delete.vue";
 import LogoutPage from "../components/logout.vue";
 import NavigationPage from "../components/navigation.vue";
 import ProfilPage from "../components/profil.vue";
-import AccueilPage from "../components/accueil.vue";
+import PostsPage from "../components/posts.vue";
 import SignupokPage from "../components/signupok.vue";
 
 const routes = [
@@ -70,9 +70,9 @@ const routes = [
   },
 
   {
-    path: "/accueil",
-    name: "Accueil",
-    component: AccueilPage,
+    path: "/posts",
+    name: "Posts",
+    component: PostsPage,
   },
 
   /*{

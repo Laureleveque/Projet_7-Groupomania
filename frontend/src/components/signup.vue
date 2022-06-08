@@ -20,6 +20,17 @@
         </div>
 
         <div>
+          <label for="pseudo">Pseudo :</label><br />
+          <input
+            type="text"
+            name="pseudo"
+            v-model="pseudo"
+            id="pseudo"
+            required
+          />
+        </div>
+
+        <div>
           <label for="password">Mot de passe :</label><br />
           <input type="password" v-model="password" id="password" required />
         </div>
@@ -38,6 +49,7 @@
 </template>
 
 <script>
+import router from "@/router";
 import LogoHeader from "../components/logo.vue";
 
 export default {
@@ -50,6 +62,7 @@ export default {
     return {
       errors: [],
       email: "",
+      pseudo: "",
       password: "",
     };
   },
@@ -95,6 +108,7 @@ export default {
         body: JSON.stringify( // transformation en JSON
           {
             email: this.email,
+            pseudo: this.pseudo,
             password: this.password
           }
         )        
@@ -108,7 +122,7 @@ export default {
       })
 
       .then(function () {   // récupération de l'identifiant du profil
-        document.location.href = "/#/signupOk"; // lien vers la page ok avec l'identifiant du profil
+        router.push('/signupOk'); // lien vers la page ok avec l'identifiant du profil
       })
 
       .catch(function (err) {

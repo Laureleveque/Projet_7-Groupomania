@@ -2,7 +2,7 @@
 
 const bcrypt = require("bcrypt");
 
-const auth = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const User = require("../modeles/user");
 
 // inscription d'un nouvel utilisateur
@@ -28,6 +28,7 @@ exports.signup = (req, res, next) => {
             const newUser = new User({
               // nouvel utilisateur créé
               email: req.body.email,
+              pseudo: req.body.pseudo,
               password: hash,
             });
 
@@ -87,9 +88,11 @@ exports.login = (req, res, next) => {
 // fin de session de l'utilisateur
 
 exports.logout = (req, res, next) => {
-  res.status(200).json({
+  /*res.status(200).json({
     token: {
       expiresIn: "0.01h",
     },
-  });
+  });*/
+  localStorage.removeItem("user-token");
+  res.status(200);
 };

@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import router from "@/router";
 import LogoHeader from "../components/logo.vue";
 
 export default {
@@ -100,17 +101,15 @@ export default {
       })
 
       .then(function (res) { // réponse à la requête
-      
         if (res.ok) { // vérification déroulement de la requête
-          return res.json(); // résultat de la requête au format json (promise)     
+          return res.json(); // résultat de la requête au format json (promise)
         }
-        document.location.href = "/#/accueil"; // lien vers la page accueil avec l'identifiant du profil
       })
 
-      .then(function () {  
-        document.location.href = "/#/login"; // lien vers la page accueil avec l'identifiant du profil
+      .then(function (value) {
+        localStorage.setItem("user-token", value.token);
+        router.push('/posts'); // lien vers la page accueil avec l'identifiant du profil
       })
-
       .catch(function (err) {
         console.error(err);
       })

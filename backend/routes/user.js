@@ -10,7 +10,7 @@ const auth = require("../middleware/auth");
 // CRUD avec middleware d'authentification auth
 
 router.post("/signup", userCtrl.signup);
-router.post("/login", auth, userCtrl.login);
+router.post("/login", userCtrl.login);
 router.get("/logout", auth, userCtrl.logout);
 
 // on exporte le routeur de ce fichier

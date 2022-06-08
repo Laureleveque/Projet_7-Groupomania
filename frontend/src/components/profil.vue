@@ -10,15 +10,14 @@
     <!--   inscription: création du profil  -->
 
     <main>
-      <form method="post">
+      <form @submit="checkProfil" method="post">
         <div class="profil">
-          <div id="photo-profil">
-            <img :src="images" alt="" />
+          <div id="photo">
+            <!--<img :src="user - photo" />-->
           </div>
           <br />
           <div>
-            <label for="pseudo"> Nom d'utilisateur : </label><br />
-            <input type="text" v-model="pseudo" id="pseudo" required />
+            <p>{{ pseudo }}</p>
           </div>
           <br />
 
@@ -31,32 +30,29 @@
             ></textarea>
           </div>
 
-          <button type="submit" v-on:click="created()">
-            Enregistrer mon profil
-          </button>
+          <!--<button type="submit" v-on:click="checkProfil()">-->
+          <button type="submit">Enregistrer mon profil</button>
+          <br />
+          <!--<button type="submit" v-on:click="deleteProfil()">-->
+          <button type="submit">Supprimer mon compte</button>
         </div>
         <br />
       </form>
 
       <!--  bouton modification du profil si déja inscrit 
           
-          <button v-on:click="modifyProfil()" type="submit">
+          <button type="submit" @click.prevent="modifyProfil">
             Modifier mon profil
           </button>
        
       -->
-
-      <!--   suppression du compte  -->
-
-      <div id="delete-compte">
-        <p v-on:click="deleteProfil()">Supprimer mon compte</p>
-      </div>
     </main>
   </body>
 </template>
 
 <script>
 //import { getTransitionRawChildren } from "vue";
+import router from "@/router";
 import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
 
@@ -70,39 +66,47 @@ export default {
 
   data() {
     return {
+      userId: "",
+      photo: "",
       pseudo: "",
-      imageUrl: "./assets/images/",
       interets: "",
     };
   },
 
-  created() {
-    this.profilUserId = localStorage.getItem("userId");
-
-    this.userId = this.$route.params.userId;
-
-    this.getUserProfil();
-  },
-
   methods: {
+    // enregistrer un profil
+
+    checkProfil(e) {
+      e.preventDefault();
+
+      this.profilUserId = localStorage.getItem("userId");
+
+      this.userId = this.$route.params.userId;
+
+      console.log(this.profilUserId);
+      console.log(this.userId);
+
+      this.getUserProfil(this.userId);
+    },
+
     // récupérer un profil
 
     getUserProfil() {
-      fetch("http://localhost:3000/api/profil/getUserProfil:id", {
+      fetch("http://localhost:3000/api/profil/:id", {
         method: "GET",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
 
-        body: JSON.stringify(
+        /*body: JSON.stringify(
           // transformation en JSON
           {
-            imageUrl: this.imageUrl,
+            photo: this.photo,
             pseudo: this.pseudo,
             interets: this.interets,
           }
-        ),
+        ),*/
       })
         .then(function (res) {
           // réponse à la requête
@@ -114,7 +118,7 @@ export default {
         })
 
         .then(function () {
-          document.location.href = "/#/profil";
+          router.push("/profil");
         })
 
         .catch(function (err) {
@@ -135,7 +139,7 @@ export default {
         body: JSON.stringify(
           // transformation en JSON
           {
-            imageUrl: this.imageUrl,
+            photo: this.photo,
             pseudo: this.pseudo,
             interets: this.interets,
           }
@@ -147,13 +151,12 @@ export default {
           }
         })
 
-        .then(function () {
-          /*
+        .then(function (res) {
           console.log(res);
           if (this.userId == this.profilUserId) {
             localStorage.clear();
-            document.location.href = "/#/delete";
-          }*/
+            router.push("/delete");
+          }
         })
 
         .catch(function (err) {
@@ -174,7 +177,7 @@ export default {
         },
 
         body: JSON.stringify({
-          imageUrl: this.imageUrl,
+          photo: this.photo,
           pseudo: this.pseudo,
           interets: this.interets,
         }), // transformation en JSON
@@ -223,13 +226,17 @@ img {
   padding: 15px;
 }
 
-#photo-profil {
+#photo {
   border: 2px solid #737fe0;
   border-radius: 50%;
   padding: 30px 30px;
   width: 50px;
   height: 50px;
   margin: 30px auto;
+}
+
+textarea {
+  font-family: lato;
 }
 
 button {

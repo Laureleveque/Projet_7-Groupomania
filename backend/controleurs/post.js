@@ -8,17 +8,16 @@ exports.createPost = (req, res, next) => {
   const postObject = JSON.parse(req.body.profil);
   const post = new Post({
     postId: req.body.postId,
-    commentaire: req.body.commentaire,
+    message: req.body.message,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,
     likes: [],
-    reponse: [],
   });
   post
     .save()
     .then(() => res.status(201).json({ message: "Post enregistré !" }))
-    .catch((error) => res.status(400).json({ message: "Create error" }));
+    .catch((error) => res.status(400).json({ error }));
 };
 
 // route DELETE supprimer un post (uniquement par l'auteur ou le modérateur)
@@ -32,7 +31,7 @@ exports.deletePost = (req, res, next) => {
       // La fonction fs.unlink() permet de supprimer l'image du fichier
       Post.deleteOne({ _id: req.params.id })
         .then(() => res.status(200).json({ message: "Commentaire supprimé !" }))
-        .catch((error) => res.status(403).json({ message: "Delete error" }));
+        .catch((error) => res.status(403).json({ error }));
     });
   }).catch((error) => res.status(500).json({ error }));
 };
@@ -42,7 +41,7 @@ exports.deletePost = (req, res, next) => {
 exports.getAllPosts = (req, res, next) => {
   Post.find()
     .then((post) => res.status(200).json(post))
-    .catch((error) => res.status(400).json({ message: "GetAllPosts error" }));
+    .catch((error) => res.status(400).json({ error }));
 };
 
 // route PUT modification d'un post (uniquement par le créateur du post ou le moderateur)
@@ -51,15 +50,15 @@ exports.modifyPost = (req, res, next) => {
   const postObject = req.file
     ? {
         ...JSON.parse(req.body.message),
-        // imageUrl: `${req.protocol}://${req.get("host")}/images/${
-        //  req.file.filename
-        //}`,
+        imageUrl: `${req.protocol}://${req.get("host")}/images/${
+          req.file.filename
+        }`,
       }
     : { ...req.body };
 
   Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
     .then(() => res.status(200).json({ message: "Commentaire modifié !" }))
-    .catch((error) => res.status(403).json({ message: "modify error" }));
+    .catch((error) => res.status(403).json({ error }));
 };
 
 /* route like d'un post

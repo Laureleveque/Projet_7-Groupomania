@@ -17,30 +17,6 @@ export default {
   components: {
     LogoHeader,
   },
-
-  methods: {
-    send() {
-      fetch("http://localhost:3000/api/user/logout", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-        .then(function (res) {
-          // réponse à la requête
-
-          if (res.ok) {
-            // vérification déroulement de la requête
-            return res.json(); // résultat de la requête au format json (promise)
-          }
-          document.location.href = "/#/logout"; // lien vers la page accueil avec l'identifiant du profil
-        })
-        .catch(function (err) {
-          console.error(err);
-        });
-    },
-  },
 };
 </script>
 
