@@ -88,11 +88,58 @@ exports.login = (req, res, next) => {
 // fin de session de l'utilisateur
 
 exports.logout = (req, res, next) => {
-  /*res.status(200).json({
-    token: {
-      expiresIn: "0.01h",
-    },
-  });*/
   localStorage.removeItem("user-token");
   res.status(200);
+};
+
+// récupérer les infos de l'utilisateur
+
+exports.getUserInfos = (req, res, next) => {
+  User.findOne({ _id: req.body.id }) // recherche de l'email unique
+
+    .then((user) => {
+      if (!user) {
+        // si mongoose ne le trouve pas
+        return res.status(401).json({ message: "Utilisateur non trouvé !" });
+      }
+
+      res.status(200).json({
+        // renvoi d'un fichier json avec l'identifiant de l'utilisateur dans la base et un token
+        email: user.email,
+        pseudo: user.pseudo,
+      });
+    })
+    .catch((error) => res.status(500).json({ error }));
+};
+
+// mise à jour des infos de l'utilisateur
+
+exports.updateUserInfos = (req, res, next) => {
+  User.updateOne(
+    { _id: req.body.id },
+    {
+      email: req.body.email,
+      pseudo: req.body.pseudo,
+      //user.password = /* cryptage */
+    }
+  ).then(() => {
+    res.status(200);
+  });
+
+  /*User.findOne({ _id: req.body.id }) // recherche de l'email unique
+
+    .then((user) => {
+      if (!user) {
+        // si mongoose ne le trouve pas
+        return res.status(401).json({ message: "Utilisateur non trouvé !" });
+      }
+
+      user.email = req.body.email;
+      user.pseudo = req.body.pseudo;
+      //user.password = /* cryptage 
+      user.save();
+
+      res.status(200);
+    })
+    .catch((error) => res.status(500).json({ error }));*/
 };

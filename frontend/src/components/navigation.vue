@@ -16,9 +16,7 @@
       </li>
 
       <li>
-        <!--<router-link to="/logout">-->
         <a v-on:click="send()">Déconnexion</a>
-        <!--</router-link>-->
       </li>
     </ul>
   </nav>
@@ -34,14 +32,6 @@ export default {
     send() {
       localStorage.removeItem("user-token");
       router.push("/");
-      /*fetch("http://localhost:3000/api/user/logout", {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("user-token"),
-          },
-      })*/
     },
   },
 };
@@ -73,6 +63,7 @@ a:hover {
   text-decoration: none;
   border-bottom: 3px solid #fd2d01;
   padding: 60px auto;
+  cursor: pointer;
 }
 
 /*   barre de navigation en responsive  */

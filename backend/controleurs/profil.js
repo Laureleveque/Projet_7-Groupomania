@@ -2,7 +2,7 @@
 
 const auth = require("jsonwebtoken");
 
-const Profil = require("../modeles/profil");
+const Profil = require("../modeles/user");
 
 // route GET récupérer le profil d'un utilisateur
 

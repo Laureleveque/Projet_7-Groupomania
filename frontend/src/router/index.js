@@ -7,7 +7,6 @@ import ReseauPage from "../components/reseau.vue";
 import LoginPage from "../components/login.vue";
 import SignupPage from "../components/signup.vue";
 import DeletePage from "../components/delete.vue";
-import LogoutPage from "../components/logout.vue";
 import NavigationPage from "../components/navigation.vue";
 import ProfilPage from "../components/profil.vue";
 import PostsPage from "../components/posts.vue";
@@ -49,12 +48,6 @@ const routes = [
     path: "/login",
     name: "Login",
     component: LoginPage,
-  },
-
-  {
-    path: "/logout",
-    name: "Logout",
-    component: LogoutPage,
   },
 
   {

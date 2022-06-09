@@ -23,6 +23,10 @@ export default {
 img {
   margin-bottom: 0px;
   padding-bottom: 0px;
+
+  width: 30%;
+  margin: 40px;
+  padding: 15px;
 }
 
 @media screen and (max-width: 768px) {

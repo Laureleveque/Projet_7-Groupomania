@@ -40,11 +40,11 @@
               <i
                 id="heart-btn"
                 class="far fa-heart"
-                aria-label="Aimer"
+                aria-label="Like"
                 role="img"
               ></i>
             </div>
-            <div id="heart-number" class="number-btn">
+            <div id="like-number" class="like-btn">
               <p>{{ number.likes }}</p>
             </div>
           </div> -->
@@ -53,7 +53,7 @@
 
       <!--  fin de l'entête user du post  -->
 
-      <!--   cadre pour les posts avec 3 boutons -->
+      <!--   cadre pour les posts -->
 
       <form enctype="multipart/form-data" class="ajout-post">
         <div class="text">
@@ -67,61 +67,46 @@
 
         <!--   bouton pour inserer une image     -->
 
-        <div class="ajout-image" v-if="newImage">
-          <img :src="newImage" />
-        </div>
-
-        <div class="ajout-btn">
-          <div
-            class="ajout-btn-image"
-            title="Ajouter une image (formats .jpeg, .jpg, .png)"
-          >
-            <label for="file">
-              <i
-                class="fas fa-image"
-                aria-label="Ajouter une image"
-                role="img"
-              ></i>
-            </label>
-
-            <input
-              type="file"
-              name="image"
-              id="file"
-              accept="image/png, image/jpeg, image/jpg"
-              ref="file"
-              @change="handleFileUpload"
-            />
+        <div id="flex-btn">
+          <div class="ajout-image" v-if="newImage">
+            <img :src="newImage" />
           </div>
-        </div>
 
-        <!--     bouton pour enregistrer le post 
+          <div class="ajout-btn">
+            <div
+              class="ajout-btn-image"
+              title="Ajouter une image (formats .jpeg, .jpg, .png)"
+            >
+              <label for="file">
+                <i
+                  class="fas fa-image"
+                  aria-label="Ajouter une image"
+                  role="img"
+                ></i>
+              </label>
 
-         <button type="submit" v-on:click="createPost()">
-            Enregistrer
-          </button> -->
+              <input
+                type="file"
+                name="image"
+                id="file"
+                accept="image/png, image/jpeg, image/jpg"
+                ref="file"
+                @change="handleFileUpload"
+              />
+            </div>
+          </div>
 
-        <div class="enregister">
-          <input
-            type="submit"
-            value="Enregistrer"
-            @click.prevent="createPost"
-          />
-        </div>
+          <!--   bouton pour enregistrer le post  -->
 
-        <!--   bouton pour supprimer le post  -->
+          <button type="submit" v-on:click="createPost()">
+            Enregistrer le post
+          </button>
 
-        <div
-          class="delete-post"
-          title="Supprimer le message"
-          v-if="post.user_id == UserId || User == 'admin'"
-          @click.prevent="deletePost"
-        >
-          <i
-            class="fas fa-times"
-            aria-label="Supprimer le message"
-            role="button"
-          ></i>
+          <!--   bouton pour supprimer le post  -->
+
+          <button type="submit" v-on:click="deletePost()">
+            Supprimer le post
+          </button>
         </div>
       </form>
     </section>
@@ -169,6 +154,7 @@ export default {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("user-token"),
         },
 
         body: JSON.stringify(
@@ -217,6 +203,7 @@ export default {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("user-token"),
           },
 
           body: JSON.stringify(
@@ -320,6 +307,7 @@ export default {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("user-token"),
         },
 
         body: JSON.stringify(
@@ -348,9 +336,9 @@ export default {
 
 <style lang="scss">
 #forum {
-  border: 2px solid #737fe0;
+  border: 4px solid #737fe0;
   margin: auto;
-  width: 500px;
+  width: 90%;
   background: white;
 }
 
@@ -369,12 +357,12 @@ export default {
   align-items: center;
 }
 
-#photo {
-  border-radius: 50%;
-  padding: 30px 30px;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 10px;
+#flex-btn {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 700px;
+  justify-content: space-around;
 }
 
 button {
@@ -402,6 +390,7 @@ button {
     margin: auto;
 
     textarea {
+      max-width: 70%;
       font-family: lato;
       margin: 10px 0 10px 0;
       padding: 10px;
@@ -412,44 +401,15 @@ button {
 
 // image
 
-.ajout-image {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  max-width: 600px;
-  margin: auto;
-
-  img {
-    max-width: 100%;
-    object-fit: cover;
-    margin: 5px 0 0 0;
-  }
+img {
+  max-width: 100%;
+  object-fit: cover;
+  margin-left: 0px;
+  padding-left: 0px;
 }
 
 // bouton like
 
-.post-like {
-  .post_jaime {
-    padding-right: 40px;
-    font-size: 25px;
-  }
-
-  .post_jaime:hover {
-    cursor: pointer;
-    -webkit-transition: color 300ms;
-    transition: color 300ms;
-    -webkit-background-clip: text;
-    background-image: -webkit-gradient(
-      linear,
-      left top,
-      left bottom,
-      from(#ff79da),
-      to(#9356dc)
-    );
-    background-image: linear-gradient(to bottom, #ff79da, #9356dc);
-    color: transparent;
-  }
-}
 // delete post or comment
 
 .delete-post {

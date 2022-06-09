@@ -108,6 +108,7 @@ export default {
 
       .then(function (value) {
         localStorage.setItem("user-token", value.token);
+        localStorage.setItem("user-id", value.userId);
         router.push('/posts'); // lien vers la page accueil avec l'identifiant du profil
       })
       .catch(function (err) {

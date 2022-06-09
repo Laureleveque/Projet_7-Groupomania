@@ -1,6 +1,5 @@
 const Post = require("../modeles/post");
 const User = require("../modeles/user");
-const Profil = require("../modeles/profil");
 
 // route POST création d'un post
 

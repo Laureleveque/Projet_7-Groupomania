@@ -18,7 +18,7 @@
             required
           />
         </div>
-
+      <br/>
         <div>
           <label for="pseudo">Pseudo :</label><br />
           <input
@@ -158,8 +158,8 @@ button {
   font-size: 1em;
   transform: scale(1);
   font-weight: bold;
-  width: 110px;
-  height: 40px;
+  width: 100px;
+  height: 30px;
   border-radius: 20px;
   border: 2px solid #4e5166;
 }

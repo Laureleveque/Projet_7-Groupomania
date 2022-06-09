@@ -7,45 +7,61 @@
       <NavigationPage />
     </header>
 
-    <!--   inscription: création du profil  -->
+    <!--  modification du profil  -->
 
     <main>
-      <form @submit="checkProfil" method="post">
-        <div class="profil">
-          <div id="photo">
-            <!--<img :src="user - photo" />-->
-          </div>
-          <br />
-          <div>
-            <p>{{ pseudo }}</p>
-          </div>
-          <br />
-
-          <div class="profil">
-            <label for="interets">Intérêts : </label><br />
-            <textarea
-              name="interets"
-              id="interets"
-              v-model="interets"
-            ></textarea>
-          </div>
-
-          <!--<button type="submit" v-on:click="checkProfil()">-->
-          <button type="submit">Enregistrer mon profil</button>
-          <br />
-          <!--<button type="submit" v-on:click="deleteProfil()">-->
-          <button type="submit">Supprimer mon compte</button>
+      <div class="profil">
+        
+        <div id="photo">
+          <img src="../assets/images/icon.png" alt="Photo" />
         </div>
         <br />
-      </form>
 
-      <!--  bouton modification du profil si déja inscrit 
+        <form @submit="checkForm" method="post">
+          <div>
+            <br />
+            <label for="email">Email :</label><br />
+              <input
+            type="email"
+            name="email"
+            v-model="email"
+            id="email"
+            required
+             />
+          </div>
+          <br/>
+
+        <div>
+          <label for="pseudo">Pseudo :</label><br />
+          <input
+            type="text"
+            name="pseudo"
+            v-model="pseudo"
+            id="pseudo"
+            required
+          />
+        </div>
+        <br/>
+
+        <div>
+          <label for="password">Mot de passe :</label><br />
+          <input type="password" v-model="password" id="password" required />
+        </div>
+
+        <p v-if="errors.length">
+          <b>Merci de corriger les erreurs suivantes :</b>
+          <ul>
+            <li v-for="error in errors" :key="error">{{ error }}</li>
+          </ul>
+        </p>
+ </form>         
           
-          <button type="submit" @click.prevent="modifyProfil">
-            Modifier mon profil
-          </button>
-       
-      -->
+        
+          <button type="submit" v-on:click="checkProfil">Modifier mon profil</button>
+          <br />
+         
+          <button type="submit" v-on:click="deleteProfil">Supprimer mon compte</button>          
+      </div>
     </main>
   </body>
 </template>
@@ -66,27 +82,68 @@ export default {
 
   data() {
     return {
+      errors : [],
       userId: "",
       photo: "",
       pseudo: "",
-      interets: "",
+      email: "",
+      password: ""
     };
   },
 
+  created() {
+    fetch("http://localhost:3000/api/user/" + localStorage.getItem("user-id"), {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("user-token"),
+        },
+        body: JSON.stringify({ id: localStorage.getItem("user-id")})
+      })
+
+      .then(function (res) {
+        if (res.ok) {
+          return res.json(); // résultat de la requête au format json (promise)
+        }
+      })
+
+      .then((res) => {
+        this.email = res.email;
+        this.pseudo = res.pseudo;
+      })
+
+      .catch(function (err) {
+        console.error(err);
+      });
+  },
+
   methods: {
-    // enregistrer un profil
 
     checkProfil(e) {
+      // gestion des erreurs
+      this.errors = [];
+
+      // vérification si email non vide et format requis
+      var re =
+        /(^$|^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)/;
+
+      if (!this.email || !re.test(this.email)) {
+        this.errors.push("Inscrire une adresse mail valide");
+      }
+
+      // vérification du mot de passe entre 3 et 10 cararctères
+      if (this.password != "" && (this.password.length < 3 || this.password.length > 10)) {
+        this.errors.push(
+          "Mot de passe entre 3 et 10 caractères"
+        );
+      }
+
+      //si aucune erreur
+      if (!this.errors.length) {
+        this.modifyProfil(); // envoi des données
+      }
       e.preventDefault();
-
-      this.profilUserId = localStorage.getItem("userId");
-
-      this.userId = this.$route.params.userId;
-
-      console.log(this.profilUserId);
-      console.log(this.userId);
-
-      this.getUserProfil(this.userId);
     },
 
     // récupérer un profil
@@ -97,16 +154,9 @@ export default {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("user-token"),
         },
 
-        /*body: JSON.stringify(
-          // transformation en JSON
-          {
-            photo: this.photo,
-            pseudo: this.pseudo,
-            interets: this.interets,
-          }
-        ),*/
       })
         .then(function (res) {
           // réponse à la requête
@@ -134,6 +184,7 @@ export default {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("user-token"),
         },
 
         body: JSON.stringify(
@@ -141,7 +192,8 @@ export default {
           {
             photo: this.photo,
             pseudo: this.pseudo,
-            interets: this.interets,
+            email: this.email,
+            password: this.password,
           }
         ),
       })
@@ -161,25 +213,25 @@ export default {
 
         .catch(function (err) {
           console.error(err);
-        });
+        })
     },
-  },
-};
 
-/* modifier le profil
+// modifier le profil
 
     modifyProfil() {
-      fetch("http://localhost:3000/api/profil/modifyProfil/:id", {
+      fetch("http://localhost:3000/api/user/" + localStorage.getItem("user-id"), {
         method: "PUT",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("user-token"),
         },
 
         body: JSON.stringify({
-          photo: this.photo,
+          id: localStorage.getItem("user-id"),
           pseudo: this.pseudo,
-          interets: this.interets,
+          email: this.email,
+          password: this.password,
         }), // transformation en JSON
       })
         .then(function (res) {
@@ -192,15 +244,14 @@ export default {
         })
 
         .then(function () {
-          document.location.href = "/#/profil";
-
+          // afficher message de confirmation
         })
 
         .catch(function (err) {
           console.error(err);
          })
 
-    };*/
+    }}};
 </script>
 
 <style>
@@ -214,25 +265,34 @@ body {
 }
 
 #pseudo,
-#interets {
+#email,
+#password {
   width: 400px;
   height: 30px;
   margin-bottom: 20px;
 }
 
-img {
+/*img {
   width: 30%;
   margin: 40px;
   padding: 15px;
-}
+}*/
 
 #photo {
-  border: 2px solid #737fe0;
-  border-radius: 50%;
-  padding: 30px 30px;
-  width: 50px;
-  height: 50px;
-  margin: 30px auto;
+  border: 3px solid #737fe0;
+  width:100px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 0 0 0;
+}
+
+#photo img {
+  max-width: none;
+  margin-top: -16px;
+ 
+  width: 100px;
+  height: 100px;
 }
 
 textarea {
@@ -249,6 +309,7 @@ button {
   border-radius: 20px;
   border: 2px solid #737fe0;
   margin-top: 40px;
+  
 }
 
 button:hover {
@@ -272,7 +333,7 @@ p {
 
   #pseudo,
   #email,
-  #interets {
+  #password {
     width: 90%;
   }
   img {

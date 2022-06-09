@@ -19,9 +19,17 @@ const userSchema = mongoose.Schema({
     trim: true,
   },
 
+  imageUrl: {
+    type: String,
+    default: "./uploads/profil/user.png",
+  },
+
   pseudo: {
     type: String,
-    required: true,
+
+    unique: true,
+    minlength: 3,
+    maxlength: 10,
     trim: true,
   },
 
