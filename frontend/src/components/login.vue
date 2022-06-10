@@ -100,7 +100,8 @@ export default {
         ) // transformation en JSON       
       })
 
-      .then(function (res) { // réponse à la requête
+      .then(function (res) { 
+        // réponse à la requête
         if (res.ok) { // vérification déroulement de la requête
           return res.json(); // résultat de la requête au format json (promise)
         }
@@ -124,17 +125,11 @@ export default {
 body {
   background-color: #4e5166;
 }
-
-#email {
-  width: 400px;
-  height: 30px;
-  margin-bottom: 20px;
-}
-
+#email,
 #password {
   width: 400px;
   height: 30px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 button {
@@ -147,18 +142,18 @@ button {
   transform: scale(1);
   border-radius: 20px;
   border: 2px solid #4e5166;
+  margin-bottom: 200px;
 }
 button:hover {
   transform: scale(1.15);
 }
-
 @media screen and (max-width: 768px) {
   h1 {
     font-weight: 600;
     font-size: 20px;
     margin-right: 10px;
     margin-left: 10px;
-    text-align: center;
+    text-align: left;
   }
   #email,
   #password {

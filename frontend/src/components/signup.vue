@@ -29,7 +29,7 @@
             required
           />
         </div>
-
+<br />
         <div>
           <label for="password">Mot de passe :</label><br />
           <input type="password" v-model="password" id="password" required />
@@ -114,15 +114,15 @@ export default {
         )        
       })
 
-      .then(function (res) { // réponse à la requête
+      .then(function (res) { 
       
-        if (res.ok) { // vérification déroulement de la requête
-          return res.json(); // résultat de la requête au format json (promise)
+        if (res.ok) { 
+          return res.json();  
         }
       })
 
-      .then(function () {   // récupération de l'identifiant du profil
-        router.push('/signupOk'); // lien vers la page ok avec l'identifiant du profil
+      .then(function () {   
+        router.push('/signupok'); 
       })
 
       .catch(function (err) {
@@ -133,19 +133,14 @@ export default {
 }
 
 </script>
-
 <style scoped lang="scss">
 body {
   background-color: #4e5166;
   margin: 0px;
 }
 
-#email {
-  width: 400px;
-  height: 30px;
-  margin-bottom: 20px;
-}
-
+#email,
+#pseudo,
 #password {
   width: 400px;
   height: 30px;
@@ -162,21 +157,21 @@ button {
   height: 30px;
   border-radius: 20px;
   border: 2px solid #4e5166;
+  margin-bottom: 100px;
 }
 button:hover {
   transform: scale(1.15);
 }
-
 @media screen and (max-width: 768px) {
   h1 {
     font-weight: 600;
     font-size: 20px;
     margin-right: 10px;
     margin-left: 10px;
-    text-align: center;
+    text-align: left;
   }
-
   #email,
+  #pseudo,
   #password {
     width: 90%;
   }

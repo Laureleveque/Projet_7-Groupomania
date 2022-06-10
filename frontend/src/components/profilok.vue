@@ -1,32 +1,36 @@
-<!-- Composant Deleteok -->
+<!-- Composant Profilok -->
 
 <template>
   <body>
     <header>
       <LogoHeader />
+      <NavigationPage />
     </header>
     <div>
-      <h1>Votre compte est supprimé !</h1>
+      <h1>Votre profil est modifié !</h1>
     </div>
   </body>
 </template>
 
 <script>
 import LogoHeader from "../components/logo.vue";
+import NavigationPage from "../components/navigation.vue";
 
 export default {
-  name: "DeletePage",
+  name: "ProfilokPage",
 
   components: {
     LogoHeader,
+    NavigationPage,
   },
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 body {
   background: #4e5166;
 }
+
 @media screen and (max-width: 768px) {
   h1 {
     font-weight: 600;

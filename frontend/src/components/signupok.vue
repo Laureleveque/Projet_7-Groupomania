@@ -1,13 +1,15 @@
 <!-- Composant Signupok -->
 
 <template>
-  <header>
-    <LogoHeader />
-    <NavigationPage />
-  </header>
-  <div id="connection">
-    <h1>Votre compte est créé !</h1>
-  </div>
+  <body>
+    <header>
+      <LogoHeader />
+      <NavigationPage />
+    </header>
+    <div>
+      <h1>Votre compte est créé !</h1>
+    </div>
+  </body>
 </template>
 
 <script>
@@ -24,11 +26,18 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
+body {
+  background: #4e5166;
+}
+
 @media screen and (max-width: 768px) {
-  p {
+  h1 {
     font-weight: 600;
     font-size: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+    text-align: left;
   }
 }
 </style>

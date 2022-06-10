@@ -9,6 +9,7 @@ import SignupPage from "../components/signup.vue";
 import DeletePage from "../components/delete.vue";
 import NavigationPage from "../components/navigation.vue";
 import ProfilPage from "../components/profil.vue";
+import ProfilokPage from "../components/profilok.vue";
 import PostsPage from "../components/posts.vue";
 import SignupokPage from "../components/signupok.vue";
 
@@ -60,6 +61,12 @@ const routes = [
     path: "/profil",
     name: "Profil",
     component: ProfilPage,
+  },
+
+  {
+    path: "/profilok",
+    name: "Profilok",
+    component: ProfilokPage,
   },
 
   {

@@ -17,20 +17,12 @@ export default {
 
 <style>
 #logo {
-  text-align: center;
-}
-
-img {
-  margin-bottom: 0px;
-  padding-bottom: 0px;
-
-  width: 30%;
-  margin: 40px;
-  padding: 15px;
+  margin: 80px auto 100px auto;
 }
 
 @media screen and (max-width: 768px) {
-  #logo {
+  img {
+    width: 60%;
   }
 }
 </style>

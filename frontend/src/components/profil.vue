@@ -60,7 +60,7 @@
           <button type="submit" v-on:click="checkProfil">Modifier mon profil</button>
           <br />
          
-          <button type="submit" v-on:click="deleteProfil">Supprimer mon compte</button>          
+          <button type="submit" v-on:click="deleteUser">Supprimer mon compte</button>          
       </div>
     </main>
   </body>
@@ -104,7 +104,7 @@ export default {
 
       .then(function (res) {
         if (res.ok) {
-          return res.json(); // résultat de la requête au format json (promise)
+          return res.json(); 
         }
       })
 
@@ -149,7 +149,7 @@ export default {
     // récupérer un profil
 
     getUserProfil() {
-      fetch("http://localhost:3000/api/profil/:id", {
+      fetch("http://localhost:3000/api/user/:id", {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -178,8 +178,8 @@ export default {
 
     // suppression du compte
 
-    deleteProfil() {
-      fetch("http://localhost:3000/api/profil/deleteProfil/:id", {
+    deleteUser() {
+      fetch("http://localhost:3000/api/user/", {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -240,25 +240,26 @@ export default {
           if (res.ok) {
             // vérification déroulement de la requête
             return res.json(); // résultat de la requête au format json (promise)
-          }
-        })
-
-        .then(function () {
+          }})
+      
+          .then(function () {
           // afficher message de confirmation
-        })
-
+          router.push('/profilok');    
+          })
+    
         .catch(function (err) {
           console.error(err);
-         })
-
-    }}};
+         })   
+    }
+  }
+}
 </script>
 
-<style>
+<style scoped lang="scss">
+
 body {
   background-color: #4e5166;
 }
-
 #profil {
   border: 2px solid transparent;
   margin: 40px auto;
@@ -272,24 +273,19 @@ body {
   margin-bottom: 20px;
 }
 
-/*img {
-  width: 30%;
-  margin: 40px;
-  padding: 15px;
-}*/
 
 #photo {
-  border: 3px solid #737fe0;
+  border: 4px solid #fd2d01;
   width:100px;
   height: 100px;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 20px;
   padding: 0 0 0 0;
 }
 
 #photo img {
   max-width: none;
-  margin-top: -16px;
  
   width: 100px;
   height: 100px;
@@ -300,15 +296,16 @@ textarea {
 }
 
 button {
-  background: #737fe0;
-  color: white;
+  background: white;
+  color: #4e5166;
   font-size: 1em;
   width: 200px;
   height: 50px;
   transform: scale(1);
   border-radius: 20px;
-  border: 2px solid #737fe0;
-  margin-top: 40px;
+  border: 2px solid #4e5166;
+  margin-top: 20px;
+  margin-bottom: 20px;
   
 }
 
@@ -316,9 +313,6 @@ button:hover {
   transform: scale(1.15);
 }
 
-p {
-  color: #ffd7d7;
-}
 
 @media screen and (max-width: 768px) {
   h1 {

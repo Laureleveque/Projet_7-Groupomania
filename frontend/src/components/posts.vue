@@ -13,7 +13,93 @@
 
         <div class="user">
           <div id="photo">
-            <!--img v-bind:src="assets/images/" alt="" /-->
+            <img src="../assets/images/icon.png" alt="Photo" />
+          </div>
+
+          <div class="pseudo">
+            <p>Tibo, le 10/06/22 à 17h57</p>
+          </div>
+
+          <!--   date  -->
+
+          <div class="date">
+            <p>
+              <!--{{ moment(post.createdAt).format("[Le] D MMMM YYYY [à] HH:mm") }}-->
+            </p>
+          </div>
+
+          <!-- bouton like -->
+          <div
+            class="post-like"
+            @click.prevent="like()"
+            v-for="number in likes"
+            :key="number.post_id"
+          >
+            <div class="like-icon">
+              <i id="heart-btn" class="far fa-heart" aria-label="Like"></i>
+            </div>
+            <div id="like-number" class="like-btn">
+              <p>{{ number.likes }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--  fin de l'entête user du post  -->
+
+      <!--   cadre pour les posts -->
+
+      <form enctype="multipart/form-data" class="ajout-post">
+        <div class="text">
+          <textarea
+            name="message"
+            id="message"
+            placeholder="Votre message :"
+            v-model="text"
+          ></textarea>
+
+          <!--   bouton pour inserer une image     -->
+
+          <div class="ajout-image">
+            <img :src="newImage" />
+          </div>
+        </div>
+        <div
+          class="btn-image"
+          title="Ajouter une image (formats .jpeg, .jpg, .png)"
+        >
+          <input
+            type="file"
+            name="image"
+            id="file"
+            accept="image/png, image/jpeg, image/jpg"
+            ref="file"
+            @change="handleFileUpload"
+          />
+        </div>
+
+        <!--   bouton pour enregistrer le post  -->
+        <div id="flex-btn">
+          <button type="submit" v-on:click="createPost()">
+            Enregistrer le post
+          </button>
+
+          <!--   bouton pour supprimer le post  -->
+
+          <button type="submit" v-on:click="deletePost()">
+            Supprimer le post
+          </button>
+        </div>
+      </form>
+      <br />
+      <hr />
+      <br />
+      <div id="post">
+        <!--  photo, pseudo, date et like  -->
+
+        <div class="user">
+          <div id="photo">
+            <img src="../assets/images/icon.png" alt="Photo" />
           </div>
 
           <div class="pseudo">
@@ -28,7 +114,7 @@
             </p>
           </div>
 
-          <!--   bouton like   
+          <!--  bouton like  -->
           <div
             class="post-like"
             title="liker"
@@ -47,7 +133,7 @@
             <div id="like-number" class="like-btn">
               <p>{{ number.likes }}</p>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
 
@@ -63,41 +149,131 @@
             placeholder="Votre message :"
             v-model="text"
           ></textarea>
-        </div>
 
-        <!--   bouton pour inserer une image     -->
+          <!--   bouton pour inserer une image     -->
 
-        <div id="flex-btn">
-          <div class="ajout-image" v-if="newImage">
+          <div class="ajout-image">
             <img :src="newImage" />
           </div>
-
-          <div class="ajout-btn">
-            <div
-              class="ajout-btn-image"
-              title="Ajouter une image (formats .jpeg, .jpg, .png)"
-            >
-              <label for="file">
+        </div>
+        <div
+          class="btn-image"
+          title="Ajouter une image (formats .jpeg, .jpg, .png)"
+        >
+          <!--label for="file">
                 <i
                   class="fas fa-image"
                   aria-label="Ajouter une image"
                   role="img"
                 ></i>
-              </label>
+              </label-->
 
-              <input
-                type="file"
-                name="image"
-                id="file"
-                accept="image/png, image/jpeg, image/jpg"
-                ref="file"
-                @change="handleFileUpload"
-              />
-            </div>
+          <input
+            type="file"
+            name="image"
+            id="file"
+            accept="image/png, image/jpeg, image/jpg"
+            ref="file"
+            @change="handleFileUpload"
+          />
+        </div>
+
+        <!--   bouton pour enregistrer le post  -->
+        <div id="flex-btn">
+          <button type="submit" v-on:click="createPost()">
+            Enregistrer le post
+          </button>
+
+          <!--   bouton pour supprimer le post  -->
+
+          <button type="submit" v-on:click="deletePost()">
+            Supprimer le post
+          </button>
+        </div>
+      </form>
+      <hr />
+
+      <div id="post">
+        <!--  photo, pseudo, date et like  -->
+
+        <div class="user">
+          <div id="photo">
+            <img src="../assets/images/icon.png" alt="Photo" />
           </div>
 
-          <!--   bouton pour enregistrer le post  -->
+          <div class="pseudo">
+            <p>{{ pseudo }}</p>
+          </div>
 
+          <!--   date  -->
+
+          <div class="date">
+            <p>
+              <!--{{ moment(post.createdAt).format("[Le] D MMMM YYYY [à] HH:mm") }}-->
+            </p>
+          </div>
+
+          <!--  bouton like -->
+          <div
+            class="post-like"
+            title="liker"
+            @click.prevent="like()"
+            v-for="number in likes"
+            :key="number.post_id"
+          >
+            <div class="like-icon">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div id="like-number" class="like-btn">
+              <p>{{ number.likes }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--  fin de l'entête user du post  -->
+
+      <!--   cadre pour les posts -->
+
+      <form enctype="multipart/form-data" class="ajout-post">
+        <div class="text">
+          <textarea
+            name="message"
+            id="message"
+            placeholder="Votre message :"
+            v-model="text"
+          ></textarea>
+
+          <!--   bouton pour inserer une image     -->
+
+          <div class="ajout-image">
+            <img :src="newImage" />
+          </div>
+        </div>
+        <div
+          class="btn-image"
+          title="Ajouter une image (formats .jpeg, .jpg, .png)"
+        >
+          <!--label for="file">
+                <i
+                  class="fas fa-image"
+                  aria-label="Ajouter une image"
+                  role="img"
+                ></i>
+              </label-->
+
+          <input
+            type="file"
+            name="image"
+            id="file"
+            accept="image/png, image/jpeg, image/jpg"
+            ref="file"
+            @change="handleFileUpload"
+          />
+        </div>
+
+        <!--   bouton pour enregistrer le post  -->
+        <div id="flex-btn">
           <button type="submit" v-on:click="createPost()">
             Enregistrer le post
           </button>
@@ -198,7 +374,7 @@ export default {
       if (this.file != "" || this.text != "") {
         // si post non vide
 
-        fetch("http://localhost:3000/api/post/createPost", {
+        fetch("http://localhost:3000/api/post/", {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -246,63 +422,78 @@ export default {
     },
 
     /* like post
-        like() {
-            API.post(`posts/${this.postId}/likes`,
-            {
-                userId: localStorage.getItem("userId"),
-                postId: this.postId
-            })
-            .then(response => {
+
+    likePost() {
+      fetch("http://localhost:3000/api/post/:id", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("user-token"),
+        },
+        
+        body: JSON.stringify(
+          // transformation en JSON
+          {
+            userId: localStorage.getItem("userId"),
+            postId: this.postId
+          }
+        ),
+      })
+        .then(function (res) {
+
                 console.log(response);
-                this.getLikesCount();
-                this.getIfUserLiked();
+                this.getNbreLikes();
             })
-            .catch(error => console.log(error));
-        },
-        // display number of likes and comments of post
-        getLikesCount() {
-            API.get(`posts/${this.postId}/likesCount`)
-           .then(response => {
-                this.likes = response.data.likes;
-            })
-            .catch(error => console.log(error));
-        },
-        getCommentsCount() {
-            API.get(`posts/${this.postId}/commentsCount`)
-           .then(response => {
-                this.commentsCount = response.data.commentsCount;
-            })
-            .catch(error => console.log(error));
-        },
-        // display if current user likes post
-        getIfUserLiked() {
-            API.get(`posts/${this.postId}/userLiked/${this.currentUserId}`)
-            .then(response => {
-                if(response.data == "true") {
-                    const btn = document.getElementById('heart-btn');
-                    btn.classList.remove('far');
-                    btn.classList.add('fas');
-                    const count = document.getElementById('heart-count');
-                    count.classList.add('liked');
-                } else if(response.data == "false") {
-                    const btn = document.getElementById('heart-btn');
-                    btn.classList.remove('fas');
-                    btn.classList.add('far');
-                    const count = document.getElementById('heart-count');
-                    count.classList.remove('liked');
-                }
-            })
-            .catch(error => console.log(error));
+
+          if (res.ok) {
+            return res.json(); 
+          }
         }
-    }
+  }
+        .catch(function (err) {
+          console.error(err);
+        });
+  }
+      
+      
+// Nombre de likes
+
+  getNbreLikes() {
+    fetch("http://localhost:3000/api/post/:id", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("user-token"),
+        },
+      
+      })
+        .then(function (res) {
+
+                console.log(response);
+                this.getNbreLikes();
+            })
+
+          if (res.ok) {
+            return res.json(); 
+          }
+        })
+
+        .catch(function (err) {
+          console.error(err);
+        });
+    },
+  },
 };
+           
 
 */
 
     // suppression d'un post par l'id ou le modérateur
 
     deletePost() {
-      fetch("http://localhost:3000/api/post/deletePost:id", {
+      fetch("http://localhost:3000/api/post/:id", {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -335,11 +526,15 @@ export default {
 </script>
 
 <style lang="scss">
+.text {
+  margin-left: 20px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
 #forum {
-  border: 4px solid #737fe0;
   margin: auto;
-  width: 90%;
-  background: white;
+  background: #4e5166;
 }
 
 .user {
@@ -360,52 +555,67 @@ export default {
 #flex-btn {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  width: 700px;
+
   justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: #fd2d01;
 }
 
 button {
-  background: #737fe0;
-  color: white;
+  background: white;
+  color: #4e5166;
   font-size: 1em;
   width: 200px;
   height: 50px;
   transform: scale(1);
   border-radius: 20px;
-  border: 2px solid #737fe0;
-  margin-top: 40px;
+  border: 4px solid #4e5166;
+  margin-top: 30px;
+
   &:hover {
     transform: scale(1.15);
   }
 }
 
 .ajout-post {
-  padding: 30px 0 20px 0;
-  &__text {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    margin: auto;
+  padding: 0px 10px 20px 10px;
 
-    textarea {
-      max-width: 70%;
-      font-family: lato;
-      margin: 10px 0 10px 0;
-      padding: 10px;
-      border: solid 1px #737fe0;
-    }
+  textarea {
+    width: 80%;
+    max-width: 700px;
+    font-family: lato;
+    margin: 10px 0 10px 0;
+    padding: 10px;
+    border: solid 1px #4e5166;
   }
 }
 
-// image
+#file {
+  width: 100px;
 
-img {
-  max-width: 100%;
-  object-fit: cover;
-  margin-left: 0px;
-  padding-left: 0px;
+  margin-bottom: 0px;
+}
+
+// image
+.btn-image {
+  margin: 0px auto 0px auto;
+}
+
+#photo {
+  border: 4px solid #fd2d01;
+  width: 100px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  padding: 0 0 0 0;
+}
+
+#photo img {
+  max-width: none;
+  width: 100px;
+  height: 100px;
 }
 
 // bouton like
@@ -415,6 +625,13 @@ img {
 .delete-post {
   &:hover {
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #flex-btn {
+    flex-direction: column;
+    align-items: center;
   }
 }
 </style>

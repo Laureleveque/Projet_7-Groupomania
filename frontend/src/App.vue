@@ -17,7 +17,6 @@
 #body {
   background-color: rgb(165, 165, 179);
 }
-
 #app {
   font-family: Lato, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -27,21 +26,19 @@
 }
 h1 {
   text-align: left;
+  font-size: 1.5em;
   font-weight: 400;
   color: white;
   margin-bottom: 70px;
-
   margin-left: 50px;
   margin-right: 50px;
   border-bottom: 4px solid #fd2d01;
   padding-bottom: 20px;
 }
-
 h2 {
   font-size: 20px;
   color: white;
 }
-
 p {
   color: white;
 }

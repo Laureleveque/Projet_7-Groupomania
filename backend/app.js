@@ -16,8 +16,8 @@ dotenv.config();
 // accès au corps json de la requête
 app.use(express.json());
 
-const postRoutes = require("./routes/post"); // gestion post
-const userRoutes = require("./routes/user"); // gestion inscription/login
+const postRoutes = require("./routes/post");
+const userRoutes = require("./routes/user");
 
 // connection à MongoDB
 mongoose

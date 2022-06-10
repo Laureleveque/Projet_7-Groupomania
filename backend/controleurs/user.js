@@ -94,7 +94,7 @@ exports.logout = (req, res, next) => {
 
 // récupérer les infos de l'utilisateur
 
-exports.getUserInfos = (req, res, next) => {
+exports.getUserProfil = (req, res, next) => {
   User.findOne({ _id: req.body.id }) // recherche de l'email unique
 
     .then((user) => {
@@ -104,12 +104,28 @@ exports.getUserInfos = (req, res, next) => {
       }
 
       res.status(200).json({
-        // renvoi d'un fichier json avec l'identifiant de l'utilisateur dans la base et un token
         email: user.email,
         pseudo: user.pseudo,
       });
     })
     .catch((error) => res.status(500).json({ error }));
+};
+
+// route DELETE supprimer un utilisateur
+
+exports.deleteUser = (req, res, next) => {
+  User.findOne({ _id: req.params.id });
+
+  then((user) => {
+    const filename = user.imageUrl.split("/images/")[1];
+    fs.unlink(`images/${filename}`, () => {
+      // La fonction fs.unlink() permet de supprimer l'image du fichier
+
+      User.deleteOne({ _id: req.params.id })
+        .then(() => res.status(200).json({ message: "Compte supprimé" }))
+        .catch((error) => res.status(403).json({ error }));
+    });
+  }).catch((error) => res.status(500).json({ error }));
 };
 
 // mise à jour des infos de l'utilisateur
