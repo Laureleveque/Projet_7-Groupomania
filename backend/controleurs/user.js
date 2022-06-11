@@ -5,6 +5,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../modeles/user");
 
+const fs = require("fs");
+
 // inscription d'un nouvel utilisateur
 exports.signup = (req, res, next) => {
   User.findOne(
@@ -35,7 +37,18 @@ exports.signup = (req, res, next) => {
             newUser
               .save()
               .then(() => {
-                res.status(201).json({ user: newUser._id });
+                res.status(201).json({
+                  // renvoi d'un fichier json avec l'identifiant de l'utilisateur dans la base et un token
+                  userId: newUser._id,
+                  token: jwt.sign(
+                    { userId: newUser._id },
+                    "RANDOM_TOKEN_SECRET",
+                    {
+                      // le token contient l'id et une clé secrète
+                      expiresIn: "24h",
+                    }
+                  ),
+                });
               })
 
               .catch((error) => res.status(400).json({ error }));
@@ -95,7 +108,7 @@ exports.logout = (req, res, next) => {
 // récupérer les infos de l'utilisateur
 
 exports.getUserProfil = (req, res, next) => {
-  User.findOne({ _id: req.body.id }) // recherche de l'email unique
+  User.findOne({ _id: req.params.id }) // recherche de l'email unique
 
     .then((user) => {
       if (!user) {
@@ -114,32 +127,35 @@ exports.getUserProfil = (req, res, next) => {
 // route DELETE supprimer un utilisateur
 
 exports.deleteUser = (req, res, next) => {
-  User.findOne({ _id: req.params.id });
+  //User.deleteOne({ _id: req.body.id });
 
-  then((user) => {
-    const filename = user.imageUrl.split("/images/")[1];
-    fs.unlink(`images/${filename}`, () => {
-      // La fonction fs.unlink() permet de supprimer l'image du fichier
+  User.findOne({ _id: req.params.id })
 
-      User.deleteOne({ _id: req.params.id })
-        .then(() => res.status(200).json({ message: "Compte supprimé" }))
-        .catch((error) => res.status(403).json({ error }));
-    });
-  }).catch((error) => res.status(500).json({ error }));
+    .then((user) => {
+      const filename = user.imageUrl.split("/images/")[1];
+      fs.unlink(`images/${filename}`, () => {
+        // La fonction fs.unlink() permet de supprimer l'image du fichier
+
+        User.deleteOne({ _id: req.params.id })
+          .then(() => res.status(200).json({ message: "Compte supprimé" }))
+          .catch((error) => res.status(403).json({ error }));
+      });
+    })
+    .catch((error) => res.status(500).json({ error }));
 };
 
 // mise à jour des infos de l'utilisateur
 
 exports.updateUserInfos = (req, res, next) => {
   User.updateOne(
-    { _id: req.body.id },
+    { _id: req.params.id },
     {
       email: req.body.email,
       pseudo: req.body.pseudo,
-      //user.password = /* cryptage */
+      //user.password = /* cryptage *
     }
   ).then(() => {
-    res.status(200);
+    res.status(200).json({});
   });
 
   /*

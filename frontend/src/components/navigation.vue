@@ -31,6 +31,7 @@ export default {
   methods: {
     send() {
       localStorage.removeItem("user-token");
+      localStorage.removeItem("user-id");
       router.push("/");
     },
   },

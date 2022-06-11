@@ -31,6 +31,7 @@ h1 {
   color: white;
   margin-top: 100px;
   margin-bottom: 80px;
+  margin-left: 20px;
   border-bottom: 4px solid #fd2d01;
   padding-bottom: 20px;
   text-align: left;

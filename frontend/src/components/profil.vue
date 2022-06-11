@@ -14,10 +14,24 @@
         
         <div id="photo">
           <img src="../assets/images/icon.png" alt="Photo" />
-        </div>
-        <br />
+          </div>
 
-        <form @submit="checkForm" method="post">
+          <br />
+          <label for="file">
+          <p>Modifier votre photo</p>
+          </label>
+          <input
+            type="file"
+            name="image"
+            id="file"
+            ref="file"
+            @change="handleFileUpload"
+            accept="image/png, image/jpeg, image/jpg"
+                                />
+      
+        <br />
+        <br />
+        <form method="post">
           <div>
             <br />
             <label for="email">Email :</label><br />
@@ -83,7 +97,6 @@ export default {
   data() {
     return {
       errors : [],
-      userId: "",
       photo: "",
       pseudo: "",
       email: "",
@@ -93,13 +106,12 @@ export default {
 
   created() {
     fetch("http://localhost:3000/api/user/" + localStorage.getItem("user-id"), {
-        method: "POST",
+        method: "GET",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("user-token"),
-        },
-        body: JSON.stringify({ id: localStorage.getItem("user-id")})
+        }
       })
 
       .then(function (res) {
@@ -146,56 +158,16 @@ export default {
       e.preventDefault();
     },
 
-    // récupérer un profil
-
-    getUserProfil() {
-      fetch("http://localhost:3000/api/user/:id", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("user-token"),
-        },
-
-      })
-        .then(function (res) {
-          // réponse à la requête
-
-          if (res.ok) {
-            // vérification déroulement de la requête
-            return res.json(); // résultat de la requête au format json (promise)
-          }
-        })
-
-        .then(function () {
-          router.push("/profil");
-        })
-
-        .catch(function (err) {
-          console.error(err);
-        });
-    },
-
     // suppression du compte
 
     deleteUser() {
-      fetch("http://localhost:3000/api/user/deleteUser", {
+      fetch("http://localhost:3000/api/user/" + localStorage.getItem("user-id"), {
         method: "DELETE",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("user-token"),
         },
-
-        body: JSON.stringify(
-          // transformation en JSON
-          {
-            photo: this.photo,
-            pseudo: this.pseudo,
-            email: this.email,
-            password: this.password,
-          }
-        ),
       })
         .then(function (res) {
           if (res.ok) {
@@ -203,12 +175,9 @@ export default {
           }
         })
 
-        .then(function (res) {
-          console.log(res);
-          if (this.userId == this.profilUserId) {
-            localStorage.clear();
-            router.push("/delete");
-          }
+        .then(function () {
+          localStorage.clear();
+          router.push("/");
         })
 
         .catch(function (err) {
@@ -228,7 +197,6 @@ export default {
         },
 
         body: JSON.stringify({
-          id: localStorage.getItem("user-id"),
           pseudo: this.pseudo,
           email: this.email,
           password: this.password,
@@ -244,7 +212,7 @@ export default {
       
           .then(function () {
           // afficher message de confirmation
-          router.push('/profilok');    
+            router.push('/profilok');    
           })
     
         .catch(function (err) {
@@ -308,7 +276,6 @@ button {
     transform: scale(1.15);
   }
 }
-
 
 @media screen and (max-width: 768px) {
   
