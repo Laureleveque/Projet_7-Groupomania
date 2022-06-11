@@ -40,6 +40,7 @@ export default {
 <style scoped lang="scss">
 #navigation {
   margin-bottom: 50px;
+  margin-top: 50px;
 }
 
 ul {
@@ -79,7 +80,7 @@ a:hover {
   }
 
   a {
-    font-size: 15px;
+    font-size: 18px;
   }
 }
 </style>

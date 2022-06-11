@@ -17,7 +17,7 @@ export default {
 
 <style>
 #logo {
-  margin: 80px auto 100px auto;
+  margin: 80px auto 30px auto;
 }
 
 @media screen and (max-width: 768px) {

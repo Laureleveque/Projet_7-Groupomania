@@ -179,7 +179,7 @@ export default {
     // suppression du compte
 
     deleteUser() {
-      fetch("http://localhost:3000/api/user/", {
+      fetch("http://localhost:3000/api/user/deleteUser", {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -257,9 +257,6 @@ export default {
 
 <style scoped lang="scss">
 
-body {
-  background-color: #4e5166;
-}
 #profil {
   border: 2px solid transparent;
   margin: 40px auto;
@@ -286,7 +283,6 @@ body {
 
 #photo img {
   max-width: none;
- 
   width: 100px;
   height: 100px;
 }
@@ -299,6 +295,7 @@ button {
   background: white;
   color: #4e5166;
   font-size: 1em;
+  font-weight: bold;
   width: 200px;
   height: 50px;
   transform: scale(1);
@@ -306,19 +303,15 @@ button {
   border: 2px solid #4e5166;
   margin-top: 20px;
   margin-bottom: 20px;
-  
-}
-
-button:hover {
-  transform: scale(1.15);
+ 
+  &:hover {
+    transform: scale(1.15);
+  }
 }
 
 
 @media screen and (max-width: 768px) {
-  h1 {
-    font-weight: 300;
-  }
-
+  
   #profil {
     width: 90%;
     padding-left: 10px;
@@ -330,11 +323,9 @@ button:hover {
   #password {
     width: 90%;
   }
+
   img {
     width: 60%;
-  }
-  .cadre {
-    width: 90%;
   }
 }
 </style>

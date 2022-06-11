@@ -16,30 +16,27 @@
             <img src="../assets/images/icon.png" alt="Photo" />
           </div>
 
-          <div class="pseudo">
-            <p>Tibo, le 10/06/22 à 17h57</p>
-          </div>
-
-          <!--   date  -->
-
-          <div class="date">
-            <p>
-              <!--{{ moment(post.createdAt).format("[Le] D MMMM YYYY [à] HH:mm") }}-->
-            </p>
-          </div>
-
-          <!-- bouton like -->
-          <div
-            class="post-like"
-            @click.prevent="like()"
-            v-for="number in likes"
-            :key="number.post_id"
-          >
-            <div class="like-icon">
-              <i id="heart-btn" class="far fa-heart" aria-label="Like"></i>
+          <div id="user_infos">
+            <div class="pseudo">
+              <p>Tibo, le 10/06/22 à 17h57</p>
             </div>
+
+            <!--   date  -->
+
+            <div class="date">
+              <p>
+                <!--{{ moment(post.createdAt).format("[Le] D MMMM YYYY [à] HH:mm") }}-->
+              </p>
+            </div>
+
+            <!-- bouton like -->
+
+            <div class="like-icon">
+              <i class="fa-solid fa-thumbs-up"></i>
+            </div>
+
             <div id="like-number" class="like-btn">
-              <p>{{ number.likes }}</p>
+              <p>{{ 38 }}</p>
             </div>
           </div>
         </div>
@@ -295,6 +292,7 @@ import NavigationPage from "../components/navigation.vue";
 
 import moment from "moment";
 import router from "@/router";
+//import { table } from "console";
 
 //src = "https://kit.fontawesome.com/5cc44e8d6b.js";
 
@@ -312,12 +310,15 @@ export default {
       file: "",
       text: "",
       newImage: "",
+      like: "",
     };
   },
 
   createPost() {
     this.currentUserId = localStorage.getItem("userId");
-    this.getAllPosts();
+    //this.postId =
+    this.getOnePost();
+    this.getNbreLikes();
     //this.moment();
   },
 
@@ -470,24 +471,19 @@ export default {
       
       })
         .then(function (res) {
-
                 console.log(response);
                 this.getNbreLikes();
             })
-
           if (res.ok) {
             return res.json(); 
           }
         })
-
         .catch(function (err) {
           console.error(err);
         });
     },
   },
 };
-           
-
 */
 
     // suppression d'un post par l'id ou le modérateur
@@ -527,9 +523,8 @@ export default {
 
 <style lang="scss">
 .text {
-  margin-left: 20px;
-  margin-bottom: 0px;
-  padding-bottom: 0px;
+  margin: 20px auto 10px auto;
+  width: 100%;
 }
 
 #forum {
@@ -582,6 +577,7 @@ button {
   padding: 0px 10px 20px 10px;
 
   textarea {
+    max-width: 700px;
     width: 80%;
     max-width: 700px;
     font-family: lato;
@@ -592,9 +588,7 @@ button {
 }
 
 #file {
-  width: 100px;
-
-  margin-bottom: 0px;
+  //width: 100px;
 }
 
 // image
@@ -618,6 +612,21 @@ button {
   height: 100px;
 }
 
+hr {
+  height: 1px;
+  background-color: #fd2d01;
+  border: none;
+}
+
+#user_infos {
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-around;
+  align-items: center;
+}
+
 // bouton like
 
 // delete post or comment
@@ -629,6 +638,9 @@ button {
 }
 
 @media screen and (max-width: 768px) {
+  .text {
+    width: 100%;
+  }
   #flex-btn {
     flex-direction: column;
     align-items: center;

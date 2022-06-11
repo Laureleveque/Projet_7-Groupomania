@@ -26,18 +26,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-body {
-  background: #4e5166;
-}
-
-@media screen and (max-width: 768px) {
-  h1 {
-    font-weight: 600;
-    font-size: 20px;
-    margin-right: 10px;
-    margin-left: 10px;
-    text-align: left;
-  }
-}
-</style>
+<style scoped lang="scss"></style>

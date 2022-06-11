@@ -142,6 +142,27 @@ exports.updateUserInfos = (req, res, next) => {
     res.status(200);
   });
 
+  /*
+exports.modifyProfil = (req, res, next) => {
+const profilObject = req.file
+    ? {
+        ...JSON.parse(req.body.user),
+        imageUrl: `${req.protocol}://${req.get("host")}/images/${
+          req.file.filename
+        }`,
+      }
+    : { ...req.body };
+
+  Profil.updateOne(
+    { _id: req.params.id },
+    { ...profilObject, _id: req.params.id }
+  )
+    .then(() => res.status(200).json({ message: "Profil modifié" }))
+    .catch((error) =>
+      res.status(403).json({ message: "unauthorized request" })
+    );
+};
+
   /*User.findOne({ _id: req.body.id }) // recherche de l'email unique
 
     .then((user) => {

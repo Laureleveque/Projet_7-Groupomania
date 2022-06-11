@@ -14,8 +14,8 @@
 </script>
 
 <style lang="scss">
-#body {
-  background-color: rgb(165, 165, 179);
+body {
+  background-color: #4e5166;
 }
 #app {
   font-family: Lato, sans-serif;
@@ -29,11 +29,11 @@ h1 {
   font-size: 1.5em;
   font-weight: 400;
   color: white;
-  margin-bottom: 70px;
-  margin-left: 50px;
-  margin-right: 50px;
+  margin-top: 100px;
+  margin-bottom: 80px;
   border-bottom: 4px solid #fd2d01;
   padding-bottom: 20px;
+  text-align: left;
 }
 h2 {
   font-size: 20px;

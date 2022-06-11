@@ -122,9 +122,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
-  background-color: #4e5166;
-}
+
 #email,
 #password {
   width: 400px;
@@ -143,18 +141,13 @@ button {
   border-radius: 20px;
   border: 2px solid #4e5166;
   margin-bottom: 200px;
-}
-button:hover {
-  transform: scale(1.15);
+
+  &:hover {
+    transform: scale(1.15);
+  }
 }
 @media screen and (max-width: 768px) {
-  h1 {
-    font-weight: 600;
-    font-size: 20px;
-    margin-right: 10px;
-    margin-left: 10px;
-    text-align: left;
-  }
+ 
   #email,
   #password {
     width: 90%;
