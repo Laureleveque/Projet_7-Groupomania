@@ -6,53 +6,6 @@
 
   <main>
     <section id="forum">
-      <div v-for="post in posts" :key="post.pseudo">
-        <!--<PostPage />-->
-        {{ post.pseudo }}
-        {{ post.date }}
-        <PostPage pseudo="{{post.pseudo}}" />
-      </div>
-      <!--   posts  -->
-
-      <!--<div id="post">
-        <!-  photo, pseudo, date et like  ->
-
-        <div class="user">
-          <div id="photo">
-            <img src="../assets/images/icon.png" alt="Photo" />
-          </div>
-
-          <div id="user_infos">
-            <div class="pseudo">
-              <p>Tibo, le 10/06/22</p>
-            </div>
-
-            <!-   date  ->
-
-            <div class="date">
-              <p>
-                <!-{{moment().subtract(10, 'days').calendar(); }}->
-              </p>
-            </div>
-
-            <!- bouton like ->
-            <div id="like">
-              <div class="like-icon">
-                <i class="fa-solid fa-thumbs-up"></i>
-              </div>
-
-              <div id="like-number" class="like-btn">
-                <p>{{ 38 }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!- fin de l'entête user du post  ->
-
-      <!-   cadre pour les posts ->
-
       <form enctype="multipart/form-data" class="ajout-post">
         <div class="text">
           <textarea
@@ -62,10 +15,8 @@
             v-model="text"
           ></textarea>
 
-          <!-   bouton pour inserer une image     ->
-
           <div class="ajout-image">
-            <img :src="newImage" />
+            <img :src="Image" />
           </div>
         </div>
         <div>
@@ -75,117 +26,27 @@
             id="file"
             accept="image/png, image/jpeg, image/jpg"
             ref="file"
-            @change="handleFileUpload"
           />
         </div>
 
-        <!-   bouton pour enregistrer le post  ->
         <div id="flex-btn">
           <button type="submit" v-on:click="createPost()">
             Enregistrer le post
           </button>
 
-          <!-   bouton pour supprimer le post  ->
-
-          <button
-            type="submit"
-            v-if="post.user_id == UserId || User == 'admin'"
-            v-on:click="deletePost()"
-          >
+          <button type="submit" v-on:click="deletePost()">
             Supprimer le post
           </button>
         </div>
       </form>
-      <br />
       <hr />
-      <br />
-      <div id="post">
-        <!-  photo, pseudo, date et like  ->
 
-        <div class="user">
-          <div id="photo">
-            <img src="../assets/images/icon.png" alt="Photo" />
-          </div>
+      <div v-for="post in posts" :key="post.pseudo">
+        {{ post.pseudo }}
+        {{ post.date }}
 
-          <div id="user_infos">
-            <div class="pseudo">
-              <p>Mélanie, le 12/06/22</p>
-            </div>
-
-            <!-   date  ->
-
-            <div class="date">
-              <p>
-                <!-{{moment().subtract(10, 'days').calendar(); }}->
-              </p>
-            </div>
-
-            <!- bouton like ->
-
-            <div class="like-icon">
-              <i class="fa-solid fa-thumbs-up"></i>
-            </div>
-
-            <div id="like-number" class="like-btn">
-              <p>{{ 24 }}</p>
-            </div>
-          </div>
-        </div>
+        <PostPage pseudo="{{post.pseudo}}" />
       </div>
-
-      <!-  fin de l'entête user du post ->
-
-      <!-   cadre pour les posts ->
-
-      <form enctype="multipart/form-data" class="ajout-post">
-        <div class="text">
-          <textarea
-            name="message"
-            id="message"
-            placeholder="Votre message :"
-            v-model="text"
-          ></textarea>
-
-          <!-   bouton pour inserer une image     ->
-
-          <div class="ajout-image">
-            <img :src="newImage" />
-          </div>
-        </div>
-        <div
-          class="btn-image"
-          title="Ajouter une image (formats .jpeg, .jpg, .png)"
-        >
-          <input
-            type="file"
-            name="image"
-            id="file"
-            accept="image/png, image/jpeg, image/jpg"
-            ref="file"
-            @change="handleFileUpload"
-          />
-        </div>
-
-        <!-   bouton pour enregistrer le post  ->
-        <div id="flex-btn">
-          <button type="submit" v-on:click="createPost()">
-            Enregistrer le post
-          </button>
-
-          <!-   bouton pour supprimer le post  ->
-
-          <button
-            type="submit"
-            v-if="post.user_id == UserId || User == 'admin'"
-            v-on:click="deletePost()"
-          >
-            Supprimer le post
-          </button>
-        </div>
-      </form>
-      <br />
-      <hr />
-      <br />-->
     </section>
   </main>
 </template>
@@ -195,9 +56,9 @@ import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
 import PostPage from "../components/post.vue";
 import moment from "moment";
-import router from "@/router";
+//import router from "@/router";
 //import { table } from "console";
-//src = "https://kit.fontawesome.com/5cc44e8d6b.js";
+
 export default {
   name: "PostsPage",
   components: {
@@ -211,106 +72,81 @@ export default {
         { pseudo: "Tibo", date: "10/06/22" },
         { pseudo: "Tiago", date: "09/05/21" },
       ],
-      file: "",
+      post: "",
       text: "",
-      newImage: "",
-      like: "",
+      Image: "",
     };
   },
 
-  created() {
-    // requête getAllPosts -> this.posts
+  // récupération de tous les posts
+
+  getAllPosts() {
+    fetch("http://localhost:3000/api/post/getAllPosts", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("user-token"),
+      },
+      body: JSON.stringify(
+        // transformation en JSON
+        {
+          posts: this.posts,
+        }
+      ),
+    })
+      .then(function (res) {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .catch(function (err) {
+        console.error(err);
+      });
+  },
+
+  moment() {
+    this.moment = moment;
   },
 
   methods: {
     createPost() {
-      this.currentUserId = localStorage.getItem("userId");
-      //this.postId =
-      this.getOnePost();
-      this.getNbreLikes();
-      //this.moment();
-    },
-    // récupérer les posts
-    getAllPosts() {
-      fetch("http://localhost:3000/api/post/getAllPosts", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("user-token"),
-        },
-        body: JSON.stringify(
-          // transformation en JSON
-          {
-            posts: this.posts,
-          }
-        ),
-      })
-        .then(function (res) {
-          // réponse à la requête
-          if (res.ok) {
-            // vérification déroulement de la requête
-            return res.json(); // résultat de la requête au format json (promise)
-          }
-        })
-        .catch(function (err) {
-          console.error(err);
-        });
-    },
-    moment() {
-      this.moment = moment;
-    },
-    // enregistrement d'un post
-    checkPost() {
-      this.file = this.$refs.file.files[0];
-      console.log(this.file);
-      this.newImage = URL.createObjectURL(this.file);
-      const Post = new Post();
-      Post.append("image", this.file);
-      Post.append("text", this.text);
-      Post.append("userId", this.currentUserId);
-      if (this.file != "" || this.text != "") {
+      if (this.text != "") {
         // si post non vide
-        fetch("http://localhost:3000/api/post/", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("user-token"),
-          },
-          body: JSON.stringify(
-            // transformation en JSON
-            {
-              posts: this.posts,
-            }
-          ),
-        })
+        fetch(
+          "http://localhost:3000/api/post/" + localStorage.getItem("user-id"),
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("user-token"),
+            },
+          }
+        )
           .then(function (res) {
-            console.log(res);
-            this.emptyForm();
-            this.getAllPosts();
             if (res.ok) {
-              // vérification déroulement de la requête
-              return res.json(); // résultat de la requête au format json (promise)
+              return res.json();
             }
           })
-          .then(function () {
-            router.push("/accueil");
+          .then(() => {
+            this.UserId = localStorage.getItem("userId");
+
+            this.moment();
+            this.emptyForm();
           })
           .catch(function (err) {
             console.error(err);
           });
-      } else {
-        this.errorMessage = "Vous n'avez écrit aucun message";
       }
     },
+
     emptyForm() {
       this.text = "";
-      this.newImage = "";
-      this.file = "";
-      const input = document.getElementById("file");
-      input.value = "";
+      this.Image = "";
+      //input.value = "";
     },
+
     /* like post
     likePost() {
       fetch("http://localhost:3000/api/post/:id", {
@@ -320,7 +156,6 @@ export default {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("user-token"),
         },
-
         body: JSON.stringify(
           // transformation en JSON
           {
@@ -342,8 +177,6 @@ export default {
           console.error(err);
         });
   }
-
-
 // Nombre de likes
   getNbreLikes() {
     fetch("http://localhost:3000/api/post/:id", {
@@ -353,7 +186,6 @@ export default {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("user-token"),
         },
-
       })
         .then(function (res) {
                 console.log(response);
@@ -379,18 +211,13 @@ export default {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("user-token"),
         },
-        body: JSON.stringify(
-          // transformation en JSON
-          {
-            post: this.post, // ???
-          }
-        ),
+        body: JSON.stringify({
+          post: this.post, // ???
+        }),
       })
         .then(function (res) {
-          // réponse à la requête
           if (res.ok) {
-            // vérification déroulement de la requête
-            return res.json(); // résultat de la requête au format json (promise)
+            return res.json();
           }
         })
         .catch(function (err) {
@@ -416,7 +243,6 @@ export default {
   flex-wrap: wrap;
   align-items: center;
 }
-
 #like {
   display: flex;
   width: 55px;
@@ -464,7 +290,6 @@ button {
     border: solid 1px #4e5166;
   }
 }
-
 // image
 .btn-image {
   margin: 0px auto 0px auto;
@@ -495,7 +320,6 @@ hr {
   justify-content: space-around;
   align-items: center;
 }
-
 // delete post or comment
 .delete-post {
   &:hover {

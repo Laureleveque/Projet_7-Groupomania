@@ -150,7 +150,6 @@ button {
   color: #4e5166;
   font-size: 1em;
   transform: scale(1);
-  font-weight: bold;
   width: 100px;
   height: 30px;
   border-radius: 20px;

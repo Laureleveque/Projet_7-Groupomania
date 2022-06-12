@@ -263,7 +263,6 @@ button {
   background: white;
   color: #4e5166;
   font-size: 1em;
-  font-weight: bold;
   width: 200px;
   height: 50px;
   transform: scale(1);

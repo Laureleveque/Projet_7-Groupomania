@@ -21,18 +21,8 @@ const postSchema = mongoose.Schema({
     type: String,
   },
 
-  likers: {
+  likes: {
     type: [String],
-  },
-
-  reponse: {
-    type: [
-      {
-        reponseId: String,
-        text: String,
-        // timestamps: number,
-      },
-    ],
   },
 });
 

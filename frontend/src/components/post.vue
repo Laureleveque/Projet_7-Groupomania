@@ -60,25 +60,16 @@
         id="file"
         accept="image/png, image/jpeg, image/jpg"
         ref="file"
-        @change="handleFileUpload"
       />
     </div>
 
     <!--   bouton pour enregistrer le post  -->
     <div id="flex-btn">
-      <!--<button type="submit" v-on:click="createPost">Enregistrer le post</button>-->
-      <button type="submit">Enregistrer le post</button>
+      <button type="submit" v-on:click="createPost">Enregistrer le post</button>
 
       <!--   bouton pour supprimer le post  -->
 
-      <!--<button
-        type="submit"
-        v-if="post.user_id == UserId || User == 'admin'"
-        v-on:click="deletePost"
-      >
-        Supprimer le post
-      </button>-->
-      <button type="submit">Supprimer le post</button>
+      <button type="submit" v-on:click="deletePost">Supprimer le post</button>
     </div>
   </form>
   <hr />
@@ -97,8 +88,65 @@ export default {
     };
   },
   methods: {
-    createPost() {},
-    deletePost() {},
+    createPost() {
+      if (this.text != "") {
+        // si post non vide
+        fetch(
+          "http://localhost:3000/api/post/" + localStorage.getItem("user-id"),
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("user-token"),
+            },
+          }
+        )
+          .then(function (res) {
+            if (res.ok) {
+              return res.json();
+            }
+          })
+          .then(() => {
+            this.UserId = localStorage.getItem("userId");
+
+            this.moment();
+            this.emptyForm();
+          })
+          .catch(function (err) {
+            console.error(err);
+          });
+      }
+    },
+
+    emptyForm() {
+      this.text = "";
+      this.Image = "";
+      //input.value = "";
+    },
+
+    // suppression d'un post par l'id ou le modérateur
+    deletePost() {
+      fetch("http://localhost:3000/api/post/:id", {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("user-token"),
+        },
+        body: JSON.stringify({
+          post: this.post, // ???
+        }),
+      })
+        .then(function (res) {
+          if (res.ok) {
+            return res.json();
+          }
+        })
+        .catch(function (err) {
+          console.error(err);
+        });
+    },
   },
 };
 </script>

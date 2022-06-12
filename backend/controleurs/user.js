@@ -178,21 +178,5 @@ const profilObject = req.file
       res.status(403).json({ message: "unauthorized request" })
     );
 };
-
-  /*User.findOne({ _id: req.body.id }) // recherche de l'email unique
-
-    .then((user) => {
-      if (!user) {
-        // si mongoose ne le trouve pas
-        return res.status(401).json({ message: "Utilisateur non trouvé !" });
-      }
-
-      user.email = req.body.email;
-      user.pseudo = req.body.pseudo;
-      //user.password = /* cryptage 
-      user.save();
-
-      res.status(200);
-    })
-    .catch((error) => res.status(500).json({ error }));*/
+*/
 };

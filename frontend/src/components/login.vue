@@ -134,7 +134,6 @@ button {
   background: white;
   color: #4e5166;
   font-size: 1em;
-  font-weight: bold;
   width: 130px;
   height: 40px;
   transform: scale(1);
