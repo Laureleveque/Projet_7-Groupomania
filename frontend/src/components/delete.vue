@@ -1,5 +1,3 @@
-<!-- Composant Deleteok -->
-
 <template>
   <body>
     <header>

@@ -5,7 +5,6 @@
   </header>
 
   <main>
-    <h3>Créer un post</h3>
     <section id="forum">
       <form
         @submit="createPost"
@@ -35,18 +34,7 @@
           />
         </div>
 
-        <div id="flex-btn">
-          <button type="submit">Enregistrer le post</button>
-
-          <!--<button
-            type="submit"
-            v-if="post.user_id == UserId || User == 'admin'"
-            v-on:click="deletePost()"
-          -->
-          <button type="submit" v-on:click="deletePost()">
-            Supprimer le post
-          </button>
-        </div>
+        <button type="submit">Enregistrer le post</button>
       </form>
       <hr />
 
@@ -272,8 +260,9 @@ button {
   background: white;
   color: #4e5166;
   font-size: 1em;
-  width: 200px;
-  height: 50px;
+  font-weight: 600;
+  width: 170px;
+  height: 40px;
   transform: scale(1);
   border-radius: 20px;
   border: 4px solid #4e5166;
@@ -299,7 +288,7 @@ button {
   margin: 0px auto 0px auto;
 }
 #photo {
-  border: 4px solid #fd2d01;
+  border: 3px solid #fd2d01;
   width: 100px;
   height: 100px;
   margin-left: auto;

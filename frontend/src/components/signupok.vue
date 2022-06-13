@@ -1,5 +1,3 @@
-<!-- Composant Signupok -->
-
 <template>
   <body>
     <header>

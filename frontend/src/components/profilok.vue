@@ -1,5 +1,3 @@
-<!-- Composant Profilok -->
-
 <template>
   <body>
     <header>

@@ -37,16 +37,16 @@
         <p>{{ text }}</p>
       </div>
 
-      <!--   bouton pour enregistrer le post  -->
       <div id="flex-btn">
-        <!--   bouton pour supprimer le post  -->
+        <!--   bouton pour modifier le post  -->
 
+        <button type="submit" v-on:click="modifyPost">Modifier le post</button>
         <!--<button
           type="submit"
           v-if="post.user_id == UserId || User == 'admin'"
           v-on:click="deletePost"
-        >
-        <button type="submit" v-on:click="deletePost">Supprimer le post</button>-->
+        -->
+        <button type="submit" v-on:click="deletePost">Supprimer le post</button>
       </div>
     </form>
     <hr />

@@ -1,4 +1,3 @@
-<!-- composant Profil -->
 
 <template>
   <body>
@@ -64,12 +63,9 @@
             <li v-for="error in errors" :key="error">{{ error }}</li>
           </ul>
         </p>
- </form>         
-          
-        
+ </form>               
           <button type="submit" v-on:click="checkProfil">Modifier mon profil</button>
-          <br />
-         
+          <br />       
           <button type="submit" v-on:click="deleteUser">Supprimer mon compte</button>          
       </div>
     </main>
@@ -194,7 +190,6 @@ export default {
         body: JSON.stringify({
           pseudo: this.pseudo,
           email: this.email,
-          password: this.password,
         }), // transformation en JSON
       })
         .then(function (res) {
@@ -235,7 +230,7 @@ export default {
 
 
 #photo {
-  border: 4px solid #fd2d01;
+  border: 3px solid #fd2d01;
   width:100px;
   height: 100px;
   margin-left: auto;
@@ -252,14 +247,16 @@ export default {
 
 textarea {
   font-family: lato;
+  padding-left: 20px;
 }
 
 button {
   background: white;
   color: #4e5166;
-  font-size: 1em;
-  width: 200px;
-  height: 50px;
+  font-size: 0.8em;
+  font-weight: 600;
+  width: 170px;
+  height: 40px;
   transform: scale(1);
   border-radius: 20px;
   border: 2px solid #4e5166;
@@ -268,6 +265,7 @@ button {
  
   &:hover {
     transform: scale(1.15);
+    
   }
 }
 
