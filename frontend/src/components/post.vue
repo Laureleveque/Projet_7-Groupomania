@@ -1,98 +1,92 @@
 <template>
-  <div id="post">
-    <!--  photo, pseudo, date et like  -->
+  <main>
+    <div id="post">
+      <!--  photo, pseudo, date et like  -->
 
-    <div class="user">
-      <div id="photo">
-        <img src="../assets/images/icon.png" alt="Photo" />
-      </div>
-
-      <div id="user_infos">
-        <div class="pseudo">
-          <p>{{ pseudo }}, le {{ date }}</p>
+      <div class="user">
+        <div id="photo">
+          <img :src="photo" alt="photo" />
+          <!--<p>{{ photo }}</p>-->
         </div>
 
-        <!--   date  -->
-
-        <div class="date">
-          <p>
-            <!--{{moment().subtract(10, 'days').calendar(); }}-->
-          </p>
-        </div>
-
-        <!-- bouton like -->
-        <div id="like">
-          <div class="like-icon">
-            <i class="fa-solid fa-thumbs-up"></i>
+        <div id="user_infos">
+          <div class="pseudo">
+            <p>{{ pseudo }}, le {{ date }}</p>
           </div>
 
-          <div id="like-number" class="like-btn">
-            <p>{{ nbLikes }}</p>
+          <!-- bouton like -->
+          <div id="like">
+            <div class="like-icon">
+              <i class="fa-solid fa-thumbs-up"></i>
+            </div>
+
+            <div id="like-number" class="like-btn">
+              <p>{{ likes }}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- fin de l'entête user du post  -->
+    <!-- fin de l'entête user du post  -->
 
-  <!--   cadre pour les posts -->
+    <!--   cadre pour les posts -->
 
-  <form enctype="multipart/form-data" class="ajout-post">
-    <div class="text">
-      <textarea
-        name="message"
-        id="message"
-        placeholder="Votre message :"
-        v-model="text"
-      ></textarea>
-
-      <!--   bouton pour inserer une image     -->
-
-      <div class="ajout-image">
-        <img :src="newImage" />
+    <form enctype="multipart/form-data" class="ajout-post">
+      <div class="text">
+        <p>{{ text }}</p>
       </div>
-    </div>
-    <div>
-      <input
-        type="file"
-        name="image"
-        id="file"
-        accept="image/png, image/jpeg, image/jpg"
-        ref="file"
-      />
-    </div>
 
-    <!--   bouton pour enregistrer le post  -->
-    <div id="flex-btn">
-      <button type="submit" v-on:click="createPost">Enregistrer le post</button>
+      <!--   bouton pour enregistrer le post  -->
+      <div id="flex-btn">
+        <!--   bouton pour supprimer le post  -->
 
-      <!--   bouton pour supprimer le post  -->
-
-      <button type="submit" v-on:click="deletePost">Supprimer le post</button>
-    </div>
-  </form>
-  <hr />
+        <!--<button
+          type="submit"
+          v-if="post.user_id == UserId || User == 'admin'"
+          v-on:click="deletePost"
+        >
+        <button type="submit" v-on:click="deletePost">Supprimer le post</button>-->
+      </div>
+    </form>
+    <hr />
+  </main>
 </template>
 
 <script>
+//import moment from "moment";
+//import router from "@/router";
+
 export default {
   name: "PostPage",
   components: {},
   data() {
     return {
-      pseudo: "Tibo",
-      date: "10/06/22",
-      nbLikes: 7,
-      text: "",
+      //photo: "",
+      //pseudo: "",
+      //date: "",
+      //likes: "",
+      //text: "",
     };
   },
+
+  props: {
+    photo: String,
+    pseudo: String,
+    date: String,
+    likes: Number,
+    text: String,
+    imageUrl: String,
+  },
+
   methods: {
-    createPost() {
+    /*createPost() {
+      this.UserId = localStorage.getItem("userId");
       if (this.text != "") {
         // si post non vide
         fetch(
-          "http://localhost:3000/api/post/" + localStorage.getItem("user-id"),
+          "http://localhost:3000/api/post/:id" +
+            localStorage.getItem("user-id"),
           {
             method: "GET",
             headers: {
@@ -107,26 +101,21 @@ export default {
               return res.json();
             }
           })
-          .then(() => {
+          .then((res) => {
             this.UserId = localStorage.getItem("userId");
-
-            this.moment();
-            this.emptyForm();
+            this.pseudo = res.pseudo;
+            this.likes = res.likes;
+            this.text = res.text;
+            this.imageUrl = res.imageUrl;
           })
+
           .catch(function (err) {
             console.error(err);
           });
       }
-    },
-
-    emptyForm() {
-      this.text = "";
-      this.Image = "";
-      //input.value = "";
-    },
-
+    },*/
     // suppression d'un post par l'id ou le modérateur
-    deletePost() {
+    /*deletePost() {
       fetch("http://localhost:3000/api/post/:id", {
         method: "DELETE",
         headers: {
@@ -134,11 +123,67 @@ export default {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("user-token"),
         },
-        body: JSON.stringify({
-          post: this.post, // ???
-        }),
       })
         .then(function (res) {
+          if (res.ok) {
+            return res.json();
+          }
+        })
+
+        .then(function () {
+          localStorage.clear();
+          router.push("/posts");
+        })
+
+        .catch(function (err) {
+          console.error(err);
+        });
+    },*/
+    // like post
+    /*likePost() {
+      fetch("http://localhost:3000/api/post/:id", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("user-token"),
+        },
+        body: JSON.stringify(
+          // transformation en JSON
+          {
+            userId: localStorage.getItem("userId"),
+            postId: this.postId,
+          }
+        ),
+      })
+        .then(function (res) {
+          console.log(res);
+          // this.getNbLikes();
+          if (res.ok) {
+            return res.json();
+          }
+        })
+        .catch(function (err) {
+          console.error(err);
+        });
+    },*/
+  },
+};
+
+/* Nombre de likes
+  getNbLikes() {
+    fetch("http://localhost:3000/api/post/:id", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("user-token"),
+        },
+      })
+        .then(function (res) {
+                console.log(response);
+                this.getNbLikes();
+            })
           if (res.ok) {
             return res.json();
           }
@@ -149,6 +194,9 @@ export default {
     },
   },
 };
+
+  },
+};*/
 </script>
 
 <style lang="scss"></style>

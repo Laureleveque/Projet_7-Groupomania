@@ -119,6 +119,7 @@ exports.getUserProfil = (req, res, next) => {
       res.status(200).json({
         email: user.email,
         pseudo: user.pseudo,
+        photo: user.photo,
       });
     })
     .catch((error) => res.status(500).json({ error }));
@@ -152,7 +153,6 @@ exports.updateUserInfos = (req, res, next) => {
     {
       email: req.body.email,
       pseudo: req.body.pseudo,
-      //user.password = /* cryptage *
     }
   ).then(() => {
     res.status(200).json({});

@@ -1,3 +1,5 @@
+<!--  composant principal  -->
+
 <template>
   <nav>
     <!-- se charge de la navigation dans l'application -->
@@ -9,9 +11,7 @@
   <router-view />
 </template>
 
-<script>
-//import LogoHeader from "../components/logo.vue";
-</script>
+<script></script>
 
 <style lang="scss">
 body {

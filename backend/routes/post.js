@@ -9,10 +9,10 @@ const postCtrl = require("../controleurs/post");
 
 // CRUD
 
-router.post("/", auth, multer, postCtrl.createPost);
+router.post("/:id", auth, multer, postCtrl.createPost);
 router.get("/", auth, postCtrl.getAllPosts);
 router.put("/:id", auth, multer, postCtrl.modifyPost);
 router.delete("/:id", auth, postCtrl.deletePost);
-//router.patch("/like-post/:id", auth, postCtrl.likePost);
+router.post("/", auth, postCtrl.likePost);
 
 module.exports = router;

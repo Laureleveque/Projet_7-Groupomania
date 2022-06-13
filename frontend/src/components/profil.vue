@@ -57,10 +57,6 @@
         </div>
         <br/>
 
-        <div>
-          <label for="password">Mot de passe :</label><br />
-          <input type="password" v-model="password" id="password" required />
-        </div>
 
         <p v-if="errors.length">
           <b>Merci de corriger les erreurs suivantes :</b>
@@ -97,10 +93,9 @@ export default {
   data() {
     return {
       errors : [],
-      photo: "",
+      file: "",
       pseudo: "",
       email: "",
-      password: ""
     };
   },
 

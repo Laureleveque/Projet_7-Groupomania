@@ -6,10 +6,10 @@
       <LogoHeader />
     </header>
 
-    <h1>Connexion au réseau social de Groupomania</h1>
+      <h1>Connexion au réseau social de Groupomania</h1>
 
 
-<main>
+    <main>
       <form @submit="checkForm" method="post">
         <div>
         <label for="email">Email : </label><br />
@@ -21,15 +21,15 @@
         <input type="password" v-model="password" id="password" required />
       </div>
 
- <p v-if="errors.length">
+        <p v-if="errors.length">
           <b>Merci de corriger les erreurs suivantes :</b>
           <ul>
             <li v-for="error in errors" :key="error">{{ error }}</li>
           </ul>
         </p>
 
-      <button type="submit">Se connecter</button>
-    </form>
+        <button type="submit">Se connecter</button>
+      </form>
     </main>
   </body>
 </template>
@@ -112,8 +112,10 @@ export default {
         localStorage.setItem("user-id", value.userId);
         router.push('/posts'); 
       })
+      
       .catch(function (err) {
         console.error(err);
+       //this.errorMessage = err.response.data.error;
       })
     }
   }

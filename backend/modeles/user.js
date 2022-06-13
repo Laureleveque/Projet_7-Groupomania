@@ -19,14 +19,13 @@ const userSchema = mongoose.Schema({
     trim: true,
   },
 
-  imageUrl: {
+  photo: {
     type: String,
-    default: "./uploads/profil/user.png",
+    default: "../assets/images/icon.png",
   },
 
   pseudo: {
     type: String,
-
     unique: true,
     minlength: 3,
     maxlength: 10,

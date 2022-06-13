@@ -5,8 +5,14 @@
   </header>
 
   <main>
+    <h3>Créer un post</h3>
     <section id="forum">
-      <form enctype="multipart/form-data" class="ajout-post">
+      <form
+        @submit="createPost"
+        method="post"
+        enctype="multipart/form-data"
+        class="ajout-post"
+      >
         <div class="text">
           <textarea
             name="message"
@@ -30,10 +36,13 @@
         </div>
 
         <div id="flex-btn">
-          <button type="submit" v-on:click="createPost()">
-            Enregistrer le post
-          </button>
+          <button type="submit">Enregistrer le post</button>
 
+          <!--<button
+            type="submit"
+            v-if="post.user_id == UserId || User == 'admin'"
+            v-on:click="deletePost()"
+          -->
           <button type="submit" v-on:click="deletePost()">
             Supprimer le post
           </button>
@@ -41,11 +50,14 @@
       </form>
       <hr />
 
-      <div v-for="post in posts" :key="post.pseudo">
-        {{ post.pseudo }}
-        {{ post.date }}
-
-        <PostPage pseudo="{{post.pseudo}}" />
+      <div v-for="post in posts" :key="post">
+        <PostPage
+          :photo="post.photo"
+          :pseudo="post.pseudo"
+          :date="post.date"
+          :likes="post.likes"
+          :text="post.text"
+        />
       </div>
     </section>
   </main>
@@ -55,8 +67,7 @@
 import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
 import PostPage from "../components/post.vue";
-import moment from "moment";
-//import router from "@/router";
+import router from "@/router";
 //import { table } from "console";
 
 export default {
@@ -69,52 +80,38 @@ export default {
   data() {
     return {
       posts: [
-        { pseudo: "Tibo", date: "10/06/22" },
-        { pseudo: "Tiago", date: "09/05/21" },
+        {
+          photo: require("../assets/images/medit1.jpg"),
+          pseudo: "Thib",
+          date: "12/06/22",
+          likes: 7,
+          text: "Bonjour !",
+        },
+        {
+          photo: require("../assets/images/Montagne.jpg"),
+          pseudo: "Tiago",
+          date: "09/05/21",
+          likes: 6000,
+          text: "Ouaf",
+        },
       ],
       post: "",
       text: "",
-      Image: "",
+      imageUrl: "",
     };
   },
 
-  // récupération de tous les posts
-
-  getAllPosts() {
-    fetch("http://localhost:3000/api/post/getAllPosts", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("user-token"),
-      },
-      body: JSON.stringify(
-        // transformation en JSON
-        {
-          posts: this.posts,
-        }
-      ),
-    })
-      .then(function (res) {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch(function (err) {
-        console.error(err);
-      });
-  },
-
-  moment() {
-    this.moment = moment;
+  created() {
+    this.getAllPosts();
   },
 
   methods: {
-    createPost() {
+    createPost(e) {
+      e.preventDefault();
       if (this.text != "") {
         // si post non vide
         fetch(
-          "http://localhost:3000/api/post/" + localStorage.getItem("user-id"),
+          "http://localhost:3000/api/user/" + localStorage.getItem("user-id"),
           {
             method: "GET",
             headers: {
@@ -129,11 +126,36 @@ export default {
               return res.json();
             }
           })
-          .then(() => {
-            this.UserId = localStorage.getItem("userId");
-
-            this.moment();
-            this.emptyForm();
+          .then((value) => {
+            fetch(
+              "http://localhost:3000/api/post/" +
+                localStorage.getItem("user-id"),
+              {
+                method: "POST",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer " + localStorage.getItem("user-token"),
+                },
+                body: JSON.stringify({
+                  photo: value.photo,
+                  pseudo: value.pseudo,
+                  text: this.text,
+                  imageUrl: this.imageUrl,
+                }),
+              }
+            )
+              .then(function (res) {
+                if (res.ok) {
+                  return res.json();
+                }
+              })
+              .then(() => {
+                this.getAllPosts();
+              })
+              .catch(function (err) {
+                console.error(err);
+              });
           })
           .catch(function (err) {
             console.error(err);
@@ -141,68 +163,8 @@ export default {
       }
     },
 
-    emptyForm() {
-      this.text = "";
-      this.Image = "";
-      //input.value = "";
-    },
-
-    /* like post
-    likePost() {
-      fetch("http://localhost:3000/api/post/:id", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("user-token"),
-        },
-        body: JSON.stringify(
-          // transformation en JSON
-          {
-            userId: localStorage.getItem("userId"),
-            postId: this.postId
-          }
-        ),
-      })
-        .then(function (res) {
-                console.log(response);
-                this.getNbreLikes();
-            })
-          if (res.ok) {
-            return res.json();
-          }
-        }
-  }
-        .catch(function (err) {
-          console.error(err);
-        });
-  }
-// Nombre de likes
-  getNbreLikes() {
-    fetch("http://localhost:3000/api/post/:id", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("user-token"),
-        },
-      })
-        .then(function (res) {
-                console.log(response);
-                this.getNbreLikes();
-            })
-          if (res.ok) {
-            return res.json();
-          }
-        })
-        .catch(function (err) {
-          console.error(err);
-        });
-    },
-  },
-};
-*/
     // suppression d'un post par l'id ou le modérateur
+
     deletePost() {
       fetch("http://localhost:3000/api/post/:id", {
         method: "DELETE",
@@ -220,9 +182,51 @@ export default {
             return res.json();
           }
         })
+        .then(function () {
+          localStorage.clear();
+          router.push("/posts");
+        })
         .catch(function (err) {
           console.error(err);
         });
+    },
+    // récupération de tous les posts
+
+    getAllPosts() {
+      fetch("http://localhost:3000/api/post/", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("user-token"),
+        },
+      })
+        .then(function (res) {
+          if (res.ok) {
+            return res.json();
+          }
+        })
+        .then((allPosts) => {
+          allPosts.forEach((onePost) => {
+            this.posts.unshift({
+              //photo: require("../assets/images/icon.png"),
+              photo: onePost.photo,
+              pseudo: onePost.pseudo,
+              date: onePost.date,
+              likes: onePost.likes,
+              text: onePost.text,
+            });
+          });
+        })
+        .catch(function (err) {
+          console.error(err);
+        });
+    },
+
+    emptyForm() {
+      this.text = "";
+      this.Image = "";
+      //input.value = "";
     },
   },
 };
@@ -290,7 +294,7 @@ button {
     border: solid 1px #4e5166;
   }
 }
-// image
+
 .btn-image {
   margin: 0px auto 0px auto;
 }
@@ -320,7 +324,7 @@ hr {
   justify-content: space-around;
   align-items: center;
 }
-// delete post or comment
+
 .delete-post {
   &:hover {
     cursor: pointer;
