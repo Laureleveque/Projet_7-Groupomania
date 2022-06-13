@@ -39,6 +39,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+/* variable */
+$color-secondary: #fd2d01;
+
 #navigation {
   margin-bottom: 50px;
   margin-top: 50px;
@@ -63,7 +66,7 @@ a {
 
 a:hover {
   text-decoration: none;
-  border-bottom: 3px solid #fd2d01;
+  border-bottom: 3px solid $color-secondary;
   padding: 60px auto;
   cursor: pointer;
 }

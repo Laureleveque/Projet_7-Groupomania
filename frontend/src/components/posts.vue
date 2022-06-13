@@ -221,13 +221,18 @@ export default {
 </script>
 
 <style lang="scss">
+/* variables */
+
+$color-primary: #4e5166;
+$color-secondary: #fd2d01;
+
 .text {
   margin: 20px auto 10px auto;
   width: 100%;
 }
 #forum {
   margin: auto;
-  background: #4e5166;
+  background: $color-primary;
 }
 .user {
   display: flex;
@@ -254,33 +259,33 @@ export default {
   justify-content: space-around;
   margin-left: auto;
   margin-right: auto;
-  border-bottom: #fd2d01;
+  margin-bottom: 30px;
+  border-bottom: $color-secondary;
 }
 button {
   background: white;
-  color: #4e5166;
+  color: $color-primary;
   font-size: 1em;
   font-weight: 600;
   width: 170px;
   height: 40px;
   transform: scale(1);
   border-radius: 20px;
-  border: 4px solid #4e5166;
+  border: 4px solid $color-primary;
   margin-top: 30px;
   &:hover {
     transform: scale(1.15);
   }
 }
 .ajout-post {
-  padding: 0px 10px 20px 10px;
+  padding: 10px 10px 20px 10px;
   textarea {
-    max-width: 700px;
-    width: 80%;
-    max-width: 700px;
+    max-width: 70%;
+    min-width: 50%;
     font-family: lato;
-    margin: 10px 0 10px 0;
+    margin: 10px 0px;
     padding: 10px;
-    border: solid 1px #4e5166;
+    border: solid 1px $color-primary;
   }
 }
 
@@ -288,7 +293,7 @@ button {
   margin: 0px auto 0px auto;
 }
 #photo {
-  border: 3px solid #fd2d01;
+  border: 3px solid $color-secondary;
   width: 100px;
   height: 100px;
   margin-left: auto;
@@ -303,7 +308,7 @@ button {
 }
 hr {
   height: 1px;
-  background-color: #fd2d01;
+  background-color: $color-secondary;
   border: none;
 }
 #user_infos {
@@ -320,12 +325,17 @@ hr {
   }
 }
 @media screen and (max-width: 768px) {
-  .text {
-    width: 100%;
+  .ajout-post {
+    padding: 10px 10px 20px 10px;
+    textarea {
+      max-width: 70%;
+      min-width: 50%;
+    }
   }
   #flex-btn {
     flex-direction: column;
     align-items: center;
+    margin-bottom: 30px;
   }
 }
 </style>

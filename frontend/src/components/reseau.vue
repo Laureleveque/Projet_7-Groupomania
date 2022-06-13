@@ -38,8 +38,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+/* variables */
+
+$color-primary: #4e5166;
+$color-secondary: #fd2d01;
+
 body {
-  background-color: #4e5166;
+  background-color: $color-primary;
   margin: 0px;
 }
 
@@ -61,7 +66,7 @@ a {
   font-size: 20px;
   text-decoration: none;
   :hover {
-    border-bottom: 3px solid #fd2d01;
+    border-bottom: 3px solid $color-secondary;
   }
 }
 

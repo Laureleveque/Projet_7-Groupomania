@@ -125,6 +125,12 @@ export default {
 
 <style scoped lang="scss">
 
+
+/* variable */
+
+$color-primary: #4e5166;
+
+
 #email,
 #password {
   width: 400px;
@@ -134,13 +140,13 @@ export default {
 
 button {
   background: white;
-  color: #4e5166;
+  color: $color-primary;
   font-size: 1em;
   width: 130px;
   height: 40px;
   transform: scale(1);
   border-radius: 20px;
-  border: 2px solid #4e5166;
+  border: 2px solid $color-primary;
   margin-bottom: 200px;
 
   &:hover {

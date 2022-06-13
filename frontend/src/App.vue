@@ -14,8 +14,13 @@
 <script></script>
 
 <style lang="scss">
+/* variables */
+
+$color-primary: #4e5166;
+$color-secondary: #fd2d01;
+
 body {
-  background-color: #4e5166;
+  background-color: $color-primary;
 }
 #app {
   font-family: Lato, sans-serif;
@@ -32,7 +37,7 @@ h1 {
   margin-top: 100px;
   margin-bottom: 80px;
   margin-left: 20px;
-  border-bottom: 4px solid #fd2d01;
+  border-bottom: 4px solid $color-secondary;
   padding-bottom: 20px;
   text-align: left;
 }

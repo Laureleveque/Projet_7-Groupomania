@@ -32,29 +32,29 @@
 
     <!--   cadre pour les posts -->
 
-    <form enctype="multipart/form-data" class="ajout-post">
+    <form enctype="multipart/form-data" class="post">
       <div class="text">
         <p>{{ text }}</p>
       </div>
+    </form>
 
-      <div id="flex-btn">
-        <!--   bouton pour modifier le post  -->
+    <div id="flex-btn">
+      <!--   bouton pour modifier le post  -->
 
-        <button type="submit" v-on:click="modifyPost">Modifier le post</button>
-        <!--<button
+      <button type="submit" v-on:click="modifyPost">Modifier le post</button>
+      <!--<button
           type="submit"
           v-if="post.user_id == UserId || User == 'admin'"
           v-on:click="deletePost"
         -->
-        <button type="submit" v-on:click="deletePost">Supprimer le post</button>
-      </div>
-    </form>
+      <button type="submit" v-on:click="deletePost">Supprimer le post</button>
+    </div>
+
     <hr />
   </main>
 </template>
 
 <script>
-//import moment from "moment";
 //import router from "@/router";
 
 export default {
@@ -199,4 +199,30 @@ export default {
 };*/
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+/* variable */
+
+$color-primary: #4e5166;
+
+.post {
+  padding: 10px;
+  textarea {
+    max-width: 70%;
+    min-width: 50%;
+    font-family: lato;
+    margin: 10px 0px;
+    padding: 10px;
+    border: solid 1px $color-primary;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .post {
+    padding: 10px;
+    textarea {
+      max-width: 70%;
+      min-width: 50%;
+    }
+  }
+}
+</style>

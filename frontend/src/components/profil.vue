@@ -215,6 +215,12 @@ export default {
 
 <style scoped lang="scss">
 
+
+/* variables */
+
+$color-primary: #4e5166;
+$color-secondary: #fd2d01;
+
 #profil {
   border: 2px solid transparent;
   margin: 40px auto;
@@ -230,7 +236,7 @@ export default {
 
 
 #photo {
-  border: 3px solid #fd2d01;
+  border: 3px solid $color-secondary;
   width:100px;
   height: 100px;
   margin-left: auto;
@@ -252,14 +258,14 @@ textarea {
 
 button {
   background: white;
-  color: #4e5166;
+  color: $color-primary;
   font-size: 0.8em;
   font-weight: 600;
   width: 170px;
   height: 40px;
   transform: scale(1);
   border-radius: 20px;
-  border: 2px solid #4e5166;
+  border: 2px solid $color-primary;
   margin-top: 20px;
   margin-bottom: 20px;
  
