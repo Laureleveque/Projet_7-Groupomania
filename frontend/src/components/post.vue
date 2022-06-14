@@ -163,7 +163,9 @@ export default {
 };
 
 /* like post
+
 likePost() {
+
       fetch("http://localhost:3000/api/post/:id" + localStorage.getItem("user-id"), {
         method: "POST",
         headers: {
@@ -189,7 +191,8 @@ likePost() {
         .catch(function (err) {
           console.error(err);
         });
-}*/
+}
+
 
 /* Nombre de likes
   getNbLikes() {
@@ -231,13 +234,14 @@ div.message {
 .message {
   max-width: 70%;
   min-width: 50%;
-  font-family: lato;
   margin: 10px auto;
-  padding: 10px;
-  border: solid 1px $color-primary;
+
+  border: solid 2px $color-secondary;
   p {
     color: #4e5166;
     text-align: left;
+    padding: 15px;
+    font-family: lato;
   }
 }
 

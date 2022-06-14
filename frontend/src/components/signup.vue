@@ -35,15 +35,18 @@
           <input type="password" v-model="password" id="password" required />
         </div>
 
+        
         <p v-if="errors.length">
           <b>Merci de corriger les erreurs suivantes :</b>
           <ul>
             <li v-for="error in errors" :key="error">{{ error }}</li>
           </ul>
         </p>
-
+<h2></h2>
         <button type="submit">S'inscrire</button>
+       
       </form>
+      
     </main>
   </body>
 </template>
@@ -119,7 +122,12 @@ export default {
         if (res.ok) { 
           return res.json();  
         }
-      })
+        else {
+        const message = document.createElement("h2");
+        message.innerHTML = "Email déja utilisé";
+        message.style.color = "red";
+        parent.appendChild(message);
+      }})
 
       .then(function (value) {  
         localStorage.setItem("user-token", value.token);
@@ -137,6 +145,12 @@ export default {
 </script>
 <style scoped lang="scss">
 
+
+/* variables */
+
+$color-primary: #4e5166;
+$color-secondary: #fd2d01;
+
 #email,
 #pseudo,
 #password {
@@ -147,13 +161,13 @@ export default {
 
 button {
   background: white;
-  color: #4e5166;
+  color: $color-primary;
   font-size: 1em;
   transform: scale(1);
   width: 100px;
   height: 30px;
   border-radius: 20px;
-  border: 2px solid #4e5166;
+  border: 2px solid $color-primary;
   margin-bottom: 100px;
 
   &:hover {

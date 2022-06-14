@@ -27,7 +27,7 @@
             <li v-for="error in errors" :key="error">{{ error }}</li>
           </ul>
         </p>
-
+        <h2></h2>
         <button type="submit">Se connecter</button>
       </form>
     </main>
@@ -101,12 +101,17 @@ export default {
       })
 
       .then(function (res) { 
-        // réponse à la requête
-        if (res.ok) { // vérification déroulement de la requête
-          return res.json(); // résultat de la requête au format json (promise)
+        
+        if (res.ok) { 
+          return res.json(); 
         }
-        else alert("non inscrit");
-      })
+        else {
+        const message = document.createElement("h2");
+        message.innerHTML = "Vos identifiants ne sont pas corrects";
+        message.style.color = "red";
+        parent.appendChild(message);
+       
+      }})
 
       .then(function (value) {
         localStorage.setItem("user-token", value.token);

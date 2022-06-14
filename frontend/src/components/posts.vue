@@ -6,6 +6,7 @@
 
   <main>
     <section id="forum">
+      <p></p>
       <form
         @submit="createPost"
         method="post"
@@ -58,6 +59,7 @@ import NavigationPage from "../components/navigation.vue";
 import PostPage from "../components/post.vue";
 //import router from "@/router";
 //import { table } from "console";
+
 export default {
   name: "PostsPage",
   components: {
@@ -65,6 +67,7 @@ export default {
     NavigationPage,
     PostPage,
   },
+
   data() {
     return {
       posts: [
@@ -116,6 +119,7 @@ export default {
               return res.json();
             }
           })
+
           .then((value) => {
             fetch("http://localhost:3000/api/post/", {
               method: "POST",
@@ -147,6 +151,12 @@ export default {
           .catch(function (err) {
             console.error(err);
           });
+      } else {
+        // si post vide
+        const message = document.createElement("p");
+        message.innerHTML = "Vous n'avez écrit aucun message !";
+        message.style.color = "red";
+        parent.appendChild(message);
       }
     },
 
@@ -182,11 +192,11 @@ export default {
           console.error(err);
         });
     },
-  },
 
-  emptyForm() {
-    this.text = "";
-    this.Image = "";
+    emptyForm() {
+      this.text = "";
+      this.Image = "";
+    },
   },
 };
 </script>
@@ -195,6 +205,7 @@ export default {
 /* variables */
 $color-primary: #4e5166;
 $color-secondary: #fd2d01;
+
 .text {
   margin: 10px auto;
   width: 100%;
