@@ -25,17 +25,18 @@ exports.createPost = (req, res, next) => {
 // route DELETE supprimer un post (uniquement par l'auteur ou le modérateur)
 
 exports.deletePost = (req, res, next) => {
-  Post.findOne({ _id: req.params.id });
+  Post.findOne({ _id: req.params.id })
 
-  then((post) => {
-    const filename = post.imageUrl.split("/images/")[1];
-    fs.unlink(`images/${filename}`, () => {
+    .then((post) => {
+      const filename = post.photo.split("/images/")[1];
+      //fs.unlink(`images/${filename}`, () => {
       // La fonction fs.unlink() permet de supprimer l'image du fichier
       Post.deleteOne({ _id: req.params.id })
-        .then(() => res.status(200).json({ message: "Commentaire supprimé !" }))
+        .then(() => res.status(200).json({ message: "Post supprimé !" }))
         .catch((error) => res.status(403).json({ error }));
-    });
-  }).catch((error) => res.status(500).json({ error }));
+      //});
+    })
+    .catch((error) => res.status(500).json({ error }));
 };
 
 // route GET récupérer tous les posts
@@ -49,7 +50,7 @@ exports.getAllPosts = (req, res, next) => {
 // route PUT modification d'un post (uniquement par le créateur du post ou le moderateur)
 
 exports.modifyPost = (req, res, next) => {
-  const postObject = req.file
+  /*const postObject = req.file
     ? {
         ...JSON.parse(req.body.message),
         imageUrl: `${req.protocol}://${req.get("host")}/images/${
@@ -59,8 +60,21 @@ exports.modifyPost = (req, res, next) => {
     : { ...req.body };
 
   Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-    .then(() => res.status(200).json({ message: "Commentaire modifié !" }))
-    .catch((error) => res.status(403).json({ error }));
+    .then(() => res.status(200).json({ message: "Post modifié !" }))
+    .catch((error) => res.status(403).json({ error }));*/
+
+  Post.updateOne(
+    { _id: req.params.id },
+    {
+      text: req.body.text,
+    }
+  )
+    .then(() => {
+      res.status(200).json({ message: "Post modifié" });
+    })
+    .catch((error) =>
+      res.status(403).json({ message: "unauthorized request" })
+    );
 };
 
 // route like

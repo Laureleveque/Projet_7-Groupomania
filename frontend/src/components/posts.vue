@@ -34,12 +34,13 @@
           />
         </div>
 
-        <button type="submit">Enregistrer le post</button>
+        <button type="submit">Créer le post</button>
       </form>
       <hr />
 
       <div v-for="post in posts" :key="post">
         <PostPage
+          :id="post.id"
           :photo="post.photo"
           :pseudo="post.pseudo"
           :date="post.date"
@@ -55,9 +56,8 @@
 import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
 import PostPage from "../components/post.vue";
-import router from "@/router";
+//import router from "@/router";
 //import { table } from "console";
-
 export default {
   name: "PostsPage",
   components: {
@@ -69,6 +69,7 @@ export default {
     return {
       posts: [
         {
+          id: "1",
           photo: require("../assets/images/medit1.jpg"),
           pseudo: "Thib",
           date: "12/06/22",
@@ -76,6 +77,7 @@ export default {
           text: "Bonjour !",
         },
         {
+          id: "2",
           photo: require("../assets/images/Montagne.jpg"),
           pseudo: "Tiago",
           date: "09/05/21",
@@ -115,24 +117,20 @@ export default {
             }
           })
           .then((value) => {
-            fetch(
-              "http://localhost:3000/api/post/" +
-                localStorage.getItem("user-id"),
-              {
-                method: "POST",
-                headers: {
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                  Authorization: "Bearer " + localStorage.getItem("user-token"),
-                },
-                body: JSON.stringify({
-                  photo: value.photo,
-                  pseudo: value.pseudo,
-                  text: this.text,
-                  imageUrl: this.imageUrl,
-                }),
-              }
-            )
+            fetch("http://localhost:3000/api/post/", {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("user-token"),
+              },
+              body: JSON.stringify({
+                photo: value.photo,
+                pseudo: value.pseudo,
+                text: this.text,
+                imageUrl: this.imageUrl,
+              }),
+            })
               .then(function (res) {
                 if (res.ok) {
                   return res.json();
@@ -140,6 +138,7 @@ export default {
               })
               .then(() => {
                 this.getAllPosts();
+                this.text = "";
               })
               .catch(function (err) {
                 console.error(err);
@@ -151,35 +150,7 @@ export default {
       }
     },
 
-    // suppression d'un post par l'id ou le modérateur
-
-    deletePost() {
-      fetch("http://localhost:3000/api/post/:id", {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("user-token"),
-        },
-        body: JSON.stringify({
-          post: this.post, // ???
-        }),
-      })
-        .then(function (res) {
-          if (res.ok) {
-            return res.json();
-          }
-        })
-        .then(function () {
-          localStorage.clear();
-          router.push("/posts");
-        })
-        .catch(function (err) {
-          console.error(err);
-        });
-    },
     // récupération de tous les posts
-
     getAllPosts() {
       fetch("http://localhost:3000/api/post/", {
         method: "GET",
@@ -198,6 +169,7 @@ export default {
           allPosts.forEach((onePost) => {
             this.posts.unshift({
               //photo: require("../assets/images/icon.png"),
+              id: onePost._id,
               photo: onePost.photo,
               pseudo: onePost.pseudo,
               date: onePost.date,
@@ -210,49 +182,44 @@ export default {
           console.error(err);
         });
     },
+  },
 
-    emptyForm() {
-      this.text = "";
-      this.Image = "";
-      //input.value = "";
-    },
+  emptyForm() {
+    this.text = "";
+    this.Image = "";
   },
 };
 </script>
 
 <style lang="scss">
 /* variables */
-
 $color-primary: #4e5166;
 $color-secondary: #fd2d01;
-
 .text {
-  margin: 20px auto 10px auto;
+  margin: 10px auto;
   width: 100%;
 }
-#forum {
-  margin: auto;
-  background: $color-primary;
-}
+
 .user {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   align-items: center;
 }
+
 #like {
   display: flex;
   width: 55px;
   justify-content: space-between;
   align-items: center;
 }
+
 #entete-post {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
 }
+
 #flex-btn {
   display: flex;
   flex-direction: row;
@@ -262,6 +229,7 @@ $color-secondary: #fd2d01;
   margin-bottom: 30px;
   border-bottom: $color-secondary;
 }
+
 button {
   background: white;
   color: $color-primary;
@@ -288,7 +256,6 @@ button {
     border: solid 1px $color-primary;
   }
 }
-
 .btn-image {
   margin: 0px auto 0px auto;
 }
@@ -318,7 +285,6 @@ hr {
   justify-content: space-around;
   align-items: center;
 }
-
 .delete-post {
   &:hover {
     cursor: pointer;

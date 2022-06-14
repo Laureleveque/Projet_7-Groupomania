@@ -105,6 +105,7 @@ export default {
         if (res.ok) { // vérification déroulement de la requête
           return res.json(); // résultat de la requête au format json (promise)
         }
+        else alert("non inscrit");
       })
 
       .then(function (value) {

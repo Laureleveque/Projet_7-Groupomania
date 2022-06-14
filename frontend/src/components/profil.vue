@@ -135,13 +135,6 @@ export default {
         this.errors.push("Inscrire une adresse mail valide");
       }
 
-      // vérification du mot de passe entre 3 et 10 cararctères
-      if (this.password != "" && (this.password.length < 3 || this.password.length > 10)) {
-        this.errors.push(
-          "Mot de passe entre 3 et 10 caractères"
-        );
-      }
-
       //si aucune erreur
       if (!this.errors.length) {
         this.modifyProfil(); // envoi des données
@@ -193,15 +186,11 @@ export default {
         }), // transformation en JSON
       })
         .then(function (res) {
-          // réponse à la requête
-
-          if (res.ok) {
-            // vérification déroulement de la requête
+          if (res.ok) {          
             return res.json(); // résultat de la requête au format json (promise)
           }})
       
           .then(function () {
-          // afficher message de confirmation
             router.push('/profilok');    
           })
     
@@ -229,6 +218,7 @@ $color-secondary: #fd2d01;
 #pseudo,
 #email,
 #password {
+  
   width: 400px;
   height: 30px;
   margin-bottom: 20px;
@@ -267,7 +257,7 @@ button {
   border-radius: 20px;
   border: 2px solid $color-primary;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
  
   &:hover {
     transform: scale(1.15);
@@ -279,14 +269,14 @@ button {
   
   #profil {
     width: 90%;
-    padding-left: 10px;
-    padding-right: 10px;
+   
   }
 
   #pseudo,
   #email,
   #password {
-    width: 90%;
+    width: 80%;
+    min-width: 300px;
   }
 
   img {

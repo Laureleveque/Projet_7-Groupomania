@@ -32,22 +32,39 @@
 
     <!--   cadre pour les posts -->
 
-    <form enctype="multipart/form-data" class="post">
-      <div class="text">
-        <p>{{ text }}</p>
-      </div>
-    </form>
+    <div v-if="!is_modified" class="message">
+      <p>{{ text }}</p>
+    </div>
+    <textarea
+      v-if="is_modified"
+      name="message"
+      id="message"
+      class="message"
+      placeholder="Votre message :"
+      v-model="updatable_text"
+    ></textarea>
 
     <div id="flex-btn">
       <!--   bouton pour modifier le post  -->
 
-      <button type="submit" v-on:click="modifyPost">Modifier le post</button>
+      <button v-if="!is_modified" type="submit" v-on:click="is_modified = true">
+        Modifier le post
+      </button>
       <!--<button
           type="submit"
           v-if="post.user_id == UserId || User == 'admin'"
           v-on:click="deletePost"
         -->
-      <button type="submit" v-on:click="deletePost">Supprimer le post</button>
+      <button v-if="!is_modified" type="submit" v-on:click="deletePost">
+        Supprimer le post
+      </button>
+
+      <button v-if="is_modified" type="submit" v-on:click="modifyPost">
+        Enregistrer
+      </button>
+      <button v-if="is_modified" type="submit" v-on:click="is_modified = false">
+        Annuler
+      </button>
     </div>
 
     <hr />
@@ -55,22 +72,17 @@
 </template>
 
 <script>
-//import router from "@/router";
-
 export default {
   name: "PostPage",
   components: {},
   data() {
     return {
-      //photo: "",
-      //pseudo: "",
-      //date: "",
-      //likes: "",
-      //text: "",
+      is_modified: false,
+      updatable_text: "",
     };
   },
-
   props: {
+    id: String,
     photo: String,
     pseudo: String,
     date: String,
@@ -79,69 +91,80 @@ export default {
     imageUrl: String,
   },
 
-  methods: {
-    /*createPost() {
-      this.UserId = localStorage.getItem("userId");
-      if (this.text != "") {
-        // si post non vide
-        fetch(
-          "http://localhost:3000/api/post/:id" +
-            localStorage.getItem("user-id"),
-          {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("user-token"),
-            },
-          }
-        )
-          .then(function (res) {
-            if (res.ok) {
-              return res.json();
-            }
-          })
-          .then((res) => {
-            this.UserId = localStorage.getItem("userId");
-            this.pseudo = res.pseudo;
-            this.likes = res.likes;
-            this.text = res.text;
-            this.imageUrl = res.imageUrl;
-          })
+  created() {
+    this.updatable_text = this.text;
+  },
 
-          .catch(function (err) {
-            console.error(err);
-          });
-      }
-    },*/
-    // suppression d'un post par l'id ou le modérateur
-    /*deletePost() {
-      fetch("http://localhost:3000/api/post/:id", {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("user-token"),
-        },
-      })
+  methods: {
+    // modifier le post
+
+    modifyPost() {
+      fetch(
+        "http://localhost:3000/api/post/" + this.id, //id du post
+        {
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("user-token"),
+          },
+
+          body: JSON.stringify({
+            text: this.updatable_text,
+          }),
+        }
+      )
         .then(function (res) {
           if (res.ok) {
             return res.json();
           }
         })
 
-        .then(function () {
-          localStorage.clear();
-          router.push("/posts");
+        .then(() => {
+          this.is_modified = false;
+          this.$parent.posts.find((post) => post.id == this.id).text =
+            this.updatable_text;
         })
 
         .catch(function (err) {
           console.error(err);
         });
-    },*/
-    // like post
-    /*likePost() {
-      fetch("http://localhost:3000/api/post/:id", {
+    },
+
+    // suppression d'un post par l'id ou le modérateur
+
+    deletePost() {
+      fetch(
+        "http://localhost:3000/api/post/" + this.id, //id du post
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("user-token"),
+          },
+        }
+      )
+        .then(function (res) {
+          if (res.ok) {
+            return res.json();
+          }
+        })
+        .then(() => {
+          this.$parent.posts = this.$parent.posts.filter(
+            (post) => post.id != this.id
+          );
+        })
+        .catch(function (err) {
+          console.error(err);
+        });
+    },
+  },
+};
+
+/* like post
+likePost() {
+      fetch("http://localhost:3000/api/post/:id" + localStorage.getItem("user-id"), {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -166,9 +189,7 @@ export default {
         .catch(function (err) {
           console.error(err);
         });
-    },*/
-  },
-};
+}*/
 
 /* Nombre de likes
   getNbLikes() {
@@ -194,35 +215,36 @@ export default {
     },
   },
 };
-
   },
 };*/
 </script>
 
 <style lang="scss">
 /* variable */
-
 $color-primary: #4e5166;
+$color-secondary: #fd2d01;
 
-.post {
+div.message {
+  background-color: white;
+}
+
+.message {
+  max-width: 70%;
+  min-width: 50%;
+  font-family: lato;
+  margin: 10px auto;
   padding: 10px;
-  textarea {
-    max-width: 70%;
-    min-width: 50%;
-    font-family: lato;
-    margin: 10px 0px;
-    padding: 10px;
-    border: solid 1px $color-primary;
+  border: solid 1px $color-primary;
+  p {
+    color: #4e5166;
+    text-align: left;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .post {
-    padding: 10px;
-    textarea {
-      max-width: 70%;
-      min-width: 50%;
-    }
+  .message {
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

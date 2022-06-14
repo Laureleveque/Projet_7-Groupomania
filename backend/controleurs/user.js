@@ -133,14 +133,13 @@ exports.deleteUser = (req, res, next) => {
   User.findOne({ _id: req.params.id })
 
     .then((user) => {
-      const filename = user.imageUrl.split("/images/")[1];
+      /*const filename = user.imageUrl.split("/images/")[1];
       fs.unlink(`images/${filename}`, () => {
-        // La fonction fs.unlink() permet de supprimer l'image du fichier
+        // La fonction fs.unlink() permet de supprimer l'image du fichier*/
 
-        User.deleteOne({ _id: req.params.id })
-          .then(() => res.status(200).json({ message: "Compte supprimé" }))
-          .catch((error) => res.status(403).json({ error }));
-      });
+      User.deleteOne({ _id: req.params.id })
+        .then(() => res.status(200).json({ message: "Compte supprimé" }))
+        .catch((error) => res.status(403).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
 };
@@ -154,11 +153,16 @@ exports.updateUserInfos = (req, res, next) => {
       email: req.body.email,
       pseudo: req.body.pseudo,
     }
-  ).then(() => {
-    res.status(200).json({});
-  });
+  )
+    .then(() => {
+      res.status(200).json({ message: "Profil modifié" });
+    })
+    .catch((error) =>
+      res.status(403).json({ message: "unauthorized request" })
+    );
+};
 
-  /*
+/*
 exports.modifyProfil = (req, res, next) => {
 const profilObject = req.file
     ? {
@@ -179,4 +183,3 @@ const profilObject = req.file
     );
 };
 */
-};
