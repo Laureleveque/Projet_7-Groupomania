@@ -40,6 +40,7 @@ export default {
 
 <style scoped lang="scss">
 /* variable */
+
 $color-secondary: #fd2d01;
 
 #navigation {

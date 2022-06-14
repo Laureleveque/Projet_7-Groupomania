@@ -121,7 +121,6 @@ export default {
       
       .catch(function (err) {
         console.error(err);
-       //this.errorMessage = err.response.data.error;
       })
     }
   }
@@ -131,11 +130,9 @@ export default {
 
 <style scoped lang="scss">
 
-
 /* variable */
 
 $color-primary: #4e5166;
-
 
 #email,
 #password {

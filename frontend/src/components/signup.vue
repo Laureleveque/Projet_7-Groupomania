@@ -1,3 +1,5 @@
+<!--  composant inscription  -->
+
 <template>
   <body>
     <header>

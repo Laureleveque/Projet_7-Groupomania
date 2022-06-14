@@ -1,4 +1,4 @@
-<!-- composant Accueil -->
+<!-- composant page du réseau  -->
 
 <template>
   <body>

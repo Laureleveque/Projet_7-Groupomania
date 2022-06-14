@@ -1,3 +1,5 @@
+<!--  composants posts-->
+
 <template>
   <header>
     <LogoHeader />

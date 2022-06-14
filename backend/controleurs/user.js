@@ -98,14 +98,14 @@ exports.login = (req, res, next) => {
     .catch((error) => res.status(500).json({ message: "erreur serveur" }));
 };
 
-// fin de session de l'utilisateur
+// Déconnexion de l'utilisateur
 
 exports.logout = (req, res, next) => {
   localStorage.removeItem("user-token");
   res.status(200);
 };
 
-// récupérer les infos de l'utilisateur
+// récupération des infos de l'utilisateur
 
 exports.getUserProfil = (req, res, next) => {
   User.findOne({ _id: req.params.id }) // recherche de l'email unique
@@ -125,7 +125,7 @@ exports.getUserProfil = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-// route DELETE supprimer un utilisateur
+// suppression du compte d'un utilisateur
 
 exports.deleteUser = (req, res, next) => {
   //User.deleteOne({ _id: req.body.id });

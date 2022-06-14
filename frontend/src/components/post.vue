@@ -1,3 +1,5 @@
+<!--  composant post  -->
+
 <template>
   <main>
     <div id="post">
@@ -15,22 +17,18 @@
           </div>
 
           <!-- bouton like -->
-          <div id="like">
-            <div class="like-icon">
-              <i class="fa-solid fa-thumbs-up"></i>
-            </div>
 
-            <div id="like-number" class="like-btn">
-              <p>{{ likes }}</p>
-            </div>
-          </div>
+          <a v-on:click="likePost" class="like-icon">
+            <i class="fa-solid fa-thumbs-up"></i>
+          </a>
+          <p>{{ likes }}</p>
         </div>
       </div>
     </div>
 
     <!-- fin de l'entête user du post  -->
 
-    <!--   cadre pour les posts -->
+    <!--   cadre  -->
 
     <div v-if="!is_modified" class="message">
       <p>{{ text }}</p>
@@ -93,6 +91,7 @@ export default {
 
   created() {
     this.updatable_text = this.text;
+    this.likePost();
   },
 
   methods: {
@@ -159,55 +158,29 @@ export default {
           console.error(err);
         });
     },
-  },
-};
 
-/* like post
+    // like post
 
-likePost() {
-
-      fetch("http://localhost:3000/api/post/:id" + localStorage.getItem("user-id"), {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("user-token"),
-        },
-        body: JSON.stringify(
-          // transformation en JSON
-          {
-            userId: localStorage.getItem("userId"),
-            postId: this.postId,
-          }
-        ),
-      })
+    likePost() {
+      fetch(
+        "http://localhost:3000/api/post/" + localStorage.getItem("user-id"),
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("user-token"),
+          },
+          body: JSON.stringify(
+            // transformation en JSON
+            {
+              userId: localStorage.getItem("userId"),
+              postId: this.postId,
+            }
+          ),
+        }
+      )
         .then(function (res) {
-          console.log(res);
-          // this.getNbLikes();
-          if (res.ok) {
-            return res.json();
-          }
-        })
-        .catch(function (err) {
-          console.error(err);
-        });
-}
-
-
-/* Nombre de likes
-  getNbLikes() {
-    fetch("http://localhost:3000/api/post/:id", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("user-token"),
-        },
-      })
-        .then(function (res) {
-                console.log(response);
-                this.getNbLikes();
-            })
           if (res.ok) {
             return res.json();
           }
@@ -218,12 +191,11 @@ likePost() {
     },
   },
 };
-  },
-};*/
 </script>
 
 <style lang="scss">
-/* variable */
+/* variables */
+
 $color-primary: #4e5166;
 $color-secondary: #fd2d01;
 
@@ -235,6 +207,10 @@ div.message {
   max-width: 70%;
   min-width: 50%;
   margin: 10px auto;
+
+  .like-icon {
+    cursor: pointer;
+  }
 
   border: solid 2px $color-secondary;
   p {

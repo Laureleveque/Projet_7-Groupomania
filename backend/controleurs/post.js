@@ -1,10 +1,11 @@
+// Logique métier
+
 const Post = require("../modeles/post");
 const User = require("../modeles/user");
 
 // route GET création d'un post
 
 exports.createPost = (req, res, next) => {
-  //const postObject = JSON.parse(req.body.profil);
   const post = new Post({
     photo: req.body.photo,
     pseudo: req.body.pseudo,
@@ -50,18 +51,13 @@ exports.getAllPosts = (req, res, next) => {
 // route PUT modification d'un post (uniquement par le créateur du post ou le moderateur)
 
 exports.modifyPost = (req, res, next) => {
-  /*const postObject = req.file
-    ? {
-        ...JSON.parse(req.body.message),
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${
+  /*
+        {imageUrl: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
       }
     : { ...req.body };
-
-  Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-    .then(() => res.status(200).json({ message: "Post modifié !" }))
-    .catch((error) => res.status(403).json({ error }));*/
+*/
 
   Post.updateOne(
     { _id: req.params.id },
@@ -77,12 +73,10 @@ exports.modifyPost = (req, res, next) => {
     );
 };
 
-// route like
+// route like spécifique à l'_id
 
 exports.likePost = (req, res, next) => {
-  // recherche du post
   Postlike.findOne({ _id: req.params.id })
-
     .then((post) => {
       // si l'utilisateur like et si l'id n'est pas présent dans le tableau des likes
       if (req.body.like == 1 && !post.usersLiked.includes(req.body.userId)) {
@@ -98,6 +92,26 @@ exports.likePost = (req, res, next) => {
         )
           .then(() => res.status(200).json({ message: "Post liké !" }))
           .catch((error) => res.status(400).json({ error }));
+      }
+
+      // sinon si l'utilisateur annule son like
+      else if (req.body.like == 0) {
+        if (post.usersLiked.includes(req.body.userId)) {
+          let indexUserLiked = post.usersLiked.indexOf(req.body.userId); // recherche de l'index de l'utilisateur dans le tableau des likes
+
+          post.usersLiked.splice(indexUserLiked, 1);
+          Post.updateOne(
+            { _id: req.params.id },
+            {
+              // mise à jour de la sauce
+              post,
+              usersLiked: post.usersLiked,
+              likes: post.usersLiked.length, // et mise à jour du nombre de likes dans le tableau
+            }
+          )
+            .then(() => res.status(200).json({ message: "Like supprimé !" }))
+            .catch((error) => res.status(400).json({ error }));
+        }
       }
     })
 

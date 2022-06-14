@@ -1,3 +1,5 @@
+<!--  composant profil ok  -->
+
 <template>
   <body>
     <header>

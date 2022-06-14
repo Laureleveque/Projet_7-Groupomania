@@ -1,3 +1,4 @@
+<!--  composant profil -->
 
 <template>
   <body>
@@ -73,7 +74,7 @@
 </template>
 
 <script>
-//import { getTransitionRawChildren } from "vue";
+
 import router from "@/router";
 import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";

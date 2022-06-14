@@ -2,9 +2,14 @@
 
 const mongoose = require("mongoose"); // importation de mongoose
 
-// la méthode Schéma de mongoose permet de créer un schéma de données pour la base de données MongoDB
+// appel de la méthode Schema
 
 const postSchema = mongoose.Schema({
+  userId: {
+    type: String,
+    required: true,
+  },
+
   photo: {
     type: String,
   },
@@ -19,7 +24,10 @@ const postSchema = mongoose.Schema({
 
   likes: {
     type: Number,
+    required: true,
   },
+
+  usersLiked: ["String <userId>"],
 
   text: {
     type: String,

@@ -1,3 +1,5 @@
+<!--  composant logo  -->
+
 <template>
   <div id="logo">
     <img

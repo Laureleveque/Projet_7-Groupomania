@@ -19,4 +19,5 @@ router.put("/:id", auth, userCtrl.updateUserInfos);
 router.delete("/:id", auth, userCtrl.deleteUser);
 
 // on exporte le routeur de ce fichier
+
 module.exports = router;
