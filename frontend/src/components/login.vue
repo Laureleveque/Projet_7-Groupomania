@@ -21,6 +21,8 @@
         <input type="password" v-model="password" id="password" required />
       </div>
 
+      <p id="errorLogin"></p>
+
         <p v-if="errors.length">
           <b>Merci de corriger les erreurs suivantes :</b>
           <ul>
@@ -106,11 +108,7 @@ export default {
           return res.json(); 
         }
         else {
-        const message = document.createElement("h2");
-        message.innerHTML = "Vos identifiants ne sont pas corrects";
-        message.style.color = "red";
-        parent.appendChild(message);
-       
+          throw new Error();
       }})
 
       .then(function (value) {
@@ -119,8 +117,10 @@ export default {
         router.push('/posts'); 
       })
       
-      .catch(function (err) {
-        console.error(err);
+      .catch(function () {
+          const message = document.getElementById("errorLogin");
+          message.innerHTML = "Vos identifiants ne sont pas corrects";
+          message.style.color = "red";
       })
     }
   }

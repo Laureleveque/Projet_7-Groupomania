@@ -45,26 +45,41 @@
     <div id="flex-btn">
       <!--   bouton pour modifier le post  -->
 
-      <button v-if="!is_modified" type="submit" v-on:click="is_modified = true">
-        Modifier le post
+      <button
+        v-if="!is_modified && (isCreator() || isAdmin())"
+        type="submit"
+        v-on:click="is_modified = true"
+      >
+        Cliquez pour modifier
       </button>
       <!--<button
           type="submit"
-          v-if="post.user_id == UserId || User == 'admin'"
+          v-if="User == UserId || User == 'admin.id'"
           v-on:click="deletePost"
         -->
-      <button v-if="!is_modified" type="submit" v-on:click="deletePost">
+      <button
+        v-if="!is_modified && (isCreator() || isAdmin())"
+        type="submit"
+        v-on:click="deletePost"
+      >
         Supprimer le post
       </button>
 
-      <button v-if="is_modified" type="submit" v-on:click="modifyPost">
+      <button
+        v-if="is_modified && (isCreator() || isAdmin())"
+        type="submit"
+        v-on:click="modifyPost"
+      >
         Enregistrer
       </button>
-      <button v-if="is_modified" type="submit" v-on:click="is_modified = false">
+      <button
+        v-if="is_modified && (isCreator() || isAdmin())"
+        type="submit"
+        v-on:click="is_modified = false"
+      >
         Annuler
       </button>
     </div>
-
     <hr />
   </main>
 </template>
@@ -87,6 +102,7 @@ export default {
     likes: Number,
     text: String,
     imageUrl: String,
+    creatorId: String,
   },
 
   created() {
@@ -188,6 +204,12 @@ export default {
         .catch(function (err) {
           console.error(err);
         });
+    },
+    isCreator() {
+      return this.creatorId == localStorage.getItem("user-id");
+    },
+    isAdmin() {
+      return localStorage.getItem("user-id") == "62a8af950a1a56a2cca8ba79"; // id de l'admin
     },
   },
 };

@@ -8,7 +8,7 @@
 
   <main>
     <section id="forum">
-      <p></p>
+      <p id="errorEmptyPost"></p>
       <form
         @submit="createPost"
         method="post"
@@ -36,7 +36,6 @@
             ref="file"
           />
         </div>
-
         <button type="submit">Créer le post</button>
       </form>
       <hr />
@@ -49,6 +48,7 @@
           :date="post.date"
           :likes="post.likes"
           :text="post.text"
+          :creatorId="post.creatorId"
         />
       </div>
     </section>
@@ -80,6 +80,7 @@ export default {
           date: "12/06/22",
           likes: 7,
           text: "Bonjour !",
+          creatorId: "1",
         },
         {
           id: "2",
@@ -88,6 +89,7 @@ export default {
           date: "09/05/21",
           likes: 6000,
           text: "Ouaf",
+          creatorId: "2",
         },
       ],
       post: "",
@@ -135,6 +137,7 @@ export default {
                 pseudo: value.pseudo,
                 text: this.text,
                 imageUrl: this.imageUrl,
+                creatorId: localStorage.getItem("user-id"),
               }),
             })
               .then(function (res) {
@@ -155,10 +158,9 @@ export default {
           });
       } else {
         // si post vide
-        const message = document.createElement("p");
+        const message = document.getElementById("errorEmptyPost");
         message.innerHTML = "Vous n'avez écrit aucun message !";
         message.style.color = "red";
-        parent.appendChild(message);
       }
     },
 
@@ -187,6 +189,7 @@ export default {
               date: onePost.date,
               likes: onePost.likes,
               text: onePost.text,
+              creatorId: onePost.creatorId,
             });
           });
         })
@@ -246,7 +249,7 @@ $color-secondary: #fd2d01;
 button {
   background: white;
   color: $color-primary;
-  font-size: 1em;
+  font-size: 0.8em;
   font-weight: 600;
   width: 170px;
   height: 40px;

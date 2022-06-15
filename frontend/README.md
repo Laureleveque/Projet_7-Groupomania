@@ -33,7 +33,7 @@ This is the frontend and backend server of an internal social network of the com
     - Then you can add a photo to your profile and modify it.
     - You can add a post, modify or delete it, and like the other posts. 
     - You can also delete your account as you want.
-    - An administrator can delete your post and your account if the rules are not respected.
+    - An administrator can delete or modify your post if the rules are not respected.
 
 
 ### Customize configuration

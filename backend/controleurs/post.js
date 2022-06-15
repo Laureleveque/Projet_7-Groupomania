@@ -12,6 +12,7 @@ exports.createPost = (req, res, next) => {
     date: new Date().toLocaleString(),
     likes: 0,
     text: req.body.text,
+    creatorId: req.body.creatorId,
     /*imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,*/

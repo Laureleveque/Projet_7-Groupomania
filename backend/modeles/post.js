@@ -5,11 +5,6 @@ const mongoose = require("mongoose"); // importation de mongoose
 // appel de la méthode Schema
 
 const postSchema = mongoose.Schema({
-  userId: {
-    type: String,
-    required: true,
-  },
-
   photo: {
     type: String,
   },
@@ -32,6 +27,10 @@ const postSchema = mongoose.Schema({
   text: {
     type: String,
     trim: true,
+  },
+
+  creatorId: {
+    type: String,
   },
 
   imageUrl: {

@@ -19,8 +19,9 @@
             id="email"
             required
           />
+          <p id="errorMail"></p>
         </div>
-      <br/>
+        <br/>
         <div>
           <label for="pseudo">Pseudo :</label><br />
           <input
@@ -31,7 +32,7 @@
             required
           />
         </div>
-<br />
+        <br />
         <div>
           <label for="password">Mot de passe :</label><br />
           <input type="password" v-model="password" id="password" required />
@@ -44,7 +45,6 @@
             <li v-for="error in errors" :key="error">{{ error }}</li>
           </ul>
         </p>
-<h2></h2>
         <button type="submit">S'inscrire</button>
        
       </form>
@@ -119,26 +119,23 @@ export default {
         )        
       })
 
-      .then(function (res) { 
-      
+      .then(function (res) {       
         if (res.ok) { 
           return res.json();  
-        }
-        else {
-        const message = document.createElement("h2");
-        message.innerHTML = "Email déja utilisé";
-        message.style.color = "red";
-        parent.appendChild(message);
-      }})
+        } else {
+          throw new Error();
+        }})
 
-      .then(function (value) {  
+      .then(function (value) {
         localStorage.setItem("user-token", value.token);
         localStorage.setItem("user-id", value.userId);
         router.push('/signupok'); 
       })
 
-      .catch(function (err) {
-        console.error(err);
+      .catch(function () {
+        const message = document.getElementById("errorMail");
+        message.innerHTML = "Email déja utilisé";
+        message.style.color = "red";
       })
     }
   }
@@ -170,7 +167,7 @@ button {
   height: 30px;
   border-radius: 20px;
   border: 2px solid $color-primary;
-  margin-bottom: 100px;
+  margin-bottom: 40px;
 
   &:hover {
     transform: scale(1.15);
