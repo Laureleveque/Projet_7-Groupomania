@@ -19,9 +19,9 @@
           <!-- bouton like -->
 
           <a v-on:click="likePost" class="like-icon">
-            <i class="fa-solid fa-thumbs-up"></i>
+            <i class="fa-solid fa-thumbs-up" :style="thumb_color"></i>
           </a>
-          <p>{{ likes }}</p>
+          <p>{{ updatable_likes }}</p>
         </div>
       </div>
     </div>
@@ -92,6 +92,8 @@ export default {
     return {
       is_modified: false,
       updatable_text: "",
+      updatable_likes: 0,
+      thumb_color: "color: white;",
     };
   },
   props: {
@@ -107,7 +109,8 @@ export default {
 
   created() {
     this.updatable_text = this.text;
-    this.likePost();
+    this.updatable_likes = this.likes;
+    this.isLiked();
   },
 
   methods: {
@@ -178,28 +181,29 @@ export default {
     // like post
 
     likePost() {
-      fetch(
-        "http://localhost:3000/api/post/" + localStorage.getItem("user-id"),
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("user-token"),
-          },
-          body: JSON.stringify(
-            // transformation en JSON
-            {
-              userId: localStorage.getItem("userId"),
-              postId: this.postId,
-            }
-          ),
-        }
-      )
+      fetch("http://localhost:3000/api/post/like/" + this.id, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("user-token"),
+        },
+        body: JSON.stringify(
+          // transformation en JSON
+          {
+            userId: localStorage.getItem("user-id"),
+            postId: this.id,
+          }
+        ),
+      })
         .then(function (res) {
           if (res.ok) {
             return res.json();
           }
+        })
+        .then((value) => {
+          this.updatable_likes = value.likes;
+          this.isLiked();
         })
         .catch(function (err) {
           console.error(err);
@@ -210,6 +214,31 @@ export default {
     },
     isAdmin() {
       return localStorage.getItem("user-id") == "62a8af950a1a56a2cca8ba79"; // id de l'admin
+    },
+    isLiked() {
+      fetch(
+        "http://localhost:3000/api/post/like/" + this.id, //id du post
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("user-token"),
+          },
+        }
+      )
+        .then(function (res) {
+          if (res.ok) {
+            return res.json();
+          }
+        })
+        .then((value) => {
+          if (value.usersLiked.includes(localStorage.getItem("user-id"))) {
+            this.thumb_color = "color: #fd2d01;";
+          } else {
+            this.thumb_color = "color: white;";
+          }
+        });
     },
   },
 };
@@ -230,7 +259,7 @@ div.message {
   min-width: 50%;
   margin: 10px auto;
 
-  .like-icon {
+  .fa-thumbs-up {
     cursor: pointer;
   }
 

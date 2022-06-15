@@ -77,44 +77,53 @@ exports.modifyPost = (req, res, next) => {
 // route like spécifique à l'_id
 
 exports.likePost = (req, res, next) => {
-  Postlike.findOne({ _id: req.params.id })
+  Post.findOne({ _id: req.params.id })
     .then((post) => {
       // si l'utilisateur like et si l'id n'est pas présent dans le tableau des likes
-      if (req.body.like == 1 && !post.usersLiked.includes(req.body.userId)) {
+      if (!post.usersLiked.includes(req.body.userId)) {
         post.usersLiked.push(req.body.userId); // ajout Id de l'utilisateur au tableau des likes
         Post.updateOne(
           { _id: req.params.id },
           {
             // mise à jour du post
-            post,
             usersLiked: post.usersLiked,
             likes: post.usersLiked.length, // et mise à jour du nombre de likes dans le tableau
           }
         )
-          .then(() => res.status(200).json({ message: "Post liké !" }))
+          .then(() =>
+            res
+              .status(200)
+              .json({ message: "Post liké !", likes: post.likes + 1 })
+          )
           .catch((error) => res.status(400).json({ error }));
       }
 
       // sinon si l'utilisateur annule son like
-      else if (req.body.like == 0) {
-        if (post.usersLiked.includes(req.body.userId)) {
-          let indexUserLiked = post.usersLiked.indexOf(req.body.userId); // recherche de l'index de l'utilisateur dans le tableau des likes
+      else {
+        let indexUserLiked = post.usersLiked.indexOf(req.body.userId); // recherche de l'index de l'utilisateur dans le tableau des likes
 
-          post.usersLiked.splice(indexUserLiked, 1);
-          Post.updateOne(
-            { _id: req.params.id },
-            {
-              // mise à jour de la sauce
-              post,
-              usersLiked: post.usersLiked,
-              likes: post.usersLiked.length, // et mise à jour du nombre de likes dans le tableau
-            }
+        post.usersLiked.splice(indexUserLiked, 1);
+        Post.updateOne(
+          { _id: req.params.id },
+          {
+            usersLiked: post.usersLiked,
+            likes: post.usersLiked.length, // et mise à jour du nombre de likes dans le tableau
+          }
+        )
+          .then(() =>
+            res
+              .status(200)
+              .json({ message: "Like supprimé !", likes: post.likes - 1 })
           )
-            .then(() => res.status(200).json({ message: "Like supprimé !" }))
-            .catch((error) => res.status(400).json({ error }));
-        }
+          .catch((error) => res.status(400).json({ error }));
       }
     })
 
     .catch((error) => res.status(500).json({ error }));
+};
+
+exports.getLikes = (req, res, next) => {
+  Post.findOne({ _id: req.params.id }).then((post) => {
+    res.status(200).json({ likes: post.likes, usersLiked: post.usersLiked });
+  });
 };

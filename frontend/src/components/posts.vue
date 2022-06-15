@@ -73,7 +73,7 @@ export default {
   data() {
     return {
       posts: [
-        {
+        /*{
           id: "1",
           photo: require("../assets/images/medit1.jpg"),
           pseudo: "Thib",
@@ -90,7 +90,7 @@ export default {
           likes: 6000,
           text: "Ouaf",
           creatorId: "2",
-        },
+        },*/
       ],
       post: "",
       text: "",
