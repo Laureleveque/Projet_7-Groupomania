@@ -13,7 +13,7 @@
         <div>
           <label for="email">Email :</label><br />
           <input
-            type="email"
+            
             name="email"
             v-model="email"
             id="email"
@@ -91,6 +91,12 @@ export default {
           "Mot de passe entre 3 et 10 caractères"
         );
       }
+      
+      if (this.pseudo.length < 3 || this.pseudo.length > 10) {
+        this.errors.push(
+          "Pseudo entre 3 et 10 caractères"
+        );
+      }
 
       //si aucune erreur
       if (!this.errors.length) {
@@ -135,7 +141,7 @@ export default {
       .catch(function () {
         const message = document.getElementById("errorMail");
         message.innerHTML = "Email déja utilisé";
-        message.style.color = "red";
+        message.style.color = "#fd2d01";
       })
     }
   }
@@ -149,6 +155,7 @@ export default {
 
 $color-primary: #4e5166;
 $color-secondary: #fd2d01;
+$color-tertiary: white;
 
 #email,
 #pseudo,
@@ -159,7 +166,7 @@ $color-secondary: #fd2d01;
 }
 
 button {
-  background: white;
+  background: $color-tertiary;
   color: $color-primary;
   font-size: 1em;
   transform: scale(1);

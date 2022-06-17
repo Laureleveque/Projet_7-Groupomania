@@ -120,7 +120,7 @@ export default {
       .catch(function () {
           const message = document.getElementById("errorLogin");
           message.innerHTML = "Vos identifiants ne sont pas corrects";
-          message.style.color = "red";
+          message.style.color = "$color-secondary";
       })
     }
   }
@@ -133,6 +133,7 @@ export default {
 /* variable */
 
 $color-primary: #4e5166;
+$color-tertiary: white;
 
 #email,
 #password {
@@ -142,7 +143,7 @@ $color-primary: #4e5166;
 }
 
 button {
-  background: white;
+  background: $color-tertiary;
   color: $color-primary;
   font-size: 1em;
   width: 130px;

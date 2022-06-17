@@ -38,13 +38,11 @@ exports.signup = (req, res, next) => {
               .save()
               .then(() => {
                 res.status(201).json({
-                  // renvoi d'un fichier json avec l'identifiant de l'utilisateur dans la base et un token
                   userId: newUser._id,
                   token: jwt.sign(
                     { userId: newUser._id },
                     "RANDOM_TOKEN_SECRET",
                     {
-                      // le token contient l'id et une clé secrète
                       expiresIn: "24h",
                     }
                   ),
@@ -107,7 +105,7 @@ exports.logout = (req, res, next) => {
 
 // récupération des infos de l'utilisateur
 
-exports.getUserProfil = (req, res, next) => {
+exports.getProfil = (req, res, next) => {
   User.findOne({ _id: req.params.id }) // recherche de l'email unique
 
     .then((user) => {
@@ -146,12 +144,15 @@ exports.deleteUser = (req, res, next) => {
 
 // mise à jour des infos de l'utilisateur
 
-exports.updateUserInfos = (req, res, next) => {
+exports.modifyProfil = (req, res, next) => {
+  console.log(req.body);
+
   User.updateOne(
     { _id: req.params.id },
     {
       email: req.body.email,
       pseudo: req.body.pseudo,
+      //photo: `${req.protocol}://${req.get("host")}/images/${req.file.name}`,
     }
   )
     .then(() => {

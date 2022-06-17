@@ -4,10 +4,7 @@
 const mongoose = require("mongoose");
 
 // assure le caractère unique de l'email
-const uniqueValidator = require("mongoose-unique-validator"); // ???
-
-// validation de l'email
-const { isEmail } = require("validator");
+const uniqueValidator = require("mongoose-unique-validator");
 
 // création du schéma de données
 const userSchema = mongoose.Schema({
@@ -15,13 +12,12 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    validate: [isEmail],
     trim: true,
   },
 
   photo: {
     type: String,
-    default: "../assets/images/icon.png",
+    default: "icon.png",
   },
 
   pseudo: {

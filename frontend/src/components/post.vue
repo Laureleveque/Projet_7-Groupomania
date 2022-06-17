@@ -2,13 +2,12 @@
 
 <template>
   <main>
-    <div id="post">
+    <div>
       <!--  photo, pseudo, date et like  -->
 
       <div class="user">
         <div id="photo">
-          <img :src="photo" alt="photo" />
-          <!--<p>{{ photo }}</p>-->
+          <img :src="require(`../assets/images/${this.photo}`)" alt="photo" />
         </div>
 
         <div id="user_infos">
@@ -28,7 +27,7 @@
 
     <!-- fin de l'entête user du post  -->
 
-    <!--   cadre  -->
+    <!--   cadre si is_modified est true : on modifie le texte -->
 
     <div v-if="!is_modified" class="message">
       <p>{{ text }}</p>
@@ -43,7 +42,7 @@
     ></textarea>
 
     <div id="flex-btn">
-      <!--   bouton pour modifier le post  -->
+      <!--   bouton pour modifier le post ( par le créateur ou l'administrateur ) -->
 
       <button
         v-if="!is_modified && (isCreator() || isAdmin())"
@@ -52,11 +51,8 @@
       >
         Cliquez pour modifier
       </button>
-      <!--<button
-          type="submit"
-          v-if="User == UserId || User == 'admin.id'"
-          v-on:click="deletePost"
-        -->
+
+      <!--   bouton pour supprimer le post ( par le créateur ou l'administrateur )-->
       <button
         v-if="!is_modified && (isCreator() || isAdmin())"
         type="submit"
@@ -209,12 +205,15 @@ export default {
           console.error(err);
         });
     },
+
     isCreator() {
       return this.creatorId == localStorage.getItem("user-id");
     },
+
     isAdmin() {
       return localStorage.getItem("user-id") == "62a8af950a1a56a2cca8ba79"; // id de l'admin
     },
+
     isLiked() {
       fetch(
         "http://localhost:3000/api/post/like/" + this.id, //id du post
@@ -234,7 +233,7 @@ export default {
         })
         .then((value) => {
           if (value.usersLiked.includes(localStorage.getItem("user-id"))) {
-            this.thumb_color = "color: #fd2d01;";
+            this.thumb_color = "color: #FFD7D7;";
           } else {
             this.thumb_color = "color: white;";
           }
@@ -249,9 +248,17 @@ export default {
 
 $color-primary: #4e5166;
 $color-secondary: #fd2d01;
+$color-tertiary: white;
+
+#user_infos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 250px;
+}
 
 div.message {
-  background-color: white;
+  background-color: $color-tertiary;
 }
 
 .message {
@@ -265,7 +272,7 @@ div.message {
 
   border: solid 2px $color-secondary;
   p {
-    color: #4e5166;
+    color: $color-primary;
     text-align: left;
     padding: 15px;
     font-family: lato;

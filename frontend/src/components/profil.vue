@@ -7,13 +7,11 @@
       <NavigationPage />
     </header>
 
-    <!--  modification du profil  -->
-
     <main>
       <div class="profil">
         
         <div id="photo">
-          <img src="../assets/images/icon.png" alt="Photo" />
+          <img :src="previewPhoto" alt="Photo" />
           </div>
 
           <br />
@@ -25,7 +23,7 @@
             name="image"
             id="file"
             ref="file"
-            @change="handleFileUpload"
+            @change="onImageChange"
             accept="image/png, image/jpeg, image/jpg"
                                 />
       
@@ -90,36 +88,15 @@ export default {
   data() {
     return {
       errors : [],
-      file: "",
+      photo: "",
       pseudo: "",
       email: "",
+      previewPhoto: ""
     };
   },
 
   created() {
-    fetch("http://localhost:3000/api/user/" + localStorage.getItem("user-id"), {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("user-token"),
-        }
-      })
-
-      .then(function (res) {
-        if (res.ok) {
-          return res.json(); 
-        }
-      })
-
-      .then((res) => {
-        this.email = res.email;
-        this.pseudo = res.pseudo;
-      })
-
-      .catch(function (err) {
-        console.error(err);
-      });
+    this.getProfil();
   },
 
   methods: {
@@ -173,6 +150,12 @@ export default {
 // modifier le profil
 
     modifyProfil() {
+      
+      let formData = new FormData();
+      formData.append("pseudo", this.pseudo);
+      formData.append("email", this.email);
+      formData.append("photo", this.photo);
+
       fetch("http://localhost:3000/api/user/" + localStorage.getItem("user-id"), {
         method: "PUT",
         headers: {
@@ -181,10 +164,11 @@ export default {
           Authorization: "Bearer " + localStorage.getItem("user-token"),
         },
 
-        body: JSON.stringify({
+        body: formData /*JSON.stringify({
           pseudo: this.pseudo,
           email: this.email,
-        }), // transformation en JSON
+          photo: this.photo
+        }),*/
       })
         .then(function (res) {
           if (res.ok) {          
@@ -198,7 +182,43 @@ export default {
         .catch(function (err) {
           console.error(err);
          })   
-    }
+    },
+
+    getProfil() {
+      fetch("http://localhost:3000/api/user/" + localStorage.getItem("user-id"), {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("user-token"),
+          }
+        })
+
+        .then(function (res) {
+          if (res.ok) {
+            return res.json(); 
+          }
+        })
+
+        .then((res) => {
+          this.email = res.email;
+          this.pseudo = res.pseudo;
+        })
+
+        .catch(function (err) {
+          console.error(err);
+        });
+      },
+      onImageChange(e) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          this.previewPhoto = e.target.result;
+        };
+
+        this.photo = e.target.files[0];
+        reader.readAsDataURL(e.target.files[0]);
+      }
   }
 }
 </script>
@@ -210,6 +230,7 @@ export default {
 
 $color-primary: #4e5166;
 $color-secondary: #fd2d01;
+$color-tertiary: white;
 
 #profil {
   border: 2px solid transparent;
@@ -248,7 +269,7 @@ textarea {
 }
 
 button {
-  background: white;
+  background: $color-tertiary;
   color: $color-primary;
   font-size: 0.8em;
   font-weight: 600;

@@ -42,6 +42,7 @@ export default {
 /* variable */
 
 $color-secondary: #fd2d01;
+$color-tertiary: white;
 
 #navigation {
   margin-bottom: 50px;
@@ -60,7 +61,7 @@ nav {
 }
 
 a {
-  color: white;
+  color: $color-tertiary;
   font-size: 20px;
   text-decoration: none;
 }

@@ -60,7 +60,6 @@ import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
 import PostPage from "../components/post.vue";
 //import router from "@/router";
-//import { table } from "console";
 
 export default {
   name: "PostsPage",
@@ -160,7 +159,7 @@ export default {
         // si post vide
         const message = document.getElementById("errorEmptyPost");
         message.innerHTML = "Vous n'avez écrit aucun message !";
-        message.style.color = "red";
+        message.style.color = "$color-secondary";
       }
     },
 
@@ -210,6 +209,7 @@ export default {
 /* variables */
 $color-primary: #4e5166;
 $color-secondary: #fd2d01;
+$color-tertiary: white;
 
 .text {
   margin: 10px auto;
@@ -247,7 +247,7 @@ $color-secondary: #fd2d01;
 }
 
 button {
-  background: white;
+  background: $color-tertiary;
   color: $color-primary;
   font-size: 0.8em;
   font-weight: 600;

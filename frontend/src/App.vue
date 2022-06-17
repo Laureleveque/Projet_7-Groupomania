@@ -18,6 +18,7 @@
 
 $color-primary: #4e5166;
 $color-secondary: #fd2d01;
+$color-tertiary: white;
 
 body {
   background-color: $color-primary;
@@ -27,13 +28,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: white;
+  color: $color-tertiary;
 }
 h1 {
   text-align: left;
   font-size: 1.5em;
   font-weight: 400;
-  color: white;
+  color: $color-tertiary;
   margin-top: 100px;
   margin-bottom: 80px;
   margin-left: 20px;
@@ -43,9 +44,9 @@ h1 {
 }
 h2 {
   font-size: 20px;
-  color: white;
+  color: $color-tertiary;
 }
 p {
-  color: white;
+  color: $color-tertiary;
 }
 </style>

@@ -42,6 +42,7 @@ export default {
 
 $color-primary: #4e5166;
 $color-secondary: #fd2d01;
+$color-tertiary: white;
 
 body {
   background-color: $color-primary;
@@ -62,7 +63,7 @@ nav {
 }
 
 a {
-  color: white;
+  color: $color-tertiary;
   font-size: 20px;
   text-decoration: none;
   :hover {
