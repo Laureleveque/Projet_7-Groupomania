@@ -32,6 +32,7 @@ exports.signup = (req, res, next) => {
               email: req.body.email,
               pseudo: req.body.pseudo,
               password: hash,
+              photo: `${req.protocol}://${req.get("host")}/images/icon.png`,
             });
 
             newUser
@@ -126,18 +127,22 @@ exports.getProfil = (req, res, next) => {
 // suppression du compte d'un utilisateur
 
 exports.deleteUser = (req, res, next) => {
-  //User.deleteOne({ _id: req.body.id });
-
   User.findOne({ _id: req.params.id })
 
     .then((user) => {
-      /*const filename = user.imageUrl.split("/images/")[1];
-      fs.unlink(`images/${filename}`, () => {
-        // La fonction fs.unlink() permet de supprimer l'image du fichier*/
-
-      User.deleteOne({ _id: req.params.id })
-        .then(() => res.status(200).json({ message: "Compte supprimé" }))
-        .catch((error) => res.status(403).json({ error }));
+      const filename = user.photo.split("/images/")[1];
+      if (filename != "icon.png") {
+        // La fonction fs.unlink() permet de supprimer l'image du fichier
+        fs.unlink(`images/${filename}`, () => {
+          User.deleteOne({ _id: req.params.id })
+            .then(() => res.status(200).json({ message: "Compte supprimé" }))
+            .catch((error) => res.status(403).json({ error }));
+        });
+      } else {
+        User.deleteOne({ _id: req.params.id })
+          .then(() => res.status(200).json({ message: "Compte supprimé" }))
+          .catch((error) => res.status(403).json({ error }));
+      }
     })
     .catch((error) => res.status(500).json({ error }));
 };
@@ -145,42 +150,31 @@ exports.deleteUser = (req, res, next) => {
 // mise à jour des infos de l'utilisateur
 
 exports.modifyProfil = (req, res, next) => {
-  console.log(req.body);
-
   User.updateOne(
     { _id: req.params.id },
     {
       email: req.body.email,
       pseudo: req.body.pseudo,
-      //photo: `${req.protocol}://${req.get("host")}/images/${req.file.name}`,
     }
   )
     .then(() => {
-      res.status(200).json({ message: "Profil modifié" });
+      // Si on a passé une image à la requête
+      if (req.file) {
+        User.updateOne(
+          { _id: req.params.id },
+          {
+            photo: `${req.protocol}://${req.get("host")}/images/${
+              req.file.filename
+            }`,
+          }
+        ).then(() => {
+          res.status(200).json({ message: "Profil modifié" });
+        });
+      } else {
+        res.status(200).json({ message: "Profil modifié" });
+      }
     })
     .catch((error) =>
       res.status(403).json({ message: "unauthorized request" })
     );
 };
-
-/*
-exports.modifyProfil = (req, res, next) => {
-const profilObject = req.file
-    ? {
-        ...JSON.parse(req.body.user),
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${
-          req.file.filename
-        }`,
-      }
-    : { ...req.body };
-
-  Profil.updateOne(
-    { _id: req.params.id },
-    { ...profilObject, _id: req.params.id }
-  )
-    .then(() => res.status(200).json({ message: "Profil modifié" }))
-    .catch((error) =>
-      res.status(403).json({ message: "unauthorized request" })
-    );
-};
-*/

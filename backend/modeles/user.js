@@ -17,7 +17,6 @@ const userSchema = mongoose.Schema({
 
   photo: {
     type: String,
-    default: "icon.png",
   },
 
   pseudo: {

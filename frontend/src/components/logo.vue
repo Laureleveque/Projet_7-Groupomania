@@ -1,12 +1,14 @@
 <!--  composant logo  -->
 
 <template>
-  <div id="logo">
-    <img
-      src="../assets/images/icon-left-font-monochrome-white.svg"
-      alt="Logo de Groupomania"
-    />
-  </div>
+  <header>
+    <div id="logo">
+      <img
+        src="../assets/images/icon-left-font-monochrome-white.svg"
+        alt="Logo de Groupomania"
+      />
+    </div>
+  </header>
 </template>
 
 <script>
@@ -15,7 +17,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 #logo {
   margin: 80px auto 30px auto;
 }

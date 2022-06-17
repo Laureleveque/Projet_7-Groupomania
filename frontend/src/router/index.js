@@ -12,6 +12,7 @@ import ProfilPage from "../components/profil.vue";
 import ProfilokPage from "../components/profilok.vue";
 import PostsPage from "../components/posts.vue";
 import SignupokPage from "../components/signupok.vue";
+import FooterPage from "../components/footer.vue";
 
 const routes = [
   // tableau contenant des objets qui définissent chaque route
@@ -19,6 +20,12 @@ const routes = [
     path: "/logo", // url correspondant au composant
     name: "Logo", // nom de cette route
     component: LogoHeader, // composant qui doit s'afficher quand le path est trouvé
+  },
+
+  {
+    path: "/footer",
+    name: "Footer",
+    component: FooterPage,
   },
 
   {

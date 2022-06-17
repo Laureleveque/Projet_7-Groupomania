@@ -1,11 +1,7 @@
 <!--  composant profil -->
 
 <template>
-  <body>
-    <header>
-      <LogoHeader />
-      <NavigationPage />
-    </header>
+    <NavigationPage />
 
     <main>
       <div class="profil">
@@ -16,17 +12,17 @@
 
           <br />
           <label for="file">
-          <p>Modifier votre photo</p>
-          </label>
-          <input
+            <p id="modifyPhoto">Modifier votre photo</p>
+            <input
             type="file"
             name="image"
             id="file"
             ref="file"
             @change="onImageChange"
             accept="image/png, image/jpeg, image/jpg"
-                                />
-      
+            style="display: none"/>
+          </label>
+
         <br />
         <br />
         <form method="post">
@@ -68,20 +64,17 @@
           <button type="submit" v-on:click="deleteUser">Supprimer mon compte</button>          
       </div>
     </main>
-  </body>
 </template>
 
 <script>
 
 import router from "@/router";
-import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
 
 export default {
   name: "ProfilPage",
 
   components: {
-    LogoHeader,
     NavigationPage,
   },
 
@@ -100,7 +93,6 @@ export default {
   },
 
   methods: {
-
     checkProfil(e) {
       // gestion des erreurs
       this.errors = [];
@@ -119,9 +111,68 @@ export default {
       }
       e.preventDefault();
     },
+    
+    getProfil() {
+      fetch("http://localhost:3000/api/user/" + localStorage.getItem("user-id"), {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("user-token"),
+          }
+        })
+
+        .then(function (res) {
+          if (res.ok) {
+            return res.json(); 
+          }
+        })
+
+        .then((res) => {
+          this.previewPhoto = res.photo;
+          this.email = res.email;
+          this.pseudo = res.pseudo;
+        })
+
+        .catch(function (err) {
+          console.error(err);
+        });
+    },
+
+    // modifier le profil
+    modifyProfil() {
+      
+      let formData = new FormData();
+      formData.append("pseudo", this.pseudo);
+      formData.append("email", this.email);
+      if (this.photo != "") {
+        formData.append("image", this.photo);
+      }
+
+      fetch("http://localhost:3000/api/user/" + localStorage.getItem("user-id"), {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("user-token"),
+        },
+
+        body: formData
+      })
+        .then(function (res) {
+          if (res.ok) {          
+            return res.json();
+          }})
+      
+          .then(function () {
+            router.push('/profilok');    
+          })
+    
+        .catch(function (err) {
+          console.error(err);
+         })   
+    },
 
     // suppression du compte
-
     deleteUser() {
       fetch("http://localhost:3000/api/user/" + localStorage.getItem("user-id"), {
         method: "DELETE",
@@ -147,78 +198,16 @@ export default {
         })
     },
 
-// modifier le profil
+    onImageChange(e) {
+      const reader = new FileReader();
 
-    modifyProfil() {
-      
-      let formData = new FormData();
-      formData.append("pseudo", this.pseudo);
-      formData.append("email", this.email);
-      formData.append("photo", this.photo);
+      reader.onload = (e) => {
+        this.previewPhoto = e.target.result;
+      };
 
-      fetch("http://localhost:3000/api/user/" + localStorage.getItem("user-id"), {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("user-token"),
-        },
-
-        body: formData /*JSON.stringify({
-          pseudo: this.pseudo,
-          email: this.email,
-          photo: this.photo
-        }),*/
-      })
-        .then(function (res) {
-          if (res.ok) {          
-            return res.json(); // résultat de la requête au format json (promise)
-          }})
-      
-          .then(function () {
-            router.push('/profilok');    
-          })
-    
-        .catch(function (err) {
-          console.error(err);
-         })   
-    },
-
-    getProfil() {
-      fetch("http://localhost:3000/api/user/" + localStorage.getItem("user-id"), {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("user-token"),
-          }
-        })
-
-        .then(function (res) {
-          if (res.ok) {
-            return res.json(); 
-          }
-        })
-
-        .then((res) => {
-          this.email = res.email;
-          this.pseudo = res.pseudo;
-        })
-
-        .catch(function (err) {
-          console.error(err);
-        });
-      },
-      onImageChange(e) {
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-          this.previewPhoto = e.target.result;
-        };
-
-        this.photo = e.target.files[0];
-        reader.readAsDataURL(e.target.files[0]);
-      }
+      this.photo = e.target.files[0];
+      reader.readAsDataURL(e.target.files[0]);
+    }
   }
 }
 </script>
@@ -235,6 +224,11 @@ $color-tertiary: white;
 #profil {
   border: 2px solid transparent;
   margin: 40px auto;
+}
+
+#modifyPhoto:hover {
+  color: $color-secondary;
+  cursor: pointer;
 }
 
 #pseudo,

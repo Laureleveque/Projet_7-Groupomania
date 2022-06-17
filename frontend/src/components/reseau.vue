@@ -1,39 +1,28 @@
-<!-- composant page du réseau  -->
+<!-- composant page accueil du réseau  -->
 
 <template>
-  <body>
-    <header>
-      <LogoHeader />
-    </header>
+  <h1>Bienvenue sur le réseau social de Groupomania</h1>
 
-    <h1>Bienvenue sur le réseau social de Groupomania</h1>
+  <div>
+    <img
+      src="../assets/images/network-social-social-network-technology-mobile-phone-smartphone-keyboard-app-internet.jpg"
+      alt="photo reseau social"
+    />
+  </div>
 
-    <div>
-      <img
-        src="../assets/images/mobile-phone-g2c3fa4a3d_640.jpg"
-        alt="photo reseau social"
-      />
-    </div>
-
-    <nav>
-      <router-link to="/signup">
-        <h2>S'inscrire</h2>
-      </router-link>
-      <router-link to="/login">
-        <h2>Se connecter</h2>
-      </router-link>
-    </nav>
-  </body>
+  <nav>
+    <router-link to="/signup">
+      <h2>S'inscrire</h2>
+    </router-link>
+    <router-link to="/login">
+      <h2>Se connecter</h2>
+    </router-link>
+  </nav>
 </template>
 
 <script>
-import LogoHeader from "../components/logo.vue";
-
 export default {
   name: "ReseauPage",
-  components: {
-    LogoHeader,
-  },
 };
 </script>
 

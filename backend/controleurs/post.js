@@ -1,22 +1,33 @@
+const fs = require("fs");
+
 // Logique métier
 
 const Post = require("../modeles/post");
-const User = require("../modeles/user");
 
 // route GET création d'un post
 
 exports.createPost = (req, res, next) => {
-  const post = new Post({
-    photo: req.body.photo,
-    pseudo: req.body.pseudo,
-    date: new Date().toLocaleString(),
-    likes: 0,
-    text: req.body.text,
-    creatorId: req.body.creatorId,
-    /*imageUrl: `${req.protocol}://${req.get("host")}/images/${
-      req.file.filename
-    }`,*/
-  });
+  let post;
+  // Si on a passé une image à la requête
+  if (req.file) {
+    post = new Post({
+      date: new Date().toLocaleString(),
+      likes: 0,
+      text: req.body.text,
+      creatorId: req.body.creatorId,
+      imageUrl: `${req.protocol}://${req.get("host")}/images/${
+        req.file.filename
+      }`,
+    });
+  } else {
+    post = new Post({
+      date: new Date().toLocaleString(),
+      likes: 0,
+      text: req.body.text,
+      creatorId: req.body.creatorId,
+      imageUrl: "",
+    });
+  }
 
   post
     .save()
@@ -30,13 +41,20 @@ exports.deletePost = (req, res, next) => {
   Post.findOne({ _id: req.params.id })
 
     .then((post) => {
-      const filename = post.photo.split("/images/")[1];
-      //fs.unlink(`images/${filename}`, () => {
-      // La fonction fs.unlink() permet de supprimer l'image du fichier
-      Post.deleteOne({ _id: req.params.id })
-        .then(() => res.status(200).json({ message: "Post supprimé !" }))
-        .catch((error) => res.status(403).json({ error }));
-      //});
+      if (post.imageUrl != "") {
+        const filename = post.imageUrl.split("/images/")[1];
+
+        // La fonction fs.unlink() permet de supprimer l'image du fichier
+        fs.unlink(`images/${filename}`, () => {
+          Post.deleteOne({ _id: req.params.id })
+            .then(() => res.status(200).json({ message: "Post supprimé !" }))
+            .catch((error) => res.status(403).json({ error }));
+        });
+      } else {
+        Post.deleteOne({ _id: req.params.id })
+          .then(() => res.status(200).json({ message: "Post supprimé !" }))
+          .catch((error) => res.status(403).json({ error }));
+      }
     })
     .catch((error) => res.status(500).json({ error }));
 };
@@ -52,14 +70,6 @@ exports.getAllPosts = (req, res, next) => {
 // route PUT modification d'un post (uniquement par le créateur du post ou le moderateur)
 
 exports.modifyPost = (req, res, next) => {
-  /*
-        {imageUrl: `${req.protocol}://${req.get("host")}/images/${
-          req.file.filename
-        }`,
-      }
-    : { ...req.body };
-*/
-
   Post.updateOne(
     { _id: req.params.id },
     {

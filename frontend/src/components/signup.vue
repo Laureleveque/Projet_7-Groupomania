@@ -1,66 +1,64 @@
 <!--  composant inscription  -->
 
 <template>
-  <body>
-    <header>
-      <LogoHeader />
-    </header>
+  <h1>Inscription au réseau social de Groupomania</h1>
 
-    <h1>Inscription au réseau social de Groupomania</h1>
+  <main>
+    <form @submit="checkForm" method="post">
+      <div>
+        <label for="email">Email :</label><br />
+        <input
+          
+          name="email"
+          v-model="email"
+          id="email"
+          required
+        />
+        <p id="errorMail"></p>
+      </div>
+      <br/>
+      <div>
+        <label for="pseudo">Pseudo :</label><br />
+        <input
+          type="text"
+          name="pseudo"
+          v-model="pseudo"
+          id="pseudo"
+          required
+        />
+      </div>
+      <br />
+      <div>
+        <label for="password">Mot de passe :</label><br />
+        <input type="password" v-model="password" id="password" required />
+      </div>
 
-    <main>
-      <form @submit="checkForm" method="post">
-        <div>
-          <label for="email">Email :</label><br />
-          <input
-            
-            name="email"
-            v-model="email"
-            id="email"
-            required
-          />
-          <p id="errorMail"></p>
-        </div>
-        <br/>
-        <div>
-          <label for="pseudo">Pseudo :</label><br />
-          <input
-            type="text"
-            name="pseudo"
-            v-model="pseudo"
-            id="pseudo"
-            required
-          />
-        </div>
-        <br />
-        <div>
-          <label for="password">Mot de passe :</label><br />
-          <input type="password" v-model="password" id="password" required />
-        </div>
-
-        
-        <p v-if="errors.length">
-          <b>Merci de corriger les erreurs suivantes :</b>
-          <ul>
-            <li v-for="error in errors" :key="error">{{ error }}</li>
-          </ul>
-        </p>
-        <button type="submit">S'inscrire</button>
-       
-      </form>
       
-    </main>
-  </body>
+      <p v-if="errors.length">
+        <b>Merci de corriger les erreurs suivantes :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
+      <div id="flex-btn">
+      <button type="submit">S'inscrire</button> 
+      <router-link to="/">
+        <button>Retour</button>   
+      </router-link>
+      </div>    
+    </form>  
+  </main>
+  <FooterPage />
 </template>
 
 <script>
 import router from "@/router";
-import LogoHeader from "../components/logo.vue";
+import FooterPage from "../components/footer.vue"
 
 export default {
   name: "SignupPage",
   components: {
-    LogoHeader,
+    FooterPage
   },
 
   data() {
@@ -141,7 +139,8 @@ export default {
       .catch(function () {
         const message = document.getElementById("errorMail");
         message.innerHTML = "Email déja utilisé";
-        message.style.color = "#fd2d01";
+        message.style.color = "red";
+        
       })
     }
   }
@@ -163,6 +162,17 @@ $color-tertiary: white;
   width: 400px;
   height: 30px;
   margin-bottom: 20px;
+}
+
+
+#flex-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+  border-bottom: $color-secondary;
 }
 
 button {

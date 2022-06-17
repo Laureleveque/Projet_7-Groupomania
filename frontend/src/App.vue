@@ -1,17 +1,21 @@
 <!--  composant principal  -->
 
 <template>
-  <nav>
-    <!-- se charge de la navigation dans l'application -->
-    <router-link to="/"></router-link>
-  </nav>
+  <LogoHeader />
 
   <!-- où afficher le composant auquel est associé la route qd on visite une url -->
-
   <router-view />
 </template>
 
-<script></script>
+<script>
+import LogoHeader from "./components/logo.vue";
+
+export default {
+  components: {
+    LogoHeader,
+  },
+};
+</script>
 
 <style lang="scss">
 /* variables */

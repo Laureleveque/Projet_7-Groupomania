@@ -1,13 +1,7 @@
 <!-- composant Login -->
 
 <template>
-  <body>
-    <header>
-      <LogoHeader />
-    </header>
-
-      <h1>Connexion au réseau social de Groupomania</h1>
-
+    <h1>Connexion au réseau social de Groupomania</h1>
 
     <main>
       <form @submit="checkForm" method="post">
@@ -30,20 +24,26 @@
           </ul>
         </p>
         <h2></h2>
-        <button type="submit">Se connecter</button>
+         <div id="flex-btn">
+        <button type="submit">Se connecter</button> 
+        
+        <router-link to="/">
+          <button>Retour</button>   
+        </router-link>
+        </div>
       </form>
     </main>
-  </body>
+  <FooterPage />
 </template>
 
 <script>
+import FooterPage from "../components/footer.vue";
 import router from "@/router";
-import LogoHeader from "../components/logo.vue";
 
 export default {
   name: "LoginPage",
   components: {
-    LogoHeader,
+    FooterPage
   },
 
   data() {
@@ -73,8 +73,7 @@ export default {
         this.errors.push(
           "Mot de passe entre 3 et 10 caractères"
         );
-      }
-
+      } 
 
       //si aucune erreur
       if (!this.errors.length) {
@@ -120,7 +119,7 @@ export default {
       .catch(function () {
           const message = document.getElementById("errorLogin");
           message.innerHTML = "Vos identifiants ne sont pas corrects";
-          message.style.color = "$color-secondary";
+          message.style.color = "red";
       })
     }
   }
@@ -133,6 +132,7 @@ export default {
 /* variable */
 
 $color-primary: #4e5166;
+$color-secondary: #fd2d01;
 $color-tertiary: white;
 
 #email,
@@ -140,6 +140,17 @@ $color-tertiary: white;
   width: 400px;
   height: 30px;
   margin-bottom: 20px;
+}
+
+
+#flex-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+  border-bottom: $color-secondary;
 }
 
 button {

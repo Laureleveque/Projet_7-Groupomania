@@ -1,10 +1,7 @@
 <!--  composants posts-->
 
 <template>
-  <header>
-    <LogoHeader />
-    <NavigationPage />
-  </header>
+  <NavigationPage />
 
   <main>
     <section id="forum">
@@ -22,19 +19,21 @@
             placeholder="Votre message :"
             v-model="text"
           ></textarea>
-
-          <div class="ajout-image">
-            <img :src="Image" />
-          </div>
         </div>
         <div>
-          <input
-            type="file"
-            name="image"
-            id="file"
-            accept="image/png, image/jpeg, image/jpg"
-            ref="file"
-          />
+          <label>
+            <i id="imageIcon" class="fa-solid fa-image"></i>
+            <img id="preview" :src="previewImage" style="display: none" />
+            <input
+              type="file"
+              name="image"
+              id="file"
+              accept="image/png, image/jpeg, image/jpg"
+              ref="file"
+              @change="onImageChange"
+              style="display: none"
+            />
+          </label>
         </div>
         <button type="submit">Créer le post</button>
       </form>
@@ -43,11 +42,10 @@
       <div v-for="post in posts" :key="post">
         <PostPage
           :id="post.id"
-          :photo="post.photo"
-          :pseudo="post.pseudo"
           :date="post.date"
           :likes="post.likes"
           :text="post.text"
+          :image="post.image"
           :creatorId="post.creatorId"
         />
       </div>
@@ -56,44 +54,23 @@
 </template>
 
 <script>
-import LogoHeader from "../components/logo.vue";
 import NavigationPage from "../components/navigation.vue";
 import PostPage from "../components/post.vue";
-//import router from "@/router";
 
 export default {
   name: "PostsPage",
+
   components: {
-    LogoHeader,
     NavigationPage,
     PostPage,
   },
 
   data() {
     return {
-      posts: [
-        /*{
-          id: "1",
-          photo: require("../assets/images/medit1.jpg"),
-          pseudo: "Thib",
-          date: "12/06/22",
-          likes: 7,
-          text: "Bonjour !",
-          creatorId: "1",
-        },
-        {
-          id: "2",
-          photo: require("../assets/images/Montagne.jpg"),
-          pseudo: "Tiago",
-          date: "09/05/21",
-          likes: 6000,
-          text: "Ouaf",
-          creatorId: "2",
-        },*/
-      ],
-      post: "",
+      posts: [],
       text: "",
-      imageUrl: "",
+      image: "",
+      previewImage: "",
     };
   },
 
@@ -104,53 +81,34 @@ export default {
   methods: {
     createPost(e) {
       e.preventDefault();
-      if (this.text != "") {
+      if (this.text != "" || this.image != "") {
         // si post non vide
-        fetch(
-          "http://localhost:3000/api/user/" + localStorage.getItem("user-id"),
-          {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("user-token"),
-            },
-          }
-        )
+
+        let formData = new FormData();
+        formData.append("text", this.text);
+        formData.append("creatorId", localStorage.getItem("user-id"));
+        if (this.image != "") {
+          formData.append("image", this.image);
+        }
+
+        fetch("http://localhost:3000/api/post/", {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("user-token"),
+          },
+          body: formData,
+        })
           .then(function (res) {
             if (res.ok) {
               return res.json();
             }
           })
-
-          .then((value) => {
-            fetch("http://localhost:3000/api/post/", {
-              method: "POST",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("user-token"),
-              },
-              body: JSON.stringify({
-                photo: value.photo,
-                pseudo: value.pseudo,
-                text: this.text,
-                imageUrl: this.imageUrl,
-                creatorId: localStorage.getItem("user-id"),
-              }),
-            })
-              .then(function (res) {
-                if (res.ok) {
-                  return res.json();
-                }
-              })
-              .then(() => {
-                this.getAllPosts();
-                this.text = "";
-              })
-              .catch(function (err) {
-                console.error(err);
-              });
+          .then(() => {
+            this.getAllPosts();
+            this.text = "";
+            document.getElementById("file").value = ""; // On réinitialise le bouton parcourir
+            document.getElementById("errorEmptyPost").innerHTML = ""; // On supprime le message d'erreur
+            this.previewImage = "";
           })
           .catch(function (err) {
             console.error(err);
@@ -158,8 +116,8 @@ export default {
       } else {
         // si post vide
         const message = document.getElementById("errorEmptyPost");
-        message.innerHTML = "Vous n'avez écrit aucun message !";
-        message.style.color = "$color-secondary";
+        message.innerHTML = "Votre post est vide !";
+        message.style.color = "red";
       }
     },
 
@@ -181,13 +139,11 @@ export default {
         .then((allPosts) => {
           allPosts.forEach((onePost) => {
             this.posts.unshift({
-              //photo: require("../assets/images/icon.png"),
               id: onePost._id,
-              photo: onePost.photo,
-              pseudo: onePost.pseudo,
               date: onePost.date,
               likes: onePost.likes,
               text: onePost.text,
+              image: onePost.imageUrl,
               creatorId: onePost.creatorId,
             });
           });
@@ -197,9 +153,17 @@ export default {
         });
     },
 
-    emptyForm() {
-      this.text = "";
-      this.Image = "";
+    onImageChange(e) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        this.previewImage = e.target.result;
+      };
+
+      this.image = e.target.files[0];
+      reader.readAsDataURL(e.target.files[0]);
+      document.getElementById("imageIcon").style.display = "none";
+      document.getElementById("preview").style.display = "inline";
     },
   },
 };
@@ -222,11 +186,18 @@ $color-tertiary: white;
   align-items: center;
 }
 
-#like {
-  display: flex;
-  width: 55px;
-  justify-content: space-between;
-  align-items: center;
+#imageIcon {
+  font-size: 50px;
+}
+
+#imageIcon:hover {
+  cursor: pointer;
+  color: #ffd7d7;
+}
+
+#preview {
+  width: 200px;
+  cursor: pointer;
 }
 
 #entete-post {
